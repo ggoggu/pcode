@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07b0f44d742cb654b93604b66284b953, type: 3}
+  m_Name: PD_Basic
+  m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
+  displayName: Penguin
+  mass: 1
+  linearDrag: 1
+  maxSpeed: 11
+  attack: 9
+  damageSpeedScale: 1
+  lowSpeedCutoff: 1.2
+  overloadThreshold: 10
+  comboBaseDuration: 3
+  durationLossPerCombo: 0.08
+  comboDurationMultiplier: 1
+  overloadMaxSpeedMultiplier: 1.35
+  overloadDragMultiplier: 0.45
+  respawnSeconds: 3
+  attackGrowthPerTier: 0.15
+  maxSpeedGrowthPerTier: 0.05
+  massGrowthPerTier: 0.1
+  respawnTimeGrowthPerTier: 0.05
+  visualPrefab: {fileID: 3701027084522633178, guid: 27dc9b4773db42147930303033486144, type: 3}
+  ability: {fileID: 11400000, guid: df5deffa3bcb4d247b101d5385d7aad5, type: 2}

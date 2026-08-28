@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07b0f44d742cb654b93604b66284b953, type: 3}
+  m_Name: PD_Payday
+  m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
+  displayName: Penguin
+  mass: 1
+  linearDrag: 1
+  maxSpeed: 11
+  attack: 10
+  damageSpeedScale: 1
+  lowSpeedCutoff: 1.2
+  overloadThreshold: 11
+  comboBaseDuration: 3
+  durationLossPerCombo: 0.08
+  comboDurationMultiplier: 1
+  overloadMaxSpeedMultiplier: 1.35
+  overloadDragMultiplier: 0.45
+  respawnSeconds: 3
+  visualPrefab: {fileID: 8827213958314493812, guid: fd65accbe3314cd43b16a7181c16238d, type: 3}
+  ability: {fileID: 11400000, guid: fabd2665f5ca7f047bf46f2c36de628b, type: 2}

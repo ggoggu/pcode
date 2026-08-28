@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a20bc584639aea7429286a09ef49261e, type: 3}
+  m_Name: test1 4
+  m_EditorClassIdentifier: Assembly-CSharp::EquipmentItem
+  ItemID: 4
+  ItemName: d
+  Type: 1
+  Price: 4
+  Description: 
+  Effects:
+  - {fileID: 11400000, guid: b7822cc778309af488373c3656a20def, type: 2}
