@@ -68,12 +68,14 @@ public class PenguinDeckManager : MonoBehaviour
     {
         GameEvents.PenguinRespawned += HandlePenguinRespawned;
         GameEvents.OnPenguinLaunched += HandlePenguinLaunched;
+        GameEvents.PenguinDrained += HandlePenguinDrained;
     }
 
     private void OnDisable()
     {
         GameEvents.PenguinRespawned -= HandlePenguinRespawned;
         GameEvents.OnPenguinLaunched -= HandlePenguinLaunched;
+        GameEvents.PenguinDrained -= HandlePenguinDrained;
     }
 
     private void Start()
@@ -112,6 +114,19 @@ public class PenguinDeckManager : MonoBehaviour
 
             if (SelectedPenguin == penguin.gameObject) SelectedPenguin = null;
 
+            OnDeckChanged?.Invoke();
+        }
+    }
+
+    private void HandlePenguinDrained(PenguinController penguin, float seconds)
+    {
+        if (penguin != null)
+        {
+            readyPenguins.Remove(penguin.gameObject);
+
+            if (SelectedPenguin == penguin.gameObject) SelectedPenguin = null;
+
+            Debug.Log($"[DeckManager] {penguin.name} 드레인됨 (리스폰 대기: {seconds}초)");
             OnDeckChanged?.Invoke();
         }
     }
@@ -370,6 +385,37 @@ public class PenguinDeckManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// 대상 펭귄이 위치한 벤치 슬롯 인덱스 (0부터 시작: 0, 1, 2...). 벤치에 없으면 -1 반환
+    /// </summary>
+    public int GetBenchSlotIndex(PenguinController penguin)
+    {
+        if (penguin == null) return -1;
+
+        int benchIndex = 0;
+        foreach (var obj in OwnedPenguins)
+        {
+            if (obj == null) continue;
+            var locData = obj.GetComponent<PenguinLocationData>();
+            if (locData != null && locData.Location == PenguinLocation.Bench)
+            {
+                if (obj == penguin.gameObject) return benchIndex;
+                benchIndex++;
+            }
+        }
+
+        return -1;
+    }
+
+    /// <summary>
+    /// 대상 펭귄이 위치한 벤치 슬롯 번호 (1부터 시작: 1번 벤치 = 1, 2번 벤치 = 2...). 벤치에 없으면 -1 반환
+    /// </summary>
+    public int GetBenchSlotNumber(PenguinController penguin)
+    {
+        int index = GetBenchSlotIndex(penguin);
+        return index >= 0 ? index + 1 : -1;
     }
 
     #endregion

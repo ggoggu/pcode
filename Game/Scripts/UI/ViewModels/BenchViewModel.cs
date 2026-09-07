@@ -49,7 +49,9 @@ namespace PenguinPinball.UI.ViewModels
                         SlotType = InventorySlotType.Penguin,
                         Name = def != null ? def.DisplayName : "Unknown",
                         Icon = def != null ? def.Icon : null,
-                        Reference = penguinObj
+                        Reference = penguinObj,
+                        IsAvailable = controller != null ? controller.IsAvailable : true,
+                        IsInField = controller != null ? controller.IsInField : false
                     });
                 }
             }
@@ -62,6 +64,8 @@ namespace PenguinPinball.UI.ViewModels
             if (index >= 0 && index < Slots.Count)
             {
                 var slot = Slots[index];
+                if (slot.IsDisabled) return;
+
                 if (slot.SlotType == InventorySlotType.Penguin)
                 {
                     var penguinObj = slot.Reference as GameObject;

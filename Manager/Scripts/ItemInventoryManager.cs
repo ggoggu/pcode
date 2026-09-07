@@ -27,13 +27,39 @@ public class ItemInventoryManager : MonoBehaviour
 
     public bool AddCharm(ShopItemBase charm)
     {
+        if (charm == null) return false;
+
+        // 1. 이미 같은 종류의 부적이 인벤토리에 있는지 검사
+        ShopItemBase existingCharm = OwnedCharms.Find(c => IsSameCharm(c, charm));
+        if (existingCharm != null)
+        {
+            // 기존 부적 효과 해제 및 인벤토리에서 제거 후 교체
+            existingCharm.RemoveEffects(gameObject);
+            int existingIndex = OwnedCharms.IndexOf(existingCharm);
+            OwnedCharms[existingIndex] = charm;
+            Destroy(existingCharm);
+
+            // 새 부적 효과 적용
+            charm.ApplyEffects(gameObject);
+            OnInventoryChanged?.Invoke();
+            Debug.Log($"[ItemInventoryManager] 기존 부적({charm.ItemName}) 교체 완료 (남은 횟수: {charm.CurrentUses}/{charm.MaxUses})");
+            return true;
+        }
+
+        // 2. 신규 부적인 경우 슬롯 한도 체크
         if (OwnedCharms.Count >= maxCharmCount) return false;
         
         OwnedCharms.Add(charm);
         charm.ApplyEffects(gameObject);
         
         OnInventoryChanged?.Invoke();
+        Debug.Log($"[ItemInventoryManager] 새 부적({charm.ItemName}) 추가 완료");
         return true;
+    }
+
+    public void NotifyInventoryChanged()
+    {
+        OnInventoryChanged?.Invoke();
     }
 
     public void RemoveCharm(ShopItemBase charm)
@@ -44,7 +70,18 @@ public class ItemInventoryManager : MonoBehaviour
             OwnedCharms.Remove(charm);
             OnInventoryChanged?.Invoke();
             Debug.Log($"[ItemInventoryManager] 부적 제거: {charm.ItemName}");
+            Destroy(charm);
         }
+    }
+
+    public static bool IsSameCharm(ShopItemBase a, ShopItemBase b)
+    {
+        if (a == null || b == null) return false;
+        if (!string.IsNullOrEmpty(a.ItemID) && !string.IsNullOrEmpty(b.ItemID))
+        {
+            return a.ItemID == b.ItemID;
+        }
+        return a.ItemName == b.ItemName;
     }
 
     public void UseCharm(ShopItemBase charm)

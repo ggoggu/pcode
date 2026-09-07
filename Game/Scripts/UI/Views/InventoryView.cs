@@ -65,6 +65,11 @@ namespace PenguinPinball.UI.Views
                 canvasGroup.alpha = isVisible ? 1f : 0f;
                 canvasGroup.interactable = isVisible;
                 canvasGroup.blocksRaycasts = isVisible;
+
+                if (isVisible)
+                {
+                    RefreshUI();
+                }
             }
         }
 

@@ -16,7 +16,7 @@ public class ShopItemBase : ScriptableObject
     [Header("Consumable")]
     public bool IsConsumable = false;
     public int MaxUses = 1;
-    [HideInInspector] public int CurrentUses;
+    [System.NonSerialized] public int CurrentUses;
 
     [Header("Effects")]
     public List<EffectBase> Effects = new List<EffectBase>();
@@ -39,6 +39,13 @@ public class ShopItemBase : ScriptableObject
             if (ItemInventoryManager.Instance != null)
             {
                 ItemInventoryManager.Instance.RemoveCharm(this);
+            }
+        }
+        else
+        {
+            if (ItemInventoryManager.Instance != null)
+            {
+                ItemInventoryManager.Instance.NotifyInventoryChanged();
             }
         }
     }
@@ -65,5 +72,26 @@ public class ShopItemBase : ScriptableObject
                 effect.SetOwner(null);
             }
         }
+    }
+
+    public ShopItemBase CreateRuntimeInstance()
+    {
+        var instance = Instantiate(this);
+        instance.CurrentUses = instance.MaxUses;
+        instance.Effects = new List<EffectBase>();
+
+        if (Effects != null)
+        {
+            foreach (var effect in Effects)
+            {
+                if (effect != null)
+                {
+                    var effectInstance = Instantiate(effect);
+                    instance.Effects.Add(effectInstance);
+                }
+            }
+        }
+
+        return instance;
     }
 }

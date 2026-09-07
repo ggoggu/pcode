@@ -155,6 +155,34 @@ public class CatmullRomPath : MonoBehaviour
         return Evaluate(seg, t);
     }
 
+    public Vector3 EvaluateTangent(int seg, float t)
+    {
+        if (!IsValid) return transform.forward;
+
+        Vector3 p0 = GetPosition(seg - 1);
+        Vector3 p1 = GetPosition(seg);
+        Vector3 p2 = GetPosition(seg + 1);
+        Vector3 p3 = GetPosition(seg + 2);
+
+        float tension = (GetTension(seg) + GetTension(seg + 1)) * 0.5f;
+        float vBias = GetVerticalBias(seg);
+        Vector3 biasDerivative = new Vector3(0f, vBias, 0f);
+
+        Vector3 tangent = CatmullRomDerivative(p0, p1, p2, p3, t, tension) + biasDerivative;
+        return tangent.sqrMagnitude > 0.0001f ? tangent.normalized : transform.forward;
+    }
+
+    public Vector3 EvaluateTangentAtProgress(float pathProgress)
+    {
+        if (!IsValid) return transform.forward;
+
+        pathProgress = Mathf.Clamp(pathProgress, 0f, SegmentCount);
+        int seg = Mathf.Min(Mathf.FloorToInt(pathProgress), SegmentCount - 1);
+        float t = pathProgress - seg;
+
+        return EvaluateTangent(seg, t);
+    }
+
     private Vector3 CatmullRom(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t, float tension)
     {
         float alpha = tension;
@@ -168,6 +196,114 @@ public class CatmullRomPath : MonoBehaviour
              + (t3 - 2f * t2 + t) * m1
              + (-2f * t3 + 3f * t2) * p2
              + (t3 - t2) * m2;
+    }
+
+    private Vector3 CatmullRomDerivative(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t, float tension)
+    {
+        float alpha = tension;
+        float t2 = t * t;
+
+        Vector3 m1 = alpha * (p2 - p0);
+        Vector3 m2 = alpha * (p3 - p1);
+
+        return (6f * t2 - 6f * t) * p1
+             + (3f * t2 - 4f * t + 1f) * m1
+             + (-6f * t2 + 6f * t) * p2
+             + (3f * t2 - 2f * t) * m2;
+    }
+
+    /// <summary>
+    /// 주어진 월드 좌표에 대해 스플라인 상의 가장 가까운 위치(closestPoint)와 진행도(closestProgress)를 계산합니다.
+    /// searchHintProgress가 주어질 경우 해당 진행도 주변을 우선 탐색하여 효율을 높입니다.
+    /// </summary>
+    public bool GetClosestPointAndProgress(Vector3 worldPos, out Vector3 closestPoint, out float closestProgress, float searchHintProgress = -1f, int sampleStepsPerSegment = 10)
+    {
+        closestPoint = transform.position;
+        closestProgress = 0f;
+
+        if (!IsValid) return false;
+
+        int segCount = SegmentCount;
+        if (segCount <= 0) return false;
+
+        int startSeg = 0;
+        int endSeg = segCount - 1;
+
+        // 힌트가 주어지면 주변 세그먼트만 우선 탐색 (힌트 ± 1.5 세그먼트)
+        if (searchHintProgress >= 0f)
+        {
+            int hintSeg = Mathf.Clamp(Mathf.FloorToInt(searchHintProgress), 0, segCount - 1);
+            startSeg = Mathf.Max(0, hintSeg - 1);
+            endSeg = Mathf.Min(segCount - 1, hintSeg + 1);
+        }
+
+        float bestSqrDist = float.MaxValue;
+        float bestProgress = 0f;
+        Vector3 bestPoint = worldPos;
+
+        int steps = Mathf.Max(4, sampleStepsPerSegment);
+
+        // 1단계: 세그먼트 샘플링 탐색
+        for (int seg = startSeg; seg <= endSeg; seg++)
+        {
+            for (int i = 0; i <= steps; i++)
+            {
+                float t = (float)i / steps;
+                float progress = seg + t;
+                Vector3 p = Evaluate(seg, t);
+                float sqrDist = (p - worldPos).sqrMagnitude;
+
+                if (sqrDist < bestSqrDist)
+                {
+                    bestSqrDist = sqrDist;
+                    bestProgress = progress;
+                    bestPoint = p;
+                }
+            }
+        }
+
+        // 2단계: 최적점 주변 구간 정밀 세분화 (이분 탐색 4회)
+        float stepSize = 1f / steps;
+        float lowProgress = Mathf.Max(0f, bestProgress - stepSize);
+        float highProgress = Mathf.Min((float)segCount, bestProgress + stepSize);
+
+        for (int iter = 0; iter < 5; iter++)
+        {
+            float mid1 = lowProgress + (highProgress - lowProgress) / 3f;
+            float mid2 = highProgress - (highProgress - lowProgress) / 3f;
+
+            Vector3 p1 = EvaluateAtProgress(mid1);
+            Vector3 p2 = EvaluateAtProgress(mid2);
+
+            float d1 = (p1 - worldPos).sqrMagnitude;
+            float d2 = (p2 - worldPos).sqrMagnitude;
+
+            if (d1 < bestSqrDist)
+            {
+                bestSqrDist = d1;
+                bestProgress = mid1;
+                bestPoint = p1;
+            }
+            if (d2 < bestSqrDist)
+            {
+                bestSqrDist = d2;
+                bestProgress = mid2;
+                bestPoint = p2;
+            }
+
+            if (d1 < d2)
+            {
+                highProgress = mid2;
+            }
+            else
+            {
+                lowProgress = mid1;
+            }
+        }
+
+        closestPoint = bestPoint;
+        closestProgress = bestProgress;
+        return true;
     }
 
     private void OnDrawGizmos()

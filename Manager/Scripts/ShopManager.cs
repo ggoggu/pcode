@@ -159,8 +159,7 @@ public class ShopManager : MonoBehaviour
         switch (item.Type)
         {
             case ShopItemType.Charm:
-                var charmInstance = Instantiate(item);
-                charmInstance.CurrentUses = charmInstance.MaxUses;
+                var charmInstance = item.CreateRuntimeInstance();
                 if (ItemInventoryManager.Instance != null && !ItemInventoryManager.Instance.AddCharm(charmInstance))
                 {
                     Destroy(charmInstance);

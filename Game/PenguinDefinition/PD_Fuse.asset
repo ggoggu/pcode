@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b0f44d742cb654b93604b66284b953, type: 3}
   m_Name: PD_Fuse
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
-  displayName: Penguin
+  displayName: FusePenguin
+  icon: {fileID: 0}
   mass: 1
   linearDrag: 1
   maxSpeed: 11
@@ -26,5 +27,9 @@ MonoBehaviour:
   overloadMaxSpeedMultiplier: 1.35
   overloadDragMultiplier: 0.45
   respawnSeconds: 3
+  attackGrowthPerTier: 0.15
+  maxSpeedGrowthPerTier: 0.05
+  massGrowthPerTier: 0.1
+  respawnTimeGrowthPerTier: 0.05
   visualPrefab: {fileID: 8827213958314493812, guid: fd65accbe3314cd43b16a7181c16238d, type: 3}
   ability: {fileID: 11400000, guid: 2cfbca001f6386447bc74a06e3818c65, type: 2}

@@ -43,7 +43,7 @@ public class ShrinkEnemyAI : NormalEnemyAI
     // ── 충돌 처리 오버라이드 ───────────────────────────────────────
     protected override void OnCollisionEnter(Collision collision)
     {
-        if (!collision.gameObject.CompareTag("Ball")) return;
+        if (!collision.gameObject.CompareTag("Ball") && !collision.gameObject.CompareTag("Player")) return;
 
         // 축소 중 외부 충돌 → 즉시 해제 (기획: 해제 조건)
         if (isShrinking && cancelOnHitDuringShrink)

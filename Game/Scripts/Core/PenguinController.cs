@@ -129,6 +129,8 @@ namespace PenguinPinball.Core
             definition = newDefinition;
             tier = Mathf.Max(1, initialTier);
 
+            gameObject.name = $"{definition.DisplayName}_Tier{tier}";
+
             // 1. 외형 모델 생성
             SetupVisual();
 

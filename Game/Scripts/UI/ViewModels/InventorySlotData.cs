@@ -17,6 +17,9 @@ namespace PenguinPinball.UI.ViewModels
         public string Name { get; set; }
         public Sprite Icon { get; set; }
         public object Reference { get; set; }
+        public bool IsAvailable { get; set; } = true;
+        public bool IsInField { get; set; } = false;
+        public bool IsDisabled => IsInField || !IsAvailable;
         public bool IsEmpty => SlotType == InventorySlotType.None;
     }
 }

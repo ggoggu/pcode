@@ -17,6 +17,10 @@ namespace PenguinPinball.UI.Views
         [Header("Detail View Reference")]
         [SerializeField] private PenguinDetailView detailView;
 
+        [Header("Slot Colors")]
+        [SerializeField] private Color normalSlotColor = Color.white;
+        [SerializeField] private Color disabledSlotColor = new Color(1f, 0.35f, 0.35f, 1f);
+
         private BenchViewModel viewModel;
         private void Awake()
         {
@@ -69,6 +73,7 @@ namespace PenguinPinball.UI.Views
                 if (hasData)
                 {
                     var slotData = viewModel.Slots[i];
+                    bool isSlotDisabled = slotData.IsDisabled;
                     
                     if (slotNameTexts != null && slotNameTexts.Count > i && slotNameTexts[i] != null)
                         slotNameTexts[i].text = slotData.Name;
@@ -89,14 +94,28 @@ namespace PenguinPinball.UI.Views
                     if (slotButtons[i] != null)
                     {
                         slotButtons[i].gameObject.SetActive(true);
+                        slotButtons[i].interactable = !isSlotDisabled;
+
+                        // 배경 이미지 색상 변경 (발사 중 또는 리스폰 대기 중이면 빨간색)
+                        var buttonImage = slotButtons[i].image;
+                        if (buttonImage != null)
+                        {
+                            buttonImage.color = isSlotDisabled ? disabledSlotColor : normalSlotColor;
+                        }
+
+                        // Unity UI Button ColorBlock 연동
+                        var colors = slotButtons[i].colors;
+                        colors.normalColor = isSlotDisabled ? disabledSlotColor : normalSlotColor;
+                        colors.disabledColor = disabledSlotColor;
+                        slotButtons[i].colors = colors;
                         
-                        // 드래그 앤 드랍 데이터 연동
+                        // 드래그 앤 드랍 데이터 연동 (비활성화 상태일 때는 드래그 방지)
                         var dragHandler = slotButtons[i].gameObject.GetComponent<InventoryItemDragHandler>();
                         if (dragHandler == null)
                         {
                             dragHandler = slotButtons[i].gameObject.AddComponent<InventoryItemDragHandler>();
                         }
-                        dragHandler.itemReference = slotData.Reference;
+                        dragHandler.itemReference = isSlotDisabled ? null : slotData.Reference;
 
                         // 드롭 핸들러 연동
                         var dropHandler = slotButtons[i].gameObject.GetComponent<InventorySlotDropHandler>();
@@ -119,6 +138,17 @@ namespace PenguinPinball.UI.Views
                     if (slotButtons[i] != null)
                     {
                         slotButtons[i].gameObject.SetActive(true); // 데이터가 없어도 슬롯은 켜두어 드롭을 받을 수 있게 함
+                        slotButtons[i].interactable = true;
+
+                        var buttonImage = slotButtons[i].image;
+                        if (buttonImage != null)
+                        {
+                            buttonImage.color = normalSlotColor;
+                        }
+
+                        var colors = slotButtons[i].colors;
+                        colors.normalColor = normalSlotColor;
+                        slotButtons[i].colors = colors;
                         
                         // 드래그 핸들러 초기화
                         var dragHandler = slotButtons[i].gameObject.GetComponent<InventoryItemDragHandler>();

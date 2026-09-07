@@ -42,10 +42,16 @@ namespace PenguinPinball.UI.ViewModels
                 foreach (var charm in ItemInventoryManager.Instance.OwnedCharms)
                 {
                     if (charm == null) continue;
+                    string displayName = charm.ItemName;
+                    if (charm.IsConsumable)
+                    {
+                        displayName = $"{charm.ItemName} ({charm.CurrentUses}/{charm.MaxUses})";
+                    }
+
                     Slots.Add(new InventorySlotData
                     {
                         SlotType = InventorySlotType.Charm,
-                        Name = charm.ItemName, // Changed from CharmName
+                        Name = displayName,
                         Icon = charm.Icon,
                         Reference = charm
                     });

@@ -13,10 +13,19 @@ public class NormalEnemyAI : Enemy
     [SerializeField] protected CatmullRomPath currentPath;
 
     [Header("적 넉백 옵션")]
-    [SerializeField] protected float knockbackForce = 12.0f;     // 충돌 시 적이 받는 넉백 힘 (수치 증가)
-    [SerializeField] protected float knockbackDuration = 0.35f;  // 넉백 전체 시간
-    [SerializeField] protected float maxKnockbackDistance = 3.0f;// 최대 밀려날 거리
-    [SerializeField] protected float knockbackScale = 0.5f;     // 넉백 거리 보정 배율 (수치 증가)
+    [SerializeField] protected float knockbackForce = 12.0f;     // 충돌 시 적이 받는 기본 넉백 힘 (하위 호환)
+    [SerializeField] protected float knockbackDuration = 0.35f;  // 넉백 전체 시간 (하위 호환)
+    [SerializeField] protected float maxKnockbackDistance = 3.0f;// 최대 밀려날 거리 (하위 호환)
+    [SerializeField] protected float knockbackScale = 0.5f;      // 넉백 거리 보정 배율 (하위 호환)
+    [SerializeField] protected float knockbackImpulseMultiplier = 1.5f; // 펭귄 충돌 속도에 비례한 충격량 배율
+    [SerializeField] protected float minKnockbackImpulse = 4.0f;         // 보장되는 최소 넉백 충격량
+    [SerializeField] protected float knockbackDamping = 3.2f;            // 넉백 중 미끄러짐 감속 마찰계수 (linearDamping)
+    [SerializeField] protected float knockbackStunDuration = 0.15f;      // 정지 후 스플라인 복귀 전 피격 경직 시간
+    [SerializeField] protected float maxKnockbackDuration = 1.2f;        // 넉백 물리 최대 안전 지속시간
+
+    [Header("스플라인 복귀 및 회전 설정")]
+    [SerializeField] protected float returnToSplineSpeedMultiplier = 1.5f; // 스플라인 복귀 시 이동 속도 배율
+    [SerializeField] protected float rotationSpeed = 6f;                   // 회전 보간 속도 (초당 최대 회전각 = rotationSpeed * 30도)
 
     [Header("피격 연출 (색상 변경)")]
     [SerializeField] protected Color hitColor = Color.red;       // 피격 시 변경될 색상
@@ -25,15 +34,15 @@ public class NormalEnemyAI : Enemy
     [Header("애니메이션 설정")]
     [SerializeField] protected Animator animator;
 
-    // ── 내부 상태 변수 ──
+    // ── 내부 상태 및 FSM ──
+    public EnemyStateMachine StateMachine { get; private set; }
+
     protected float pathProgress = 0f;
     protected Rigidbody rb;
     protected Collider enemyCollider;
 
-    // 넉백 상태 제어 변수
+    // 넉백 상태 제어 변수 (하위 호환성 유지)
     protected bool isKnockbacked = false;
-    private Vector3 currentKnockbackOffset = Vector3.zero;
-    private Coroutine knockbackCoroutine;
 
     // 피격 색상 연출용 변수
     private Renderer[] enemyRenderers;
@@ -47,6 +56,18 @@ public class NormalEnemyAI : Enemy
     public float Mass { get => mass; set => mass = Mathf.Max(0.1f, value); }
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
     public CatmullRomPath CurrentPath { get => currentPath; set => currentPath = value; }
+    public float PathProgress { get => pathProgress; set => pathProgress = value; }
+    public float KnockbackForce => knockbackForce;
+    public float KnockbackDuration => knockbackDuration;
+    public float MaxKnockbackDistance => maxKnockbackDistance;
+    public float KnockbackScale => knockbackScale;
+    public float KnockbackImpulseMultiplier => knockbackImpulseMultiplier;
+    public float MinKnockbackImpulse => minKnockbackImpulse;
+    public float KnockbackDamping => knockbackDamping;
+    public float KnockbackStunDuration => knockbackStunDuration;
+    public float MaxKnockbackDuration => maxKnockbackDuration;
+    public float ReturnToSplineSpeedMultiplier => returnToSplineSpeedMultiplier;
+    public float RotationSpeed => rotationSpeed;
     public bool IsKnockbacked => isKnockbacked;
 
     protected static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
@@ -68,6 +89,10 @@ public class NormalEnemyAI : Enemy
 
         enemyCollider = GetComponent<Collider>();
         CacheRenderersAndColors();
+
+        // FSM 상태 머신 초기화
+        StateMachine = new EnemyStateMachine();
+        StateMachine.Initialize(new EnemyPathFollowState(this, StateMachine));
     }
 
     private void CacheRenderersAndColors()
@@ -103,132 +128,118 @@ public class NormalEnemyAI : Enemy
         base.Start();
     }
 
+    protected virtual void OnDisable()
+    {
+        if (rb != null)
+        {
+            if (!rb.isKinematic)
+            {
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                rb.isKinematic = true;
+            }
+        }
+    }
+
     public virtual void SetPath(CatmullRomPath path)
     {
         currentPath = path;
         pathProgress = 0f;
+        StateMachine?.ChangeState(new EnemyPathFollowState(this, StateMachine));
     }
 
     protected virtual void Update()
     {
-        if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameState.Wave)
+        if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameState.Wave && GameManager.Instance.CurrentState != GameState.WaveInProgress)
         {
             UpdateAnimation(false);
             return;
         }
 
-        MoveAlongPath();
+        StateMachine?.Update();
     }
 
-    // ── CatmullRomPath 연동 경로 이동 로직 ───────────────────────
+    protected virtual void FixedUpdate()
+    {
+        StateMachine?.FixedUpdate();
+    }
+
+    /// <summary>
+    /// 하위 호환성 및 수동 경로 이동 호출용 메서드
+    /// </summary>
     public virtual void MoveAlongPath()
     {
-        if (currentPath == null || !currentPath.IsValid)
+        if (StateMachine?.CurrentState is EnemyPathFollowState)
         {
-            UpdateAnimation(false);
-            return;
+            StateMachine.Update();
         }
-
-        int segmentCount = currentPath.SegmentCount;
-        if (segmentCount <= 0) return;
-
-        // 1. 시간에 따른 경로 진행도(pathProgress) 증가
-        pathProgress += (moveSpeed / segmentCount) * Time.deltaTime;
-
-        // 2. 경로 끝 도착 처리 (베이스 도달)
-        if (pathProgress >= segmentCount)
-        {
-            pathProgress = segmentCount;
-            OnReachPathEnd();
-            return;
-        }
-
-        // 3. 현재 위치 계산 (순수 경로 좌표)
-        Vector3 basePathPos = currentPath.EvaluateAtProgress(pathProgress);
-
-        // 4. 회전 처리
-        float lookAheadProgress = Mathf.Min(pathProgress + 0.1f, segmentCount);
-        Vector3 lookAheadPos = currentPath.EvaluateAtProgress(lookAheadProgress);
-        Vector3 moveDirection = lookAheadPos - basePathPos;
-        moveDirection.y = 0f;
-
-        if (moveDirection.sqrMagnitude > 0.001f)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection.normalized);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10f * Time.deltaTime);
-        }
-
-        // 5. 위치 최종 이동 (경로 위치 + 넉백 오프셋)
-        transform.position = basePathPos + currentKnockbackOffset;
-
-        UpdateAnimation(true);
     }
 
     // ── 충돌 처리 ───────────────────────────────────────────────
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ball") || collision.gameObject.CompareTag("Player"))
+        StateMachine?.OnCollisionEnter(collision);
+    }
+
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        StateMachine?.OnTriggerEnter(other);
+    }
+
+    /// <summary>
+    /// 펭귄과의 충돌 시 호출하여 상대 속도 및 질량을 반영한 동적 물리 넉백을 가합니다.
+    /// </summary>
+    public virtual void HandlePenguinCollision(Collision collision, float impulseScale = 1.0f)
+    {
+        bool isPenguin = collision.gameObject.CompareTag("Ball") || collision.gameObject.CompareTag("Player")
+            || (collision.collider != null && (collision.collider.CompareTag("Ball") || collision.collider.CompareTag("Player")));
+
+        if (!isPenguin) return;
+
+        // X-Z 평면 기준 넉백 방향 계산 (펭귄 중심 -> 적 중심 밀어내는 방향 우선)
+        Vector3 pushDir = Vector3.ProjectOnPlane(transform.position - collision.transform.position, Vector3.up);
+        if (pushDir.sqrMagnitude < 0.001f)
         {
-            Vector3 knockbackDir = collision.contacts.Length > 0
-                ? -collision.contacts[0].normal
-                : (transform.position - collision.transform.position).normalized;
-
-            knockbackDir.y = 0f;
-            if (knockbackDir.sqrMagnitude < 0.001f)
-            {
-                knockbackDir = transform.forward * -1f;
-            }
-            knockbackDir.Normalize();
-
-            // 1. 넉백 연출 실행
-            ApplyKnockback(knockbackDir, knockbackForce);
-
-            // 2. 피격 색상 깜빡임 연출 실행
-            FlashHitColor();
+            pushDir = Vector3.ProjectOnPlane(collision.relativeVelocity, Vector3.up);
         }
+        if (pushDir.sqrMagnitude < 0.001f)
+        {
+            pushDir = -transform.forward;
+        }
+        pushDir.Normalize();
+
+        // 충돌 속도(relativeVelocity) 기반 동적 충격량 산출 (현실 물리 비례)
+        float impactSpeed = collision.relativeVelocity.magnitude;
+        float impulse = Mathf.Max(minKnockbackImpulse, impactSpeed * knockbackImpulseMultiplier) * impulseScale;
+
+        FlashHitColor();
+        TriggerKnockback(pushDir, impulse);
     }
 
     // ── 넉백 실행 로직 ───────────────────────────────────────────
     public virtual void ApplyKnockback(Vector3 knockbackDir, float impulse)
     {
-        if (knockbackCoroutine != null)
-        {
-            StopCoroutine(knockbackCoroutine);
-        }
-
-        float rawDistance = (impulse / Mathf.Max(0.1f, mass)) * knockbackScale;
-        float calculatedDistance = Mathf.Clamp(rawDistance, 0.5f, maxKnockbackDistance);
-
-        if (currentPath != null && currentPath.SegmentCount > 0)
-        {
-            float progressLoss = (calculatedDistance * 0.1f) / currentPath.SegmentCount;
-            pathProgress = Mathf.Max(0f, pathProgress - progressLoss);
-        }
-
-        knockbackCoroutine = StartCoroutine(RoutineKnockback(knockbackDir, calculatedDistance));
+        TriggerKnockback(knockbackDir, impulse);
     }
 
-    private IEnumerator RoutineKnockback(Vector3 dir, float distance)
+    public virtual void TriggerKnockback(Vector3 knockbackDir, float impulse)
     {
-        isKnockbacked = true;
+        StateMachine?.ChangeState(new EnemyKnockbackState(this, StateMachine, knockbackDir, impulse));
+    }
 
-        float elapsed = 0f;
-        Vector3 pushDirection = dir.normalized;
+    public void ReturnToSpline()
+    {
+        StateMachine?.ChangeState(new EnemyReturnToSplineState(this, StateMachine));
+    }
 
-        while (elapsed < knockbackDuration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / knockbackDuration;
+    public void ApplyStun(float duration)
+    {
+        StateMachine?.ChangeState(new EnemyStunState(this, StateMachine, duration));
+    }
 
-            float curve = Mathf.Sin(t * Mathf.PI);
-            currentKnockbackOffset = pushDirection * (distance * curve);
-
-            yield return null;
-        }
-
-        currentKnockbackOffset = Vector3.zero;
-        isKnockbacked = false;
-        knockbackCoroutine = null;
+    public void SetKnockbackedFlag(bool value)
+    {
+        isKnockbacked = value;
     }
 
     // ── 피격 색상 연출 로직 ────────────────────────────────────────
@@ -318,10 +329,7 @@ public class NormalEnemyAI : Enemy
     /// <summary>
     /// 경로 끝(베이스)에 도달했을 때 호출 (지상 적 전용)
     /// </summary>
-    /// <summary>
-    /// 경로 끝(베이스)에 도달했을 때 호출 (지상 적 전용)
-    /// </summary>
-    protected virtual void OnReachPathEnd()
+    public virtual void OnReachPathEnd()
     {
         if (isProcessed) return;
         isProcessed = true;
@@ -334,7 +342,7 @@ public class NormalEnemyAI : Enemy
             ObjectDropManager.Instance.OnEnemyReachedBaseOrDespawned();
         }
 
-        // 2. GameManager 생명(Life) 차감 연동 (DecreaseLife 메서드 호출)
+        // 2. GameManager 생명(Life) 차감 연동
         if (GameManager.Instance != null)
         {
             GameManager.Instance.DecreaseLife(baseDamage);
@@ -344,9 +352,20 @@ public class NormalEnemyAI : Enemy
         Destroy(gameObject);
     }
 
-    protected virtual void UpdateAnimation(bool isMoving)
+    public virtual void UpdateAnimation(bool isMoving)
     {
         if (animator == null) return;
         animator.SetBool(IsMovingHash, isMoving);
+    }
+
+    protected virtual void OnDrawGizmosSelected()
+    {
+        if (currentPath == null || !currentPath.IsValid) return;
+
+        // 현재 스플라인 목표 지점 및 복귀 라인 시각화
+        Vector3 splinePos = currentPath.EvaluateAtProgress(pathProgress);
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawSphere(splinePos, 0.2f);
+        Gizmos.DrawLine(transform.position, splinePos);
     }
 }

@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21d47db16fd3af54bb349fb357e30795, type: 3}
-  m_Name: test 7
-  m_EditorClassIdentifier: Assembly-CSharp::InstantItem
-  ItemID: 7
-  ItemName: 1234
-  Type: 4
-  Price: 5
-  Description: 
+  m_Script: {fileID: 11500000, guid: 7e93a8b41f8c47d2b56e1a90c4d28f01, type: 3}
+  m_Name: Effect_FirstBenchAttack
+  m_EditorClassIdentifier: 
+  targetBenchSlots:
+  - 1
+  targetStat: 0
+  modType: 100
+  statValue: 1

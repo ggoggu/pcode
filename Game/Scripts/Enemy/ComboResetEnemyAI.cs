@@ -55,7 +55,7 @@ public class ComboResetEnemyAI : NormalEnemyAI
     // ── 충돌 처리 오버라이드 ───────────────────────────────────────
     protected override void OnCollisionEnter(Collision collision)
     {
-        if (!collision.gameObject.CompareTag("Ball")) return;
+        if (!collision.gameObject.CompareTag("Ball") && !collision.gameObject.CompareTag("Player")) return;
 
         // 정지 중 외부 충돌 → 즉시 해제 (기획: 해제 조건)
         if (isFreezing)
@@ -114,8 +114,9 @@ public class ComboResetEnemyAI : NormalEnemyAI
         freezeTimer = 0f;
     }
 
-    private void OnDrawGizmosSelected()
+    protected override void OnDrawGizmosSelected()
     {
+        base.OnDrawGizmosSelected();
         // 에디터에서 효과 반경 시각화
         Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
         Gizmos.DrawWireSphere(transform.position, effectRadius);

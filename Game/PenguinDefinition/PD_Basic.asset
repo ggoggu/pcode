@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b0f44d742cb654b93604b66284b953, type: 3}
   m_Name: PD_Basic
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
-  displayName: Penguin
+  displayName: BasicPenguin
+  icon: {fileID: 0}
   mass: 1
   linearDrag: 1
   maxSpeed: 11
