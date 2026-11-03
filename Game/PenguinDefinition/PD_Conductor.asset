@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: PD_Conductor
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
   displayName: ConductorPenguin
+  description: 아군 펭귄과 충돌 시 서로 콤보를 공유하고 전달합니다.
   icon: {fileID: 0}
-  mass: 0.9
-  linearDrag: 1
-  maxSpeed: 11
-  attack: 8
+  mass: 1
+  linearDrag: 0.1
+  maxSpeed: 18
+  attack: 9
   damageSpeedScale: 1
   lowSpeedCutoff: 1.2
-  overloadThreshold: 12
+  overloadThreshold: 10
   comboBaseDuration: 3
   durationLossPerCombo: 0.08
   comboDurationMultiplier: 1

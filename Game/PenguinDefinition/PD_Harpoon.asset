@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: PD_Harpoon
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
   displayName: HarpoonPenguin
+  description: 과부하 중 적 처치 시 가장 가까운 적에게 즉시 재돌진합니다.
   icon: {fileID: 0}
   mass: 1
-  linearDrag: 1
-  maxSpeed: 11
-  attack: 10
+  linearDrag: 0.1
+  maxSpeed: 18
+  attack: 9
   damageSpeedScale: 1
   lowSpeedCutoff: 1.2
   overloadThreshold: 10
@@ -31,5 +32,5 @@ MonoBehaviour:
   maxSpeedGrowthPerTier: 0.05
   massGrowthPerTier: 0.1
   respawnTimeGrowthPerTier: 0.05
-  visualPrefab: {fileID: 8827213958314493812, guid: fd65accbe3314cd43b16a7181c16238d, type: 3}
+  visualPrefab: {fileID: 3701027084522633178, guid: 88074594a7ed75e4ea5e0434c5fa32ae, type: 3}
   ability: {fileID: 11400000, guid: c17c74e5df085354ab77a9c2ab0999b6, type: 2}

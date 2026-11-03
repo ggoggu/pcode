@@ -16,7 +16,22 @@ public class ShopItemBase : ScriptableObject
     [Header("Consumable")]
     public bool IsConsumable = false;
     public int MaxUses = 1;
-    [System.NonSerialized] public int CurrentUses;
+    [HideInInspector] public int CurrentUses;
+
+    [Header("Sell Settings")]
+    public bool NoSellRefund = false;
+    public int CustomSellPrice = -1;
+
+    public virtual int GetSellPrice()
+    {
+        if (NoSellRefund) return 0;
+        if (CustomSellPrice >= 0) return CustomSellPrice;
+        return 10;
+    }
+
+    [Header("벤치 슬롯 설정")]
+    [Tooltip("이 부적이 영향을 미칠 벤치 슬롯 번호 목록 (1-based: 1=1번 벤치, 비어있으면 모든 벤치에 적용 가능)")]
+    public List<int> targetBenchSlots = new List<int>();
 
     [Header("Effects")]
     public List<EffectBase> Effects = new List<EffectBase>();
@@ -39,13 +54,6 @@ public class ShopItemBase : ScriptableObject
             if (ItemInventoryManager.Instance != null)
             {
                 ItemInventoryManager.Instance.RemoveCharm(this);
-            }
-        }
-        else
-        {
-            if (ItemInventoryManager.Instance != null)
-            {
-                ItemInventoryManager.Instance.NotifyInventoryChanged();
             }
         }
     }
@@ -78,6 +86,9 @@ public class ShopItemBase : ScriptableObject
     {
         var instance = Instantiate(this);
         instance.CurrentUses = instance.MaxUses;
+        instance.NoSellRefund = this.NoSellRefund;
+        instance.CustomSellPrice = this.CustomSellPrice;
+        instance.targetBenchSlots = targetBenchSlots != null ? new List<int>(targetBenchSlots) : new List<int>();
         instance.Effects = new List<EffectBase>();
 
         if (Effects != null)

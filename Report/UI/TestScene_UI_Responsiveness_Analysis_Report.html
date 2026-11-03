@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Unity TestScene 반응형 UI 및 깨짐 방지 구현 분석 보고서</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 15mm 15mm 15mm 15mm;
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", "Segoe UI", sans-serif;
+    color: #1e293b;
+    background-color: #ffffff;
+    line-height: 1.6;
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Header & Cover */
+  .report-header {
+    border-bottom: 2px solid #2563eb;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 9px;
+    font-size: 8pt;
+    font-weight: 700;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-primary {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+  }
+
+  .badge-success {
+    background-color: #dcfce7;
+    color: #15803d;
+  }
+
+  .badge-warning {
+    background-color: #fef3c7;
+    color: #b45309;
+  }
+
+  h1.report-title {
+    font-size: 20pt;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 10px 0 6px 0;
+    letter-spacing: -0.5px;
+  }
+
+  .report-subtitle {
+    font-size: 11pt;
+    color: #64748b;
+    margin: 0 0 12px 0;
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 8.5pt;
+  }
+
+  .meta-item strong {
+    display: block;
+    color: #475569;
+    font-size: 7.5pt;
+    text-transform: uppercase;
+  }
+
+  /* Section Styles */
+  h2 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1e3a8a;
+    border-left: 4px solid #2563eb;
+    padding-left: 8px;
+    margin-top: 24px;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+
+  p {
+    margin: 0 0 8px 0;
+    text-align: justify;
+  }
+
+  /* Executive Summary Box */
+  .summary-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+    border: 1px solid #bfdbfe;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 14px 0;
+  }
+
+  .summary-box h3 {
+    color: #1d4ed8;
+    margin-top: 0;
+    margin-bottom: 6px;
+  }
+
+  /* Callout box */
+  .callout {
+    border-left: 4px solid #3b82f6;
+    background-color: #f8fafc;
+    padding: 10px 14px;
+    border-radius: 0 6px 6px 0;
+    margin: 10px 0;
+  }
+
+  .callout-warning {
+    border-left-color: #f59e0b;
+    background-color: #fffbeb;
+  }
+
+  .callout-title {
+    font-weight: 700;
+    font-size: 9pt;
+    color: #1e293b;
+    margin-bottom: 4px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 8.5pt;
+  }
+
+  th, td {
+    border: 1px solid #cbd5e1;
+    padding: 6px 9px;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-weight: 700;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+
+  /* Architecture Diagram / Card Layout */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 12px 0;
+  }
+
+  .card {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 10px 12px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+  }
+
+  .card-title {
+    font-weight: 700;
+    font-size: 9.5pt;
+    color: #1e40af;
+  }
+
+  /* Code Block */
+  pre {
+    background-color: #0f172a;
+    color: #f8fafc;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 7.5pt;
+    line-height: 1.45;
+    overflow-x: auto;
+    margin: 8px 0;
+  }
+
+  code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 8.5pt;
+    background-color: #e2e8f0;
+    color: #0f172a;
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+
+  pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+  }
+
+  .keyword { color: #93c5fd; }
+  .type { color: #6ee7b7; }
+  .comment { color: #94a3b8; font-style: italic; }
+  .string { color: #fde047; }
+  .number { color: #fca5a5; }
+
+  /* Page break helpers */
+  .page-break {
+    page-break-before: always;
+  }
+
+  .avoid-break {
+    page-break-inside: avoid;
+  }
+
+  /* Lists */
+  ul, ol {
+    margin: 4px 0 8px 18px;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 3px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Cover / Header -->
+  <div class="report-header">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span class="badge badge-primary">Unity UI Architecture Analysis</span>
+      <span style="font-size: 8pt; color: #64748b;">Project: PenguinShot</span>
+    </div>
+    <h1 class="report-title">TestScene UI 반응형 및 깨짐 방지 구현 분석 보고서</h1>
+    <div class="report-subtitle">기기별 다양한 해상도 및 노치/컷아웃 환경 대응을 위한 5단계 방어 아키텍처 상세 분석</div>
+    
+    <div class="meta-grid">
+      <div class="meta-item">
+        <strong>분석 대상 씬</strong>
+        Assets/Scenes/TestScene.unity
+      </div>
+      <div class="meta-item">
+        <strong>기준 해상도</strong>
+        540 × 960 (Portrait 9:16)
+      </div>
+      <div class="meta-item">
+        <strong>스케일 매치 모드</strong>
+        Expand Mode (Mathf.Min)
+      </div>
+      <div class="meta-item">
+        <strong>분석 일자 / 작성자</strong>
+        2026. 10. 01 / Antigravity AI
+      </div>
+    </div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="summary-box">
+    <h3>📌 요약 (Executive Summary)</h3>
+    <p>
+      본 보고서는 <code>TestScene</code>에서 다양한 모바일 디바이스(스마트폰, 태블릿, 폴더블) 및 PC 환경에서 화면 비율과 해상도가 변동할 때 <strong>UI 요소가 찌그러지거나 잘리는 현상(UI 깨짐)을 방지하기 위해 적용된 기술적 구현 메커니즘</strong>을 코드와 씬 데이터 레벨에서 정밀 분석한 결과입니다.
+    </p>
+    <p>
+      분석 결과, 본 프로젝트는 단일 기법에 의존하지 않고 <strong>① CanvasScaler(Expand 모드) 기반 전역 스케일링</strong>, <strong>② SafeArea 컴포넌트를 통한 물리 노치/펀치홀 실시간 동적 앵커링</strong>, <strong>③ UI 모듈별 상대 앵커(Anchor) 및 피벗(Pivot) 체계</strong>, <strong>④ Auto-Layout Group(Horizontal/Grid/ContentSizeFitter) 엔진</strong>, <strong>⑤ TextMeshPro Auto-Sizing 및 뷰 상태 제어</strong>로 이어지는 <strong>「5중 반응형 방어 아키텍처」</strong>를 유기적으로 구축하여 UI 무결성을 보장하고 있습니다.
+    </p>
+  </div>
+
+  <!-- Section 1 -->
+  <h2>1. 반응형 UI 5중 방어 아키텍처 개요</h2>
+  <p>
+    스마트폰 디바이스는 16:9, 18:9, 19.5:9, 20:9 등 매우 다양한 화면비를 가지며, 상단 노치(Notch), 펀치홀 카메라, 하단 제스처 바(Home Indicator) 등의 물리적 컷아웃 영역이 존재합니다. <code>TestScene</code>에서는 아래와 같은 5단계 계층 방어선을 통해 UI가 깨지거나 조작 불능 상태가 되는 것을 완벽히 차단합니다.
+  </p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">1단계: 전역 해상도 스케일링</span>
+        <span class="badge badge-primary">CanvasScaler</span>
+      </div>
+      <p style="font-size:8pt; margin:0;">
+        <strong>기준 해상도(540×960) & Expand 모드</strong>를 적용하여 캔버스가 기준 크기보다 작아지지 않게 보장하며, 화면비 변동 시 UI가 잘려나가는 것을 원천 방지.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">2단계: 물리 안전영역 동적 제어</span>
+        <span class="badge badge-success">SafeArea.cs</span>
+      </div>
+      <p style="font-size:8pt; margin:0;">
+        <code>Screen.safeArea</code>를 정규화(0~1)하여 RectTransform 앵커에 실시간 적용. 회전 및 창 크기 변경 시 <code>Update()</code>에서 즉각 재연산.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">3단계: 목적별 앵커/피벗 분할</span>
+        <span class="badge badge-primary">RectTransform</span>
+      </div>
+      <p style="font-size:8pt; margin:0;">
+        HUD(Top-Left), 조작 버튼(Bottom-Left/Right), 서브패널(비례 스트레치 0~0.2) 등 컴포넌트 특성에 맞춘 정밀 앵커링 설계.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">4단계: 자동 레이아웃 엔진</span>
+        <span class="badge badge-warning">Layout Groups</span>
+      </div>
+      <p style="font-size:8pt; margin:0;">
+        <code>HorizontalLayoutGroup</code>, <code>GridLayoutGroup</code>, <code>ContentSizeFitter</code>를 조합하여 동적 슬롯 생성 시 겹침 현상 방지.
+      </p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:10px;">
+    <div class="card-header">
+      <span class="card-title">5단계: 요소 레벨 오버플로우 방지 및 뷰 상호 배타성 관리</span>
+      <span class="badge badge-success">TMP & UIToggleManager</span>
+    </div>
+    <p style="font-size:8pt; margin:0;">
+      텍스트 길이에 따라 폰트 크기가 자동 축소되는 <code>TextMeshProUGUI Auto-Sizing</code>과 상점/부화소 UI가 동시에 열려 화면이 뒤덮이는 것을 방지하는 <code>UIToggleManager</code> 상호 배타적 토글 로직 적용.
+    </p>
+  </div>
+
+  <!-- Section 2 -->
+  <h2>2. 계층별 상세 구현 분석</h2>
+
+  <h3>2.1 Canvas & CanvasScaler: Expand 스케일링 메커니즘</h3>
+  <p>
+    <code>TestScene</code>의 캔버스 설정은 모바일 세로 게임 환경에 최적화된 구성을 갖추고 있습니다.
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:25%;">프로퍼티</th>
+        <th style="width:30%;">설정값</th>
+        <th style="width:45%;">UI 깨짐 방지 기여도</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Render Mode</strong></td>
+        <td><code>Screen Space - Overlay</code></td>
+        <td>3D 원근 카메라(FOV 60)와 UI 좌표계를 분리하여 카메라 회전/이동/줌에 UI가 영향받지 않도록 독립성 유지</td>
+      </tr>
+      <tr>
+        <td><strong>UI Scale Mode</strong></td>
+        <td><code>Scale With Screen Size</code> (1)</td>
+        <td>고정 픽셀이 아닌 화면 해상도 변화에 비례하여 UI 전체 크기가 자동 스케일링</td>
+      </tr>
+      <tr>
+        <td><strong>Reference Resolution</strong></td>
+        <td><code>540 × 960</code> (Portrait 9:16)</td>
+        <td>모바일 세로 비율의 표준 런타임 기준 좌표계 정의</td>
+      </tr>
+      <tr>
+        <td><strong>Screen Match Mode</strong></td>
+        <td><code>Expand</code> (1)</td>
+        <td>화면 비율이 길어지거나 넓어질 때 UI가 화면 밖으로 잘리지(Crop) 않도록 보장</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">💡 왜 MatchWidthOrHeight 대신 'Expand' 모드를 채택했는가?</div>
+    <p style="font-size:8.5pt; margin:0;">
+      Unity 소스코드(CanvasScaler.cs)에 따르면 Expand 모드는 다음과 같이 스케일 팩터를 연산합니다:<br>
+      <code>scaleFactor = Mathf.Min(screenSize.x / 540f, screenSize.y / 960f);</code><br>
+      이 방식은 화면의 가로/세로 중 <strong>더 좁은 비율에 맞춰 스케일을 결정</strong>하므로, 캔버스의 가상 영역이 기준 해상도(540×960)보다 절대로 작아지지 않습니다. 최신 20:9 폰(세로로 긴 화면)이나 태블릿(가로로 넓은 화면)에서도 UI가 화면 밖으로 잘려나가지 않고 추가적인 여백을 확보하는 안전한 구조를 형성합니다.
+    </p>
+  </div>
+
+  <!-- Page Break for Clean Layout -->
+  <div class="page-break"></div>
+
+  <h3>2.2 SafeArea 컴포넌트: 물리 안전영역 동적 앵커링</h3>
+  <p>
+    <code>Assets/Game/Scripts/UI/Util/SafeArea.cs</code> 스크립트는 Canvas 바로 아래 최상위 컨테이너로 배치되어, 디바이스의 물리적 노치/컷아웃/홈바 영역을 감지하고 캔버스의 앵커 좌표를 실시간으로 재구성합니다.
+  </p>
+
+  <pre><code><span class="keyword">using</span> UnityEngine;
+
+<span class="keyword">public class</span> <span class="type">SafeArea</span> : <span class="type">MonoBehaviour</span>
+{
+    <span class="keyword">private</span> <span class="type">RectTransform</span> rectTransform;
+    <span class="keyword">private</span> <span class="type">Rect</span> lastSafeArea;
+    <span class="keyword">private</span> <span class="type">Vector2Int</span> lastScreenSize;
+    <span class="keyword">private</span> <span class="type">ScreenOrientation</span> lastOrientation;
+
+    <span class="keyword">void</span> <span class="type">Awake</span>()
+    {
+        rectTransform = GetComponent&lt;<span class="type">RectTransform</span>&gt;();
+        ApplySafeArea();
+    }
+
+    <span class="keyword">void</span> <span class="type">Update</span>()
+    {
+        <span class="comment">// 화면 회전, 해상도 변경, 폴더블폰 접힘/펼침 실시간 감지</span>
+        <span class="keyword">if</span> (lastSafeArea != <span class="type">Screen</span>.safeArea || 
+            lastScreenSize.x != <span class="type">Screen</span>.width || 
+            lastScreenSize.y != <span class="type">Screen</span>.height || 
+            lastOrientation != <span class="type">Screen</span>.orientation)
+        {
+            ApplySafeArea();
+        }
+    }
+
+    <span class="keyword">void</span> <span class="type">ApplySafeArea</span>()
+    {
+        <span class="type">Rect</span> safeArea = <span class="type">Screen</span>.safeArea;
+        lastSafeArea = safeArea;
+        lastScreenSize = <span class="keyword">new</span> <span class="type">Vector2Int</span>(<span class="type">Screen</span>.width, <span class="type">Screen</span>.height);
+        lastOrientation = <span class="type">Screen</span>.orientation;
+
+        <span class="comment">// 픽셀 좌표계를 0.0 ~ 1.0의 정규화된 앵커 좌표로 변환</span>
+        <span class="type">Vector2</span> anchorMin = safeArea.position;
+        <span class="type">Vector2</span> anchorMax = safeArea.position + safeArea.size;
+
+        anchorMin.x /= <span class="type">Screen</span>.width;
+        anchorMin.y /= <span class="type">Screen</span>.height;
+        anchorMax.x /= <span class="type">Screen</span>.width;
+        anchorMax.y /= <span class="type">Screen</span>.height;
+
+        rectTransform.anchorMin = anchorMin;
+        rectTransform.anchorMax = anchorMax;
+        rectTransform.offsetMin = <span class="type">Vector2</span>.zero;
+        rectTransform.offsetMax = <span class="type">Vector2</span>.zero;
+    }
+}</code></pre>
+
+  <div class="callout">
+    <div class="callout-title">🔍 SafeArea 구현의 핵심 특징 분석</div>
+    <ul style="font-size:8.5pt;">
+      <li><strong>정규화 앵커 변환(Normalization)</strong>: 기기마다 다른 물리 해상도 픽셀을 <code>0.0 ~ 1.0</code> 비율로 환산하여 CanvasScaler 스케일 팩터와 무관하게 정확한 안전 영역을 보정합니다.</li>
+      <li><strong>완전 밀착 (Zero Offset)</strong>: <code>offsetMin = offsetMax = Vector2.zero</code>를 적용하여 앵커 박스와 RectTransform의 경계를 1:1로 일치시킵니다.</li>
+      <li><strong>런타임 실시간 반응성</strong>: <code>Update()</code>에서 디바이스 방향(`Screen.orientation`), 해상도(`Screen.width/height`), 안전영역(`Screen.safeArea`)을 지속적으로 트래킹하여 <strong>화면 분할(Split Screen), 폴더블폰 접힘/펼침, 앱 회전</strong> 시에도 UI가 깨지지 않고 즉시 갱신됩니다.</li>
+    </ul>
+  </div>
+
+  <h3>2.3 RectTransform 앵커(Anchor) 및 피벗(Pivot) 체계</h3>
+  <p>
+    <code>SafeArea</code>의 자식으로 배치된 모든 주요 UI 요소들은 화면 모서리 및 영역별로 특화된 앵커링 전략을 취하고 있습니다.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>GameObject 명칭</th>
+        <th>Anchor Min / Max</th>
+        <th>Pivot</th>
+        <th>배치 전략 및 깨짐 방지 원리</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Score / Gold / Life / Phase</strong></td>
+        <td><code>(0, 1) / (0, 1)</code></td>
+        <td><code>(0.5, 0.5)</code></td>
+        <td><strong>좌상단(Top-Left) 고정</strong>: 상단 상태바 및 노치 아래에 밀착되어 항상 안정적인 위치에 정보 노출</td>
+      </tr>
+      <tr>
+        <td><strong>Btn_Shop / Btn_Hat</strong></td>
+        <td><code>(0, 0) / (0, 0)</code></td>
+        <td><code>(0.5, 0.5)</code></td>
+        <td><strong>좌하단(Bottom-Left) 고정</strong>: 하단 홈바 위 좌측 모서리에 안정적으로 안착</td>
+      </tr>
+      <tr>
+        <td><strong>PhaseButton</strong></td>
+        <td><code>(1, 0) / (1, 0)</code></td>
+        <td><code>(1, 0)</code></td>
+        <td><strong>우하단(Bottom-Right) 고정</strong>: 피벗을 (1, 0)으로 맞추어 우측 하단 여백 0에 완벽히 밀착</td>
+      </tr>
+      <tr>
+        <td><strong>ShopPanel (프리팹)</strong></td>
+        <td><code>(0, 0) / (1, 0.2)</code></td>
+        <td><code>(0.5, 0.5)</code></td>
+        <td><strong>가로 100% 스트레치 + 하단 20% 높이 비율 점유</strong>: 기기 너비가 늘어나면 자동으로 패널 가로폭이 확장됨</td>
+      </tr>
+      <tr>
+        <td><strong>BenchPanel (프리팹)</strong></td>
+        <td><code>(0, 0) / (1, 0)</code></td>
+        <td><code>(0.5, 0.5)</code></td>
+        <td><strong>하단 가로 스트레치 + 고정 높이(100px)</strong>: 하단 거치대 역할을 하며 좌우 화면 폭에 자동 대응</td>
+      </tr>
+      <tr>
+        <td><strong>InvnetoryPanel (프리팹)</strong></td>
+        <td><code>(0, 0) / (1, 1)</code></td>
+        <td><code>(0.5, 0.5)</code></td>
+        <td><strong>안전영역 전체 스트레치(Full stretch)</strong>: 인벤토리 모달 창이 안전영역 전체를 균일하게 채움</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Page Break -->
+  <div class="page-break"></div>
+
+  <h3>2.4 자동 레이아웃 엔진 (Layout Groups & ContentSizeFitter)</h3>
+  <p>
+    정적 배치가 아닌 아이템 목록이나 슬롯 배열은 해상도나 아이템 개수 변경 시 UI 요소가 겹치거나 밖으로 삐져나가기 쉽습니다. <code>TestScene</code>에서는 유니티의 자동 레이아웃 컴포넌트를 다음과 같이 적극 활용하고 있습니다.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>패널 / 컨테이너</th>
+        <th>적용 컴포넌트</th>
+        <th>상세 설정값</th>
+        <th>깨짐 방지 동작 메커니즘</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>ShopPanel<br>/SlotContainer</strong></td>
+        <td><code>HorizontalLayoutGroup</code></td>
+        <td>
+          • Child Alignment: Middle Center (4)<br>
+          • Force Expand W/H: True<br>
+          • Control Child W/H: False
+        </td>
+        <td>
+          3개의 상점 상품 슬롯이 패널 내에서 중앙에 고르게 정렬되며, 화면 폭이 넓어져도 슬롯 간격이 균일하게 확장되어 슬롯 겹침 현상 방지
+        </td>
+      </tr>
+      <tr>
+        <td><strong>BenchPanel<br>/SlotContainer</strong></td>
+        <td><code>HorizontalLayoutGroup</code></td>
+        <td>
+          • Child Alignment: Middle Center (4)<br>
+          • Force Expand W/H: True
+        </td>
+        <td>
+          6개의 벤치 슬롯이 가로 폭 전체에 걸쳐 중앙 정렬 및 균등 분할되어 화면비가 바뀌어도 일정한 배치 유지
+        </td>
+      </tr>
+      <tr>
+        <td><strong>InvnetoryPanel<br>/SlotContainer</strong></td>
+        <td><code>GridLayoutGroup</code></td>
+        <td>
+          • Cell Size: (55, 55)<br>
+          • Spacing: (5, 5)<br>
+          • Child Alignment: Middle Center<br>
+          • Constraint: Flexible (0)
+        </td>
+        <td>
+          화면 너비에 맞춰 격자형으로 슬롯이 자동 줄바꿈(Flexible Wrapping)되어 화면 해상도가 달라져도 슬롯이 잘리지 않음
+        </td>
+      </tr>
+      <tr>
+        <td><strong>ObjectStoragePanel<br>/Content</strong></td>
+        <td>
+          <code>GridLayoutGroup</code><br>
+          <code>ContentSizeFitter</code>
+        </td>
+        <td>
+          • Cell Size: (100, 100)<br>
+          • Constraint: Fixed Row Count (1)<br>
+          • <strong>Horizontal Fit: Preferred Size (2)</strong>
+        </td>
+        <td>
+          보관된 오브젝트 개수에 맞춰 가로 길이가 <strong>동적으로 자동 확장</strong>되며, <code>ScrollRect</code> 및 <code>Mask</code>와 연동되어 내용이 넘칠 때 영역 밖을 클리핑하고 부드러운 스크롤 제공
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.5 미세 레벨 방어: TextMeshPro Auto-Sizing & 뷰 배타성 제어</h3>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">TextMeshPro Auto-Sizing</span>
+        <span class="badge badge-success">텍스트 넘침 방지</span>
+      </div>
+      <p style="font-size:8pt;">
+        Scene 내 대다수 TMP 컴포넌트(<code>Score</code>, <code>Gold</code>, <code>Life</code>, <code>Phase</code>, <code>Btn_Shop</code>, <code>Btn_Hat</code> 등)에 <code>enableAutoSizing = 1</code>, <code>fontSizeMin = 1</code>, <code>fontSizeMax = 72</code>가 지정되어 있습니다.
+      </p>
+      <p style="font-size:8pt; margin:0;">
+        <strong>효과:</strong> 골드 수치가 수만~수십만 단위로 폭증하거나 디바이스 스케일링으로 텍스트 영역이 축소되더라도 폰트 크기가 자동으로 축소되어 <strong>텍스트가 박스 밖으로 삐져나가거나 줄바꿈되어 깨지는 현상을 차단</strong>합니다.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">UIToggleManager 상호 배타성 제어</span>
+        <span class="badge badge-warning">뷰 겹침 방지</span>
+      </div>
+      <p style="font-size:8pt;">
+        <code>UIToggleManager.cs</code>는 상점(<code>ItemShopView</code>)과 부화소(<code>HatcheryView</code>)를 제어할 때 <code>IToggleableView</code> 인터페이스를 활용합니다.
+      </p>
+      <p style="font-size:8pt; margin:0;">
+        <strong>효과:</strong> 특정 창을 열 때 다른 창을 자동으로 닫는(<code>otherPanel?.Close()</code>) 상호 배타적 토글 로직을 구현하여 <strong>두 개의 대형 패널이 동시에 화면에 렌더링되어 UI가 뒤엉키는 시각적 파손을 구조적으로 예방</strong>합니다.
+      </p>
+    </div>
+  </div>
+
+  <!-- Page Break -->
+  <div class="page-break"></div>
+
+  <!-- Section 3 -->
+  <h2>3. TestScene 전체 UI 계층 구조도 (UI Hierarchy Map)</h2>
+  <p>
+    다음은 <code>TestScene</code> 내부의 Canvas로부터 파생된 전체 RectTransform 및 UI 컴포넌트의 트리 구조와 배치 특성입니다:
+  </p>
+
+  <div style="background-color:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:12px; font-family:Consolas, monospace; font-size:7.5pt; line-height:1.5;">
+    📦 <strong>Canvas</strong> [Screen Space - Overlay / CanvasScaler: Expand (540x960)]<br>
+    ├── 📁 <strong>ObjectStoragePanel</strong> [Anchor: (0,0)~(1,1), Pos:(-3, 133), Size:(447.3, 276.5)] (Image, ObjectStorageUI)<br>
+    │&nbsp;&nbsp;&nbsp;└── 📁 <strong>Scroll View</strong> [Anchor: Center (0.5, 0.5), Size:(500, 200)] (ScrollRect, Image)<br>
+    │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── 📁 <strong>Viewport</strong> [Anchor: Full Stretch (0,0)~(1,1)] (Mask, Image) <em>*영역 외 클리핑*</em><br>
+    │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── 📄 <strong>Content</strong> [Anchor: Top-Stretch (0,1)~(1,1)] (GridLayoutGroup, ContentSizeFitter)<br>
+    │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 📁 <strong>Scrollbar Horizontal</strong> (Scrollbar)<br>
+    ├── 🛡️ <strong>SafeArea</strong> [Anchor: (0,0)~(1,1) → <strong>Screen.safeArea 정규화 동적 치환</strong>] (SafeArea.cs)<br>
+    │&nbsp;&nbsp;&nbsp;├── 📄 <strong>ShopPanel (Prefab)</strong> [Anchor: Bottom-Stretch (0,0)~(1, 0.2)] (ItemShopView)<br>
+    │&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── 📄 <strong>SlotContainer</strong> (HorizontalLayoutGroup: MiddleCenter, ForceExpand)<br>
+    │&nbsp;&nbsp;&nbsp;├── 📄 <strong>BenchPanel (Prefab)</strong> [Anchor: Bottom-Stretch (0,0)~(1, 0), PosY:173, H:100] (BenchView)<br>
+    │&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── 📄 <strong>SlotContainer</strong> (HorizontalLayoutGroup: MiddleCenter, ForceExpand)<br>
+    │&nbsp;&nbsp;&nbsp;├── 📄 <strong>InvnetoryPanel (Prefab)</strong> [Anchor: Full-Stretch (0,0)~(1,1)] (InventoryView)<br>
+    │&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── 📄 <strong>SlotContainer</strong> (GridLayoutGroup: Cell(55,55), Spacing(5,5), Flexible)<br>
+    │&nbsp;&nbsp;&nbsp;├── 📄 <strong>HatcheryPanel (Prefab)</strong> [Anchor: Full-Stretch (0,0)~(1,1), PosY:-200, SizeY:-400] (HatcheryView)<br>
+    │&nbsp;&nbsp;&nbsp;├── 🔘 <strong>Btn_Shop</strong> [Anchor: Bottom-Left (0,0), Pos:(60, 10)] (Button, Image, TMP)<br>
+    │&nbsp;&nbsp;&nbsp;├── 🔘 <strong>Btn_Hat</strong> [Anchor: Bottom-Left (0,0), Pos:(20, 10)] (Button, Image, TMP)<br>
+    │&nbsp;&nbsp;&nbsp;├── 🔘 <strong>PhaseButton</strong> [Anchor: Bottom-Right (1,0), Pivot:(1,0)] (Button, Image, TMP)<br>
+    │&nbsp;&nbsp;&nbsp;├── 🏷️ <strong>Score</strong> [Anchor: Top-Left (0,1), Pos:(45.3, -15)] (TextMeshProUGUI Auto-Sizing)<br>
+    │&nbsp;&nbsp;&nbsp;├── 🏷️ <strong>Gold</strong> [Anchor: Top-Left (0,1), Pos:(15, -15)] (TextMeshProUGUI Auto-Sizing)<br>
+    │&nbsp;&nbsp;&nbsp;├── 🏷️ <strong>Life</strong> [Anchor: Top-Left (0,1), Pos:(77.4, -15)] (TextMeshProUGUI Auto-Sizing)<br>
+    │&nbsp;&nbsp;&nbsp;└── 🏷️ <strong>Phase</strong> [Anchor: Top-Left (0,1), Pos:(108.8, -15)] (TextMeshProUGUI Auto-Sizing)<br>
+    ├── ⚙️ <strong>ToggleManager</strong> (UIToggleManager) <em>*상점/부화소 상호 배타적 토글 제어*</em><br>
+    ├── 📁 <strong>PlacementControlPanel</strong> [Anchor: Full-Stretch (0,0)~(1,1)] (PlacementControlUI)<br>
+    └── 🔘 <strong>ToggleStorageButton</strong> [Anchor: Bottom-Left (0,0), Pos:(81.5, 0)] (Button, TMP)
+  </div>
+
+  <!-- Section 4 -->
+  <h2>4. 종합 평가 및 강점 / 취약점 분석 (SWOT)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:50%;">주요 강점 (Strengths)</th>
+        <th style="width:50%;">잠재적 취약점 및 개선 영역 (Vulnerabilities)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <strong>1. 빈틈없는 Safe Area 격리</strong><br>
+          모든 주요 인터랙션 UI가 <code>SafeArea</code>의 직계 자손으로 편성되어 있어 노치, 펀치홀, 다이내믹 아일랜드에 버튼이 가려질 위험 제로.
+        </td>
+        <td>
+          <strong>1. HUD 개별 요소의 절대 좌표 하드코딩</strong><br>
+          Gold, Score, Life, Phase가 <code>Top-Left</code> 기준 개별 PosX(15, 45.3, 77.4, 108.8)로 배치됨. 텍스트 길이가 늘어나면 옆 텍스트와 겹칠 위험 존재.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>2. 스케일 축소로 인한 잘림 원천 차단</strong><br>
+          CanvasScaler의 <code>Expand</code> 모드 채택으로 어떤 비율에서도 캔버스 크기가 540x960 미만으로 줄어들지 않아 외곽 잘림 방지.
+        </td>
+        <td>
+          <strong>2. 에디터 수동 조작 흔적 잔존</strong><br>
+          <code>ObjectStoragePanel</code>의 Pos(-3, 133), Size(447.33, 276.5) 등 에디터 씬 뷰에서 드래그하여 생긴 소수점 좌표 존재.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>3. 동적 컨텐츠의 유연한 자동 배열</strong><br>
+          슬롯 컨테이너마다 <code>HorizontalLayoutGroup</code>과 <code>GridLayoutGroup</code>을 적용해 가변 데이터 생성에도 레이아웃 안정성 유지.
+        </td>
+        <td>
+          <strong>3. 극단적 태블릿 화면비(4:3 등) 대응 제한</strong><br>
+          <code>ShopPanel</code>의 세로 높이(0.2 비율)가 가로로 매우 넓은 태블릿에서는 상대적으로 너무 높게 렌더링될 수 있음.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 5 -->
+  <h2>5. 실무 권장 개선안 (Recommendations)</h2>
+  <ol>
+    <li>
+      <strong>상단 HUD의 LayoutGroup 화(化)</strong>:<br>
+      현재 독립된 PosX를 사용하는 <code>Gold</code>, <code>Score</code>, <code>Life</code>, <code>Phase</code>를 하나의 빈 컨테이너(HUDContainer)로 묶고 <code>HorizontalLayoutGroup</code>(Spacing: 10, Child Force Expand Width: false)을 적용하면, 숫자가 99,999+ 등으로 늘어나도 텍스트가 겹치지 않고 자연스럽게 밀려납니다.
+    </li>
+    <li>
+      <strong>태블릿/폴더블용 AspectRatioFitter 도입</strong>:<br>
+      가로비가 넓은 기기(iPad, Z Fold 펼침)에서 슬롯 패널이 지나치게 커지는 것을 제어하기 위해 메인 패널에 <code>AspectRatioFitter</code> 또는 <code>LayoutElement</code>의 min/max width 제약을 추가하는 것을 권장합니다.
+    </li>
+    <li>
+      <strong>RectTransform 정수화(Pixel Snapping)</strong>:<br>
+      <code>ObjectStoragePanel</code> 등 소수점 단위 오프셋이 적용된 UI 요소를 정수 픽셀(예: -3 &rarr; 0, 447.33 &rarr; 450)로 스냅하여 미세한 서브픽셀 텍스처 번짐 현상을 방지합니다.
+    </li>
+  </ol>
+
+  <!-- Section 6 -->
+  <h2>6. 결론 (Conclusion)</h2>
+  <p>
+    <code>TestScene</code>의 UI 시스템은 <strong>전역 스케일러(CanvasScaler Expand)</strong> &rarr; <strong>하드웨어 컷아웃 보정(SafeArea.cs)</strong> &rarr; <strong>기능별 앵커/피벗 분할</strong> &rarr; <strong>자동 레이아웃(Layout Groups)</strong> &rarr; <strong>텍스트 오토사이징(TMP)</strong>의 5단계 방어 체계를 정석적으로 준수하여 구현되었습니다.
+  </p>
+  <p>
+    모바일 세로형 게임에서 발생할 수 있는 주요 시각적 파손(노치 가림, 슬롯 겹침, 해상도 클리핑, 텍스트 오버플로우)에 대해 높은 내성을 갖추고 있으며, 제안된 HUD LayoutGroup 통합 작업 등을 추가 적용할 경우 상용 배포 수준의 완벽한 멀티 디바이스 반응형 UI를 달성할 수 있습니다.
+  </p>
+
+</body>
+</html>

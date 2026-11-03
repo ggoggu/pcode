@@ -85,7 +85,7 @@ namespace PenguinPinball.Core.Editor
 
             EditorGUILayout.LabelField(
                 "Combo",
-                penguin.Combo.ToString()
+                $"{penguin.Combo} / {penguin.OverloadThreshold}"
             );
 
             EditorGUILayout.LabelField(

@@ -1,11 +1,15 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace PenguinPinball.Core
 {
-    public sealed class PaydayMark : MonoBehaviour
+    public sealed class PaydayMark : MonoBehaviour, ICombatMark
     {
         public PenguinController Source { get; private set; }
         public float AccumulatedDamage { get; private set; }
+        public bool IsMarked => Source != null;
+        public string MarkType => nameof(PaydayMark);
+
+        private bool isPopping = false;
 
         public void Initialize(PenguinController source)
         {
@@ -13,9 +17,10 @@ namespace PenguinPinball.Core
             AccumulatedDamage = 0f;
         }
 
-        public void AddDamage(float damage)
+        public void AddDamage(PenguinController damageSource, float damage)
         {
-            if (damage <= 0f) return;
+            if (isPopping || damage <= 0f || damageSource != Source) return;
+
             AccumulatedDamage += damage;
         }
 
@@ -27,13 +32,15 @@ namespace PenguinPinball.Core
                 return;
             }
 
+            isPopping = true;
+
             float finalDamage = AccumulatedDamage * multiplier;
 
             Destroy(this);
 
             if (finalDamage > 0f)
             {
-                CombatResolver.DealDamage(Source, enemy, finalDamage);
+                CombatResolver.DealDamage(Source, enemy, finalDamage, isCollision: false);
             }
         }
     }

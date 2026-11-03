@@ -39,6 +39,8 @@ namespace PenguinPinball.Core
                 return IsOverloaded ? baseMaxSpeed * definition.overloadMaxSpeedMultiplier : baseMaxSpeed;
             }
         }
+
+        public Vector3 PreStepVelocity { get; private set; }
         #endregion
 
         #region Private Variables
@@ -109,6 +111,7 @@ namespace PenguinPinball.Core
         {
             if (!IsInField) return;
 
+            PreStepVelocity = Body.linearVelocity;
             ClampSpeed();
         }
 
@@ -131,16 +134,28 @@ namespace PenguinPinball.Core
 
             gameObject.name = $"{definition.DisplayName}_Tier{tier}";
 
-            // 1. 외형 모델 생성
+            // 1. 컴포넌트 레퍼런스 확보 (EditMode 테스트 또는 동적 생성 시 Awake 미호출 대비)
+            if (Body == null) Body = GetComponent<Rigidbody>();
+            if (Collider == null) Collider = GetComponent<Collider>();
+
+            // 2. 외형 모델 생성
             SetupVisual();
 
-            // 2. 스탯 초기화
+            // 3. 스탯 초기화
             InitializeStats();
 
-            // 3. 장비 핸들러 세팅
+            // 4. 장비 핸들러 세팅
+            if (EquipmentHandler == null)
+            {
+                EquipmentHandler = GetComponent<PenguinEquipmentHandler>();
+                if (EquipmentHandler == null)
+                {
+                    EquipmentHandler = gameObject.AddComponent<PenguinEquipmentHandler>();
+                }
+            }
             EquipmentHandler.Initialize(this);
 
-            // 4. 능력(Ability) 생성 및 초기화
+            // 5. 능력(Ability) 생성 및 초기화
             ability?.Dispose();
             ability = definition.CreateAbility();
             ability.Initialize(this);
@@ -267,6 +282,24 @@ namespace PenguinPinball.Core
         #endregion
 
         #region Combo & Overload System
+        public int OverloadThreshold
+        {
+            get
+            {
+                if (definition == null) return 10;
+                float baseThreshold = definition.overloadThreshold;
+                if (StatModifierRegistry.Instance != null)
+                {
+                    baseThreshold = StatModifierRegistry.Instance.GetModifiedValue(global::StatType.OverloadThreshold, baseThreshold);
+                }
+                else if (Effect_SelectFew.ActiveThresholdReduction > 0)
+                {
+                    baseThreshold -= Effect_SelectFew.ActiveThresholdReduction;
+                }
+                return Mathf.Max(1, Mathf.RoundToInt(baseThreshold));
+            }
+        }
+
         public void AddCombo(int value = 1)
         {
             if (!IsInField || value <= 0) return;
@@ -275,7 +308,7 @@ namespace PenguinPinball.Core
             lastComboAt = Time.time;
             GameEvents.RaiseComboChanged(this, Combo);
 
-            if (!IsOverloaded && Combo >= definition.overloadThreshold)
+            if (!IsOverloaded && Combo >= OverloadThreshold)
             {
                 IsOverloaded = true;
                 Body.linearDamping = Stats[StatType.LinearDrag].Value * definition.overloadDragMultiplier; //과부화되었을 때 마찰력 조절
@@ -355,23 +388,31 @@ namespace PenguinPinball.Core
         {
             StopRespawnTimer();
 
-            if (!IsInField) return;
-
             gameObject.layer = originalLayer;
             isWaitingForLayerRestore = false;
             currentOverlappingEnemyColliders.Clear();
 
-            Body.linearVelocity = Vector3.zero;
-            Body.angularVelocity = Vector3.zero;
+            if (Body != null && !Body.isKinematic)
+            {
+                Body.linearVelocity = Vector3.zero;
+                Body.angularVelocity = Vector3.zero;
+            }
             ResetCombo();
 
             stuckCheckTimer = 0f;
             timeSinceLaunched = 0f;
 
+            bool wasInField = IsInField;
+            bool wasUnavailable = !IsAvailable;
+
             IsInField = false;
             IsAvailable = true;
             SetHeld(true);
-            GameEvents.RaisePenguinRespawned(this);
+
+            if (wasInField || wasUnavailable)
+            {
+                GameEvents.RaisePenguinRespawned(this);
+            }
         }
 
         void SetHeld(bool held)

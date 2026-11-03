@@ -3,11 +3,20 @@ using UnityEngine;
 using PenguinPinball.Core;
 
 [CreateAssetMenu(fileName = "New Bench Launch Stat Effect", menuName = "Charms/Effects/Bench Launch Stat Buff")]
-public class Effect_BenchLaunchStatBuff : EffectBase
+public class Effect_BenchLaunchStatBuff : EffectBase, IBenchSlotEffect
 {
     [Header("발동 조건 (대상 벤치 슬롯)")]
     [Tooltip("효과를 적용할 벤치 슬롯 번호 목록 (1번 벤치 = 1, 3번 벤치 = 3). 비어있으면 모든 벤치 슬롯에서 발동합니다.")]
     public List<int> targetBenchSlots = new List<int> { 1 };
+
+    /// <summary>
+    /// 대상 벤치 슬롯(0-based index)에 효과가 적용되는지 여부를 반환합니다.
+    /// </summary>
+    public bool AffectsBenchSlot(int benchSlotIndex)
+    {
+        int slotNumber = benchSlotIndex + 1; // 1-based (1번 벤치 = 1)
+        return targetBenchSlots == null || targetBenchSlots.Count == 0 || targetBenchSlots.Contains(slotNumber);
+    }
 
     [Header("스탯 변경 설정")]
     [Tooltip("부여할 스탯 종류 (예: Attack, MaxSpeed 등)")]
@@ -21,11 +30,9 @@ public class Effect_BenchLaunchStatBuff : EffectBase
 
     // 현재 필드에 나간 펭귄별 적용된 모디파이어 추적
     private readonly Dictionary<PenguinController, StatModifier> activeModifiers = new Dictionary<PenguinController, StatModifier>();
-    private bool isEffectRemoved = false;
 
     public override void ApplyEffect(GameObject origin = null)
     {
-        isEffectRemoved = false;
         GameEvents.OnPenguinLaunched += HandlePenguinLaunched;
         GameEvents.PenguinDrained += HandlePenguinDrained;
         GameEvents.PenguinRespawned += HandlePenguinRespawned;
@@ -34,23 +41,12 @@ public class Effect_BenchLaunchStatBuff : EffectBase
 
     public override void RemoveEffect(GameObject origin = null)
     {
-        isEffectRemoved = true;
-        // 추가 발사에 대한 버프 감지는 즉시 중단
         GameEvents.OnPenguinLaunched -= HandlePenguinLaunched;
-
-        // 아직 필드에서 활약 중인 펭귄의 버프가 남아있다면 즉시 제거하지 않고,
-        // 드레인/리스폰/웨이브 종료 시 안전하게 정리되도록 대기합니다.
-        if (activeModifiers.Count == 0)
-        {
-            UnsubscribeLifecycleEvents();
-        }
-    }
-
-    private void UnsubscribeLifecycleEvents()
-    {
         GameEvents.PenguinDrained -= HandlePenguinDrained;
         GameEvents.PenguinRespawned -= HandlePenguinRespawned;
         GameManager.OnStateChanged -= HandleStateChanged;
+
+        RemoveAllActiveModifiers();
     }
 
     private void HandlePenguinLaunched(PenguinController launchedPenguin)
@@ -120,11 +116,6 @@ public class Effect_BenchLaunchStatBuff : EffectBase
             activeModifiers.Remove(penguin);
             Debug.Log($"[Effect_BenchLaunchStatBuff] {penguin.name}의 필드 버프 해제 완료");
         }
-
-        if (isEffectRemoved && activeModifiers.Count == 0)
-        {
-            UnsubscribeLifecycleEvents();
-        }
     }
 
     private void RemoveAllActiveModifiers()
@@ -139,10 +130,5 @@ public class Effect_BenchLaunchStatBuff : EffectBase
             }
         }
         activeModifiers.Clear();
-
-        if (isEffectRemoved)
-        {
-            UnsubscribeLifecycleEvents();
-        }
     }
 }

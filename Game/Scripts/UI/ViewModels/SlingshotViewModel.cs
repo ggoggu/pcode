@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace PenguinPinball.Core
@@ -33,8 +33,10 @@ namespace PenguinPinball.Core
             Quaternion rot = dir != Vector3.zero ? Quaternion.LookRotation(dir) : Quaternion.identity;
 
             float dist = Vector3.Distance(leftPos, rightPos);
-            float rubberLength = Mathf.Max(0.1f, dist - bumperRadius * 2f);
-            Vector3 size = new Vector3(config.slingshotColliderThickness, config.slingshotColliderHeight, rubberLength);
+            float totalBarLength = (config != null && config.slingshotBarLength > 0.01f) ? config.slingshotBarLength : dist;
+            float thickness = config != null ? config.slingshotColliderThickness : 0.1f;
+            float height = config != null ? config.slingshotColliderHeight : 2.0f;
+            Vector3 size = new Vector3(thickness, height, totalBarLength);
 
             OnColliderUpdated?.Invoke(center, rot, size);
 
@@ -46,7 +48,9 @@ namespace PenguinPinball.Core
 
         public float CalculateSpeed(float penguinMaxSpeed)
         {
-            return Mathf.Clamp(config.slingshotLaunchForce, config.bounceMinimumSpeed, penguinMaxSpeed);
+            float launchForce = config != null ? config.slingshotLaunchForce : 25.0f;
+            float minSpeed = config != null ? config.bounceMinimumSpeed : 7.0f;
+            return Mathf.Clamp(launchForce, minSpeed, penguinMaxSpeed);
         }
 
         public void TriggerShake()
@@ -62,15 +66,18 @@ namespace PenguinPinball.Core
             shakeTime += deltaTime;
             Vector3 originalCenter = (leftPos + rightPos) * 0.5f;
 
-            if (shakeTime >= config.slingshotShakeDuration)
+            float duration = config != null ? config.slingshotShakeDuration : 0.25f;
+            float shakeDist = config != null ? config.slingshotShakeDistance : 0.6f;
+
+            if (shakeTime >= duration)
             {
                 isShaking = false;
                 OnLineUpdated?.Invoke(leftPos, originalCenter, rightPos);
                 return;
             }
 
-            float progress = shakeTime / config.slingshotShakeDuration;
-            Vector3 pulledCenter = originalCenter - (forwardDir * config.slingshotShakeDistance);
+            float progress = shakeTime / duration;
+            Vector3 pulledCenter = originalCenter - (forwardDir * shakeDist);
             float offsetCoeff = Mathf.Sin(progress * Mathf.PI * 4f) * (1f - progress);
             Vector3 currentCenter = Vector3.Lerp(originalCenter, pulledCenter, offsetCoeff);
 

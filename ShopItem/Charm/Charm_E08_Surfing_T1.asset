@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e3ed6096c4e6ca44b4347451db0b620, type: 3}
+  m_Name: Charm_E08_Surfing_T1
+  m_EditorClassIdentifier: 
+  ItemID: E-08
+  ItemName: "파도타기 T1"
+  Type: 0
+  Price: 10
+  Icon: {fileID: 0}
+  Description: "정비 시간에 무료 리롤을 5회 제공합니다. 5번의 웨이브 진행 이후 파괴됩니다. 판매해도 정산 없이 파괴됩니다."
+  IsConsumable: 1
+  MaxUses: 5
+  CurrentUses: 5
+  NoSellRefund: 1
+  CustomSellPrice: -1
+  Effects:
+  - {fileID: 11400000, guid: b78000028f2a4ca790a14b51dc000002, type: 2}

@@ -34,16 +34,20 @@ public class Effect_GoldOnEnemyKilled : EffectBase
             return;
         }
 
-        // 조건이 맞으면 CurrencyManager를 통해 골드를 지급합니다.
-        if (CurrencyManager.Instance != null)
+        // 조건이 맞으면 EconomyManager를 통해 골드를 지급합니다.
+        if (EconomyManager.Instance != null)
         {
-            // 필요하다면 StatModifierRegistry의 골드 배율을 여기서 한 번 더 곱해줄 수도 있습니다.
-            CurrencyManager.Instance.AddGold(bonusGoldAmount);
+            EconomyManager.Instance.AddGold(bonusGoldAmount);
             
             // 디버그용 (실제 빌드 시 주석 처리 권장)
             Debug.Log($"[Charm Effect] 적 처치 트리거 발동! 보너스 골드 {bonusGoldAmount} 지급");
 
             // 소모형 부적인 경우 횟수 차감 및 소진 시 자동 제거
+            TriggerUse();
+        }
+        else if (CurrencyManager.Instance != null)
+        {
+            CurrencyManager.Instance.AddGold(bonusGoldAmount);
             TriggerUse();
         }
     }

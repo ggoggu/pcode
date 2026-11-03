@@ -41,6 +41,15 @@ namespace Game.ObjectSystem
         // §3. 수량 누적이 아닌 개별 인스턴스 리스트로 관리 (Non-stackable)
         private readonly List<ObjectItem> _storedObjects = new List<ObjectItem>();
 
+        [Header("테스트 설정 (Test Setup)")]
+        [Tooltip("게임 시작 시 테스트용으로 종류별 오브젝트를 1개씩 보관소에 자동 등록합니다.")]
+        [SerializeField] private bool initializeTestObjects = true;
+        [SerializeField] private List<ObjectType> testObjectTypes = new List<ObjectType>
+        {
+            ObjectType.Bumper,
+            ObjectType.Slingshot
+        };
+
         // 이벤트: UI 갱신 및 타 시스템 연동용
         public event Action<ObjectItem> OnObjectAdded;
         public event Action<ObjectItem> OnObjectRemoved;
@@ -51,11 +60,24 @@ namespace Game.ObjectSystem
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
+                if (Application.isPlaying)
+                {
+                    if (transform.parent != null) transform.SetParent(null);
+                    DontDestroyOnLoad(gameObject);
+                }
             }
             else
             {
-                Destroy(gameObject);
+                if (Application.isPlaying) Destroy(gameObject);
+                else DestroyImmediate(gameObject);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
             }
         }
 
@@ -63,11 +85,34 @@ namespace Game.ObjectSystem
         {
             // 맵(씬)이 전환될 때 자동으로 감지하여 초기화 콜백 실행
             SceneManager.sceneLoaded += OnSceneLoaded;
+            if (MapManager.Instance != null)
+            {
+                MapManager.Instance.OnMapTransitionStarted -= ClearOnMapTransition;
+                MapManager.Instance.OnMapTransitionStarted += ClearOnMapTransition;
+            }
+        }
+
+        private void Start()
+        {
+            if (MapManager.Instance != null)
+            {
+                MapManager.Instance.OnMapTransitionStarted -= ClearOnMapTransition;
+                MapManager.Instance.OnMapTransitionStarted += ClearOnMapTransition;
+            }
+
+            if (initializeTestObjects && _storedObjects.Count == 0)
+            {
+                InitializeTestObjects();
+            }
         }
 
         private void OnDisable()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            if (MapManager.Instance != null)
+            {
+                MapManager.Instance.OnMapTransitionStarted -= ClearOnMapTransition;
+            }
         }
 
         /// <summary>
@@ -138,6 +183,19 @@ namespace Game.ObjectSystem
         public void ClearAllStorage()
         {
             ClearOnMapTransition();
+        }
+
+        /// <summary>
+        /// 테스트용: 종류별 오브젝트(기본: 범퍼, 슬링샷)를 1개씩 보관소에 등록합니다.
+        /// </summary>
+        public void InitializeTestObjects()
+        {
+            if (testObjectTypes == null) return;
+
+            for (int i = 0; i < testObjectTypes.Count; i++)
+            {
+                AddObject(new ObjectItem(testObjectTypes[i]));
+            }
         }
     }
 }

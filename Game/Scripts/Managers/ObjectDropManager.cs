@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Game.ObjectSystem;
 
@@ -5,11 +6,34 @@ public class ObjectDropManager : MonoBehaviour
 {
     public static ObjectDropManager Instance { get; private set; }
 
+    [System.Serializable]
+    public struct ObjectDropWeightEntry
+    {
+        public ObjectType type;
+        [Range(0, 100)] public int weight;
+        public bool isUnique; // 유니크 오브젝트 (예: CloneGate)
+
+        public ObjectDropWeightEntry(ObjectType type, int weight, bool isUnique = false)
+        {
+            this.type = type;
+            this.weight = weight;
+            this.isUnique = isUnique;
+        }
+    }
+
     [Header("현재 웨이브/맵 습득 목표 설정")]
     [SerializeField] private int totalEnemiesInWave = 20; // 해당 웨이브의 총 적 수
     [SerializeField] private int targetDropCount = 3;     // 해당 웨이브에서 얻어야 할 목표 아이템 수
 
-    [Header("드랍 가능 오브젝트 타입 비중")]
+    [Header("오브젝트 종류별 가중치 드랍 테이블 (기획 §2 & 워크북 04_오브젝트)")]
+    [SerializeField] private List<ObjectDropWeightEntry> dropWeights = new List<ObjectDropWeightEntry>()
+    {
+        new ObjectDropWeightEntry(ObjectType.Bumper, 60, false),
+        new ObjectDropWeightEntry(ObjectType.Slingshot, 40, false),
+        new ObjectDropWeightEntry(ObjectType.CloneGate, 5, true)
+    };
+
+    [Header("호환용 기본 타입 배열 (dropWeights가 비었을 때 Fallback)")]
     [SerializeField] private ObjectType[] availableTypes = new ObjectType[] 
     { 
         ObjectType.Bumper, 
@@ -20,6 +44,12 @@ public class ObjectDropManager : MonoBehaviour
     private int killedEnemyCount = 0;
     private int currentDroppedCount = 0;
 
+    public int TotalEnemiesInWave => totalEnemiesInWave;
+    public int TargetDropCount => targetDropCount;
+    public int CurrentDroppedCount => currentDroppedCount;
+    public int KilledEnemyCount => killedEnemyCount;
+    public float CurrentDropProbability => CalculateCurrentDropProbability();
+
     private void Awake()
     {
         if (Instance == null)
@@ -28,12 +58,21 @@ public class ObjectDropManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            if (Application.isPlaying) Destroy(gameObject);
+            else DestroyImmediate(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
         }
     }
 
     /// <summary>
-    /// 새로운 웨이브 시작 시 목표 및 상태 초기화
+    /// 새로운 웨이브 시작 시 목표 및 상태 초기화 (§2 웨이브·맵당 습득량)
     /// </summary>
     public void InitializeWaveGoals(int totalEnemies, int targetDrops)
     {
@@ -67,40 +106,37 @@ public class ObjectDropManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 적이 '베이스 도달' 또는 '자연 퇴장'하여 소멸했을 때 호출 (습득 판정 제외)
+    /// 적이 '베이스 도달' 또는 '자연 퇴장'하여 소멸했을 때 호출
+    /// 기획서 §2: "베이스 도달·퇴장으로 소멸한 개체의 몫은 다른 개체에 재배분하지 않으며,
+    /// 그만큼 실제 습득량은 미달로 끝난다."
     /// </summary>
     public void OnEnemyReachedBaseOrDespawned()
     {
-        // 처치된 적 수에는 포함하여 남은 적 대비 확률 계산이 틀어지지 않도록 함
+        // 소멸 개체의 카운트는 누적하되, 기회를 다른 적에 재배분하지 않음
         killedEnemyCount++;
-        // 드랍 시도는 하지 않고 무시
     }
 
     /// <summary>
-    /// 목표 습득량 기반 동적 드랍 확률 계산
+    /// 목표 습득량 기반 확률 산출식 (§2)
+    /// 총 적 수 대비 목표 습득량의 고유 기댓값 비율을 산출합니다.
+    /// 목표치를 모두 달성했거나 남은 목표가 없으면 0을 반환합니다.
     /// </summary>
     private float CalculateCurrentDropProbability()
     {
-        int remainingEnemies = totalEnemiesInWave - (killedEnemyCount - 1); // 현재 적 포함 남은 수
-        int remainingDrops = targetDropCount - currentDroppedCount;
+        if (currentDroppedCount >= targetDropCount) return 0f;
+        if (totalEnemiesInWave <= 0) return 0f;
 
-        if (remainingEnemies <= 0 || remainingDrops <= 0) return 0f;
-
-        // 남은 적 수보다 남은 목표 드랍 수가 많거나 같으면 100% 드랍
-        if (remainingEnemies <= remainingDrops) return 1f;
-
-        return (float)remainingDrops / remainingEnemies;
+        // 적 전량 처치 시 정확히 targetDropCount 기댓값이 되도록 기본 확률 유지
+        // 베이스 도달 개체의 몫을 남은 적에게 몰아주지 않음 (기획 §2 준수)
+        return Mathf.Clamp01((float)targetDropCount / totalEnemiesInWave);
     }
 
     /// <summary>
-    /// 필드 드랍(아이템 줍기)을 경유하지 않고 보관소로 즉시 진입 (§2, §3)
+    /// 필드 드랍(아이템 줍기)을 경유하지 않고 보관소로 즉시 진입 (§1, §2, §3)
     /// </summary>
     private void ExecuteDirectAcquisition()
     {
-        if (availableTypes == null || availableTypes.Length == 0) return;
-
-        // 드랍할 오브젝트 타입 무작위 선택 (필요 시 가중치 적용 가능)
-        ObjectType selectedType = availableTypes[Random.Range(0, availableTypes.Length)];
+        ObjectType selectedType = SelectObjectType();
 
         // 보관소 데이터 생성 및 즉시 진입 (1회당 정확히 1개)
         ObjectItem newItem = new ObjectItem(selectedType);
@@ -112,5 +148,42 @@ public class ObjectDropManager : MonoBehaviour
             
             Debug.Log($"[ObjectDropManager] 습득 성공! 타입: {selectedType} (현재 웨이브 습득량: {currentDroppedCount}/{targetDropCount})");
         }
+    }
+
+    /// <summary>
+    /// 가중치 테이블 또는 기본 타입 배열 기반 오브젝트 종류 추첨
+    /// </summary>
+    private ObjectType SelectObjectType()
+    {
+        if (dropWeights != null && dropWeights.Count > 0)
+        {
+            int totalWeight = 0;
+            foreach (var entry in dropWeights)
+            {
+                totalWeight += Mathf.Max(0, entry.weight);
+            }
+
+            if (totalWeight > 0)
+            {
+                int roll = Random.Range(0, totalWeight);
+                int cumulative = 0;
+                foreach (var entry in dropWeights)
+                {
+                    cumulative += Mathf.Max(0, entry.weight);
+                    if (roll < cumulative)
+                    {
+                        return entry.type;
+                    }
+                }
+            }
+        }
+
+        // Fallback: availableTypes 균등 추첨
+        if (availableTypes != null && availableTypes.Length > 0)
+        {
+            return availableTypes[Random.Range(0, availableTypes.Length)];
+        }
+
+        return ObjectType.Bumper;
     }
 }

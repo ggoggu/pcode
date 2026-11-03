@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -38,6 +38,7 @@ namespace PenguinPinball.Editor
             // 3. 기본 프로퍼티 그룹
             CreateHeader(root, "🐧 General & Visual");
             root.Add(CreatePropertyField("displayName", "몬스터/펭귄 이름"));
+            root.Add(CreatePropertyField("description", "설명 (Description)"));
             root.Add(CreatePropertyField("visualPrefab", "비주얼 프리팹"));
 
             CreateHeader(root, "⚙️ Physics Settings");

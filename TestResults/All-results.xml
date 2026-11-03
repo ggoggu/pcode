@@ -1,0 +1,1604 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="142" result="Failed(Child)" total="142" passed="124" failed="18" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:31Z" duration="0.4054936">
+  <test-suite type="TestSuite" id="1000" name="PenguinShot" fullname="PenguinShot" runstate="Runnable" testcasecount="142" result="Failed" site="Child" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:31Z" duration="0.405494" total="142" passed="124" failed="18" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1162" name="Tests.EditMode.dll" fullname="C:/Users/oogg/PenguinShot/Library/ScriptAssemblies/Tests.EditMode.dll" runstate="Runnable" testcasecount="142" result="Failed" site="Child" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:31Z" duration="0.401189" total="142" passed="124" failed="18" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="54276" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1163" name="PenguinShot" fullname="PenguinShot" runstate="Runnable" testcasecount="142" result="Failed" site="Child" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:31Z" duration="0.401025" total="142" passed="124" failed="18" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1164" name="Tests" fullname="PenguinShot.Tests" runstate="Runnable" testcasecount="142" result="Failed" site="Child" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:31Z" duration="0.400863" total="142" passed="124" failed="18" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="BenchSlotUITests" fullname="PenguinShot.Tests.BenchSlotUITests" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.122391" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1006" name="BenchSlotCharmUtility_DetectsCharmTargetingBenchSlot" fullname="PenguinShot.Tests.BenchSlotUITests.BenchSlotCharmUtility_DetectsCharmTargetingBenchSlot" methodname="BenchSlotCharmUtility_DetectsCharmTargetingBenchSlot" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="718683595" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.043344" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ItemInventoryManager] 새 부적(1st Bench Attack Buff) 추가 완료
+]]></output>
+            </test-case>
+            <test-case id="1005" name="BenchSlotUI_ActiveCharms_DisplaysUpTo6CirclesWithIcons" fullname="PenguinShot.Tests.BenchSlotUITests.BenchSlotUI_ActiveCharms_DisplaysUpTo6CirclesWithIcons" methodname="BenchSlotUI_ActiveCharms_DisplaysUpTo6CirclesWithIcons" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="651627197" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.004931" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1003" name="BenchSlotUI_BorderColor_ChangesAccordingToTier" fullname="PenguinShot.Tests.BenchSlotUITests.BenchSlotUI_BorderColor_ChangesAccordingToTier" methodname="BenchSlotUI_BorderColor_ChangesAccordingToTier" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="437166091" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.002734" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1002" name="BenchSlotUI_EnsureHierarchy_CreatesAllRequiredElements" fullname="PenguinShot.Tests.BenchSlotUITests.BenchSlotUI_EnsureHierarchy_CreatesAllRequiredElements" methodname="BenchSlotUI_EnsureHierarchy_CreatesAllRequiredElements" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="1477174264" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.004036" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1004" name="BenchSlotUI_Stars_MatchPenguinTier" fullname="PenguinShot.Tests.BenchSlotUITests.BenchSlotUI_Stars_MatchPenguinTier" methodname="BenchSlotUI_Stars_MatchPenguinTier" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="706593112" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.001679" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1009" name="BenchSlotUI_UpdateVisuals_Controls3DModelPreview" fullname="PenguinShot.Tests.BenchSlotUITests.BenchSlotUI_UpdateVisuals_Controls3DModelPreview" methodname="BenchSlotUI_UpdateVisuals_Controls3DModelPreview" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="265159924" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.007696" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1008" name="BenchView_InitializesSlotUIs_AndUpdatesVisuals" fullname="PenguinShot.Tests.BenchSlotUITests.BenchView_InitializesSlotUIs_AndUpdatesVisuals" methodname="BenchView_InitializesSlotUIs_AndUpdatesVisuals" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="1340275771" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.044202" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1007" name="BenchViewModel_PopulatesTierAndActiveCharms" fullname="PenguinShot.Tests.BenchSlotUITests.BenchViewModel_PopulatesTierAndActiveCharms" methodname="BenchViewModel_PopulatesTierAndActiveCharms" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="858907851" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.005003" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ItemInventoryManager] 새 부적() 추가 완료
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1010" name="CoinDropTests" fullname="PenguinShot.Tests.CoinDropTests" classname="PenguinShot.Tests.CoinDropTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.007509" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1013" name="Coin_PickupDelay_PreventsInstantCollection" fullname="PenguinShot.Tests.CoinDropTests.Coin_PickupDelay_PreventsInstantCollection" methodname="Coin_PickupDelay_PreventsInstantCollection" classname="PenguinShot.Tests.CoinDropTests" runstate="Runnable" seed="2023794263" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.001786" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1012" name="DropCoins_SpawnsThreeCoins_WithDividedGold" fullname="PenguinShot.Tests.CoinDropTests.DropCoins_SpawnsThreeCoins_WithDividedGold" methodname="DropCoins_SpawnsThreeCoins_WithDividedGold" classname="PenguinShot.Tests.CoinDropTests" runstate="Runnable" seed="1245395217" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.002176" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1011" name="EnemyDeath_DisablesColliderImmediately_AndSetsIsDead" fullname="PenguinShot.Tests.CoinDropTests.EnemyDeath_DisablesColliderImmediately_AndSetsIsDead" methodname="EnemyDeath_DisablesColliderImmediately_AndSetsIsDead" classname="PenguinShot.Tests.CoinDropTests" runstate="Runnable" seed="72661689" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.001397" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[HP Debug] TestEnemy 이(가) 10 피해를 입음! (남은 HP: 0 / 0)
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1014" name="CounterWaveCharmTests" fullname="PenguinShot.Tests.CounterWaveCharmTests" classname="PenguinShot.Tests.CounterWaveCharmTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:31Z" duration="0.023765" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1016" name="ApplyEffect_SubscribesToBaseAttacked_AndDamagesNearbyEnemy" fullname="PenguinShot.Tests.CounterWaveCharmTests.ApplyEffect_SubscribesToBaseAttacked_AndDamagesNearbyEnemy" methodname="ApplyEffect_SubscribesToBaseAttacked_AndDamagesNearbyEnemy" classname="PenguinShot.Tests.CounterWaveCharmTests" runstate="Runnable" seed="2147146216" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.005831" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_CounterWave] 반격 파동 효과 활성화 (피해량: 40, 반경: 6m, 쿨타임: 5초)
+[HP Debug] NearbyEnemy 이(가) 40 피해를 입음! (남은 HP: 60 / 100)
+[Effect_CounterWave] 반격 파동 발동 완료! 중심: (0.00, 0.00, 0.00), 적중: 1마리, 피해: 40
+[Effect_CounterWave] 반격 파동 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1023" name="BaseHealth_TakeDamage_TriggersCounterWaveAroundBase" fullname="PenguinShot.Tests.CounterWaveCharmTests.BaseHealth_TakeDamage_TriggersCounterWaveAroundBase" methodname="BaseHealth_TakeDamage_TriggersCounterWaveAroundBase" classname="PenguinShot.Tests.CounterWaveCharmTests" runstate="Runnable" seed="359882129" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.002213" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_CounterWave] 반격 파동 효과 활성화 (피해량: 40, 반경: 6m, 쿨타임: 5초)
+[HP Debug] NearBaseEnemy 이(가) 40 피해를 입음! (남은 HP: 60 / 100)
+[Effect_CounterWave] 반격 파동 발동 완료! 중심: (10.00, 0.00, 10.00), 적중: 1마리, 피해: 40
+[BaseHealth] 베이스가 파괴되었습니다. 게임 오버!
+[Effect_CounterWave] 반격 파동 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1020" name="Cooldown_AllowsTriggerAfterCooldownTimeElapsed" fullname="PenguinShot.Tests.CounterWaveCharmTests.Cooldown_AllowsTriggerAfterCooldownTimeElapsed" methodname="Cooldown_AllowsTriggerAfterCooldownTimeElapsed" classname="PenguinShot.Tests.CounterWaveCharmTests" runstate="Runnable" seed="347977337" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:30Z" duration="0.002119" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_CounterWave] 반격 파동 효과 활성화 (피해량: 40, 반경: 6m, 쿨타임: 5초)
+[HP Debug] TestEnemy 이(가) 40 피해를 입음! (남은 HP: 60 / 100)
+[Effect_CounterWave] 반격 파동 발동 완료! 중심: (0.00, 0.00, 0.00), 적중: 1마리, 피해: 40
+[HP Debug] TestEnemy 이(가) 40 피해를 입음! (남은 HP: 20 / 100)
+[Effect_CounterWave] 반격 파동 발동 완료! 중심: (0.00, 0.00, 0.00), 적중: 1마리, 피해: 40
+[Effect_CounterWave] 반격 파동 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1019" name="Cooldown_PreventsImmediateSubsequentTrigger" fullname="PenguinShot.Tests.CounterWaveCharmTests.Cooldown_PreventsImmediateSubsequentTrigger" methodname="Cooldown_PreventsImmediateSubsequentTrigger" classname="PenguinShot.Tests.CounterWaveCharmTests" runstate="Runnable" seed="1799716607" result="Passed" start-time="2026-10-10 22:42:30Z" end-time="2026-10-10 22:42:31Z" duration="0.001960" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_CounterWave] 반격 파동 효과 활성화 (피해량: 40, 반경: 6m, 쿨타임: 5초)
+[HP Debug] TestEnemy 이(가) 40 피해를 입음! (남은 HP: 60 / 100)
+[Effect_CounterWave] 반격 파동 발동 완료! 중심: (0.00, 0.00, 0.00), 적중: 1마리, 피해: 40
+[Effect_CounterWave] 반격 파동 쿨타임 중 (남은 시간: 5.00초)
+[Effect_CounterWave] 반격 파동 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1021" name="DeadEnemy_IsNotDamagedAgain" fullname="PenguinShot.Tests.CounterWaveCharmTests.DeadEnemy_IsNotDamagedAgain" methodname="DeadEnemy_IsNotDamagedAgain" classname="PenguinShot.Tests.CounterWaveCharmTests" runstate="Runnable" seed="15920111" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001930" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_CounterWave] 반격 파동 효과 활성화 (피해량: 40, 반경: 6m, 쿨타임: 5초)
+[HP Debug] WeakEnemy 이(가) 40 피해를 입음! (남은 HP: 0 / 30)
+[Effect_CounterWave] 반격 파동 발동 완료! 중심: (0.00, 0.00, 0.00), 적중: 1마리, 피해: 40
+[Effect_CounterWave] 반격 파동 발동 완료! 중심: (0.00, 0.00, 0.00), 적중: 0마리, 피해: 40
+[Effect_CounterWave] 반격 파동 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1015" name="DefaultValues_MatchT2Specification" fullname="PenguinShot.Tests.CounterWaveCharmTests.DefaultValues_MatchT2Specification" methodname="DefaultValues_MatchT2Specification" classname="PenguinShot.Tests.CounterWaveCharmTests" runstate="Runnable" seed="1768607302" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000533" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_CounterWave] 반격 파동 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1018" name="EnemiesOutsideRadius_TakeNoDamage" fullname="PenguinShot.Tests.CounterWaveCharmTests.EnemiesOutsideRadius_TakeNoDamage" methodname="EnemiesOutsideRadius_TakeNoDamage" classname="PenguinShot.Tests.CounterWaveCharmTests" runstate="Runnable" seed="408187257" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001683" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_CounterWave] 반격 파동 효과 활성화 (피해량: 40, 반경: 6m, 쿨타임: 5초)
+[HP Debug] InsideEnemy 이(가) 40 피해를 입음! (남은 HP: 60 / 100)
+[Effect_CounterWave] 반격 파동 발동 완료! 중심: (0.00, 0.00, 0.00), 적중: 1마리, 피해: 40
+[Effect_CounterWave] 반격 파동 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1024" name="ItemInventoryManager_EquipCharm_ActivatesCounterWave" fullname="PenguinShot.Tests.CounterWaveCharmTests.ItemInventoryManager_EquipCharm_ActivatesCounterWave" methodname="ItemInventoryManager_EquipCharm_ActivatesCounterWave" classname="PenguinShot.Tests.CounterWaveCharmTests" runstate="Runnable" seed="1051138522" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.003703" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_CounterWave] 반격 파동 효과 활성화 (피해량: 40, 반경: 6m, 쿨타임: 5초)
+[ItemInventoryManager] 새 부적(반격 파동 T2) 추가 완료
+[HP Debug] TestEnemy 이(가) 40 피해를 입음! (남은 HP: 60 / 100)
+[Effect_CounterWave] 반격 파동 발동 완료! 중심: (0.00, 0.00, 0.00), 적중: 1마리, 피해: 40
+[Effect_CounterWave] 반격 파동 효과 해제
+[ItemInventoryManager] 부적 제거: 반격 파동 T2
+[Effect_CounterWave] 반격 파동 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1022" name="MultiColliderEnemy_DamagedOnlyOncePerWave" fullname="PenguinShot.Tests.CounterWaveCharmTests.MultiColliderEnemy_DamagedOnlyOncePerWave" methodname="MultiColliderEnemy_DamagedOnlyOncePerWave" classname="PenguinShot.Tests.CounterWaveCharmTests" runstate="Runnable" seed="531913180" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001605" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_CounterWave] 반격 파동 효과 활성화 (피해량: 40, 반경: 6m, 쿨타임: 5초)
+[HP Debug] MultiColliderEnemy 이(가) 40 피해를 입음! (남은 HP: 60 / 100)
+[Effect_CounterWave] 반격 파동 발동 완료! 중심: (0.00, 0.00, 0.00), 적중: 1마리, 피해: 40
+[Effect_CounterWave] 반격 파동 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1017" name="RemoveEffect_UnsubscribesFromBaseAttacked" fullname="PenguinShot.Tests.CounterWaveCharmTests.RemoveEffect_UnsubscribesFromBaseAttacked" methodname="RemoveEffect_UnsubscribesFromBaseAttacked" classname="PenguinShot.Tests.CounterWaveCharmTests" runstate="Runnable" seed="634929431" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001134" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_CounterWave] 반격 파동 효과 활성화 (피해량: 40, 반경: 6m, 쿨타임: 5초)
+[Effect_CounterWave] 반격 파동 효과 해제
+[Effect_CounterWave] 반격 파동 효과 해제
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1025" name="ElitizationCharmTests" fullname="PenguinShot.Tests.ElitizationCharmTests" classname="PenguinShot.Tests.ElitizationCharmTests" runstate="Runnable" testcasecount="8" result="Failed" site="Child" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.018745" total="8" passed="7" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1027" name="ApplyEffect_LocksLastTwoBenchSlots" fullname="PenguinShot.Tests.ElitizationCharmTests.ApplyEffect_LocksLastTwoBenchSlots" methodname="ApplyEffect_LocksLastTwoBenchSlots" classname="PenguinShot.Tests.ElitizationCharmTests" runstate="Runnable" seed="2046808072" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002165" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_Elitization] 정예화 효과 활성화 (벤치 뒤 2칸 잠금, 적 처치 시 추가 코인 1개)
+[Effect_Elitization] 정예화 효과 해제 (벤치 잠금 해제)
+]]></output>
+            </test-case>
+            <test-case id="1026" name="DefaultValues_MatchT4Specification" fullname="PenguinShot.Tests.ElitizationCharmTests.DefaultValues_MatchT4Specification" methodname="DefaultValues_MatchT4Specification" classname="PenguinShot.Tests.ElitizationCharmTests" runstate="Runnable" seed="88776748" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000650" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_Elitization] 정예화 효과 해제 (벤치 잠금 해제)
+]]></output>
+            </test-case>
+            <test-case id="1032" name="EnemyKilled_TriggersExtraCoinDrop" fullname="PenguinShot.Tests.ElitizationCharmTests.EnemyKilled_TriggersExtraCoinDrop" methodname="EnemyKilled_TriggersExtraCoinDrop" classname="PenguinShot.Tests.ElitizationCharmTests" runstate="Runnable" seed="1157119159" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002383" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_Elitization] 정예화 효과 활성화 (벤치 뒤 2칸 잠금, 적 처치 시 추가 코인 1개)
+[Effect_Elitization] 코인 프리팹 없음 -> 골드 매니저에 +10G 지급 fallback
+[Effect_Elitization] 정예화 효과 해제 (벤치 잠금 해제)
+]]></output>
+            </test-case>
+            <test-case id="1033" name="ItemInventoryManager_EquipAndUnequip_TogglesBenchLock" fullname="PenguinShot.Tests.ElitizationCharmTests.ItemInventoryManager_EquipAndUnequip_TogglesBenchLock" methodname="ItemInventoryManager_EquipAndUnequip_TogglesBenchLock" classname="PenguinShot.Tests.ElitizationCharmTests" runstate="Runnable" seed="1414500273" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001854" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_Elitization] 정예화 효과 활성화 (벤치 뒤 2칸 잠금, 적 처치 시 추가 코인 1개)
+[ItemInventoryManager] 새 부적(정예화 T4) 추가 완료
+[Effect_Elitization] 정예화 효과 해제 (벤치 잠금 해제)
+[ItemInventoryManager] 부적 제거: 정예화 T4
+[Effect_Elitization] 정예화 효과 해제 (벤치 잠금 해제)
+]]></output>
+            </test-case>
+            <test-case id="1028" name="RemoveEffect_UnlocksBenchSlots" fullname="PenguinShot.Tests.ElitizationCharmTests.RemoveEffect_UnlocksBenchSlots" methodname="RemoveEffect_UnlocksBenchSlots" classname="PenguinShot.Tests.ElitizationCharmTests" runstate="Runnable" seed="89335764" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001122" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_Elitization] 정예화 효과 활성화 (벤치 뒤 2칸 잠금, 적 처치 시 추가 코인 1개)
+[Effect_Elitization] 정예화 효과 해제 (벤치 잠금 해제)
+[Effect_Elitization] 정예화 효과 해제 (벤치 잠금 해제)
+]]></output>
+            </test-case>
+            <test-case id="1031" name="WaveStart_LeavesPenguinsOnUnlockedSlotsUntouched" fullname="PenguinShot.Tests.ElitizationCharmTests.WaveStart_LeavesPenguinsOnUnlockedSlotsUntouched" methodname="WaveStart_LeavesPenguinsOnUnlockedSlotsUntouched" classname="PenguinShot.Tests.ElitizationCharmTests" runstate="Runnable" seed="1676248212" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001958" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_Elitization] 정예화 효과 활성화 (벤치 뒤 2칸 잠금, 적 처치 시 추가 코인 1개)
+[Effect_Elitization] 정예화 효과 해제 (벤치 잠금 해제)
+]]></output>
+            </test-case>
+            <test-case id="1029" name="WaveStart_MovesPenguinsOnLockedSlotsToInventory_WhenInventoryHasSpace" fullname="PenguinShot.Tests.ElitizationCharmTests.WaveStart_MovesPenguinsOnLockedSlotsToInventory_WhenInventoryHasSpace" methodname="WaveStart_MovesPenguinsOnLockedSlotsToInventory_WhenInventoryHasSpace" classname="PenguinShot.Tests.ElitizationCharmTests" runstate="Runnable" seed="1993990379" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002728" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_Elitization] 정예화 효과 활성화 (벤치 뒤 2칸 잠금, 적 처치 시 추가 코인 1개)
+[Effect_Elitization] 잠긴 칸 위의 펭귄(Penguin_5) 인벤토리로 자동 이동 완료
+[Effect_Elitization] 잠긴 칸 위의 펭귄(Penguin_4) 인벤토리로 자동 이동 완료
+[Effect_Elitization] 정예화 효과 해제 (벤치 잠금 해제)
+]]></output>
+            </test-case>
+            <test-case id="1030" name="WaveStart_SellsPenguinsOnLockedSlots_WhenInventoryIsFull" fullname="PenguinShot.Tests.ElitizationCharmTests.WaveStart_SellsPenguinsOnLockedSlots_WhenInventoryIsFull" methodname="WaveStart_SellsPenguinsOnLockedSlots_WhenInventoryIsFull" classname="PenguinShot.Tests.ElitizationCharmTests" runstate="Runnable" seed="2053671840" result="Failed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.004822" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Player should receive 10 gold for automatically sold penguin
+  Expected: 30
+  But was:  20
+]]></message>
+                <stack-trace><![CDATA[at PenguinShot.Tests.ElitizationCharmTests.WaveStart_SellsPenguinsOnLockedSlots_WhenInventoryIsFull () [0x000d4] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\ElitizationCharmTests.cs:214
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[[Effect_Elitization] 정예화 효과 활성화 (벤치 뒤 2칸 잠금, 적 처치 시 추가 코인 1개)
+[Effect_Elitization] 인벤토리 공간 부족 -> 잠긴 칸 위의 펭귄(BenchPenguin_4) 자동 판매 완료 (+10G)
+[Effect_Elitization] 정예화 효과 해제 (벤치 잠금 해제)
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1034" name="EnemyAITests" fullname="PenguinShot.Tests.EnemyAITests" classname="PenguinShot.Tests.EnemyAITests" runstate="Runnable" testcasecount="5" result="Failed" site="Child" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.006146" total="5" passed="2" failed="3" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1036" name="CatmullRomPath_ClosestPointAndProgress_FindsAccuratePoint" fullname="PenguinShot.Tests.EnemyAITests.CatmullRomPath_ClosestPointAndProgress_FindsAccuratePoint" methodname="CatmullRomPath_ClosestPointAndProgress_FindsAccuratePoint" classname="PenguinShot.Tests.EnemyAITests" runstate="Runnable" seed="1425235012" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002468" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1038" name="EnemyKnockbackState_FixedUpdate_TransitionsToStun_WhenStopped" fullname="PenguinShot.Tests.EnemyAITests.EnemyKnockbackState_FixedUpdate_TransitionsToStun_WhenStopped" methodname="EnemyKnockbackState_FixedUpdate_TransitionsToStun_WhenStopped" classname="PenguinShot.Tests.EnemyAITests" runstate="Runnable" seed="2009980275" result="Failed" label="Error" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001501" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object]]></message>
+                <stack-trace><![CDATA[  at PenguinShot.Tests.EnemyAITests.EnemyKnockbackState_FixedUpdate_TransitionsToStun_WhenStopped () [0x00030] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\EnemyAITests.cs:138 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+              </failure>
+            </test-case>
+            <test-case id="1039" name="EnemyReturnToSplineState_RejoinsClosestPathPoint_FromKnockedPosition_NotHitPosition" fullname="PenguinShot.Tests.EnemyAITests.EnemyReturnToSplineState_RejoinsClosestPathPoint_FromKnockedPosition_NotHitPosition" methodname="EnemyReturnToSplineState_RejoinsClosestPathPoint_FromKnockedPosition_NotHitPosition" classname="PenguinShot.Tests.EnemyAITests" runstate="Runnable" seed="1011810887" result="Failed" label="Error" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000767" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object]]></message>
+                <stack-trace><![CDATA[  at PenguinShot.Tests.EnemyAITests.EnemyReturnToSplineState_RejoinsClosestPathPoint_FromKnockedPosition_NotHitPosition () [0x00170] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\EnemyAITests.cs:187 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+              </failure>
+            </test-case>
+            <test-case id="1035" name="EnemyStateMachine_TransitionsState_Correctly" fullname="PenguinShot.Tests.EnemyAITests.EnemyStateMachine_TransitionsState_Correctly" methodname="EnemyStateMachine_TransitionsState_Correctly" classname="PenguinShot.Tests.EnemyAITests" runstate="Runnable" seed="85342122" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000406" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1037" name="NormalEnemyAI_TriggerKnockback_EntersKnockbackState_AndUnfreezesRigidbody" fullname="PenguinShot.Tests.EnemyAITests.NormalEnemyAI_TriggerKnockback_EntersKnockbackState_AndUnfreezesRigidbody" methodname="NormalEnemyAI_TriggerKnockback_EntersKnockbackState_AndUnfreezesRigidbody" classname="PenguinShot.Tests.EnemyAITests" runstate="Runnable" seed="275088263" result="Failed" label="Error" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000274" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object]]></message>
+                <stack-trace><![CDATA[  at PenguinShot.Tests.EnemyAITests.NormalEnemyAI_TriggerKnockback_EntersKnockbackState_AndUnfreezesRigidbody () [0x0002e] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\EnemyAITests.cs:122 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+              </failure>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1040" name="GradeTransplantInstantItemTests" fullname="PenguinShot.Tests.GradeTransplantInstantItemTests" classname="PenguinShot.Tests.GradeTransplantInstantItemTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.036213" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1047" name="CanUse_ReturnsFalse_WhenLessThanTwoPenguinsOwned" fullname="PenguinShot.Tests.GradeTransplantInstantItemTests.CanUse_ReturnsFalse_WhenLessThanTwoPenguinsOwned" methodname="CanUse_ReturnsFalse_WhenLessThanTwoPenguinsOwned" classname="PenguinShot.Tests.GradeTransplantInstantItemTests" runstate="Runnable" seed="91423570" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.004071" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1051" name="InstantItemSelectionController_SelectionFlow_WorksStepByStep" fullname="PenguinShot.Tests.GradeTransplantInstantItemTests.InstantItemSelectionController_SelectionFlow_WorksStepByStep" methodname="InstantItemSelectionController_SelectionFlow_WorksStepByStep" classname="PenguinShot.Tests.GradeTransplantInstantItemTests" runstate="Runnable" seed="1972363592" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.016907" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[InstantItemSelectionController] 대상 선택 모드 시작: 등급 이식 T3 (슬롯 0)
+[DeckManager] 등급 교환 완료: Adelie_Tier1(Tier 1->3), Emperor_Tier1(Tier 3->1)
+[DeckManager] 등급 교환 후 즉시 합성 가능한 조합은 없습니다.
+[InstantItemSelectionController] 등급 이식 T3 실행 완료!
+]]></output>
+            </test-case>
+            <test-case id="1041" name="ItemProperties_MatchT3Specification" fullname="PenguinShot.Tests.GradeTransplantInstantItemTests.ItemProperties_MatchT3Specification" methodname="ItemProperties_MatchT3Specification" classname="PenguinShot.Tests.GradeTransplantInstantItemTests" runstate="Runnable" seed="1266509355" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000354" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1045" name="PredictMergesAfterSwap_AccuratelyPredictsSynthesis" fullname="PenguinShot.Tests.GradeTransplantInstantItemTests.PredictMergesAfterSwap_AccuratelyPredictsSynthesis" methodname="PredictMergesAfterSwap_AccuratelyPredictsSynthesis" classname="PenguinShot.Tests.GradeTransplantInstantItemTests" runstate="Runnable" seed="3621968" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000945" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1049" name="ShopPurchaseFlow_Cancel_DoesNotDeductGoldOrClearSlot" fullname="PenguinShot.Tests.GradeTransplantInstantItemTests.ShopPurchaseFlow_Cancel_DoesNotDeductGoldOrClearSlot" methodname="ShopPurchaseFlow_Cancel_DoesNotDeductGoldOrClearSlot" classname="PenguinShot.Tests.GradeTransplantInstantItemTests" runstate="Runnable" seed="179169665" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001257" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 슬롯 0 즉시사용 아이템 대상 선택 취소됨 (골드 차감 없음)
+]]></output>
+            </test-case>
+            <test-case id="1050" name="ShopPurchaseFlow_CannotComplete_WhenCanUseFails" fullname="PenguinShot.Tests.GradeTransplantInstantItemTests.ShopPurchaseFlow_CannotComplete_WhenCanUseFails" methodname="ShopPurchaseFlow_CannotComplete_WhenCanUseFails" classname="PenguinShot.Tests.GradeTransplantInstantItemTests" runstate="Runnable" seed="1355833188" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000971" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 등급 이식 T3 구매 불가: 등급을 교환하려면 출격 중이 아닌 펭귄이 최소 2마리 이상 필요합니다.
+]]></output>
+            </test-case>
+            <test-case id="1048" name="ShopPurchaseFlow_RequiresTargetSelection_AndCompletesCorrectly" fullname="PenguinShot.Tests.GradeTransplantInstantItemTests.ShopPurchaseFlow_RequiresTargetSelection_AndCompletesCorrectly" methodname="ShopPurchaseFlow_RequiresTargetSelection_AndCompletesCorrectly" classname="PenguinShot.Tests.GradeTransplantInstantItemTests" runstate="Runnable" seed="193285499" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001359" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DeckManager] 등급 교환 완료: Adelie_Tier1(Tier 1->2), Emperor_Tier1(Tier 2->1)
+[DeckManager] 등급 교환 후 즉시 합성 가능한 조합은 없습니다.
+]]></output>
+            </test-case>
+            <test-case id="1043" name="SwapPenguinTiers_AutomaticallyMergesMatchingTiers" fullname="PenguinShot.Tests.GradeTransplantInstantItemTests.SwapPenguinTiers_AutomaticallyMergesMatchingTiers" methodname="SwapPenguinTiers_AutomaticallyMergesMatchingTiers" classname="PenguinShot.Tests.GradeTransplantInstantItemTests" runstate="Runnable" seed="1263672087" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.003139" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DeckManager] 등급 교환 완료: Adelie_Tier1(Tier 1->2), Emperor_Tier1(Tier 2->1)
+[DeckManager] Adelie (Tier 2 -> 3) 합성 완료!
+[DeckManager] ★ 등급 교환 후 1회의 합성이 자동으로 발생하여 완료되었습니다!
+[DeckManager]   • 합성 결과: Adelie_Tier1 (Tier 3)
+]]></output>
+            </test-case>
+            <test-case id="1044" name="SwapPenguinTiers_CascadesMultipleMerges" fullname="PenguinShot.Tests.GradeTransplantInstantItemTests.SwapPenguinTiers_CascadesMultipleMerges" methodname="SwapPenguinTiers_CascadesMultipleMerges" classname="PenguinShot.Tests.GradeTransplantInstantItemTests" runstate="Runnable" seed="1880168508" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002591" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DeckManager] 등급 교환 완료: Adelie_Tier1(Tier 1->2), Emperor_Tier1(Tier 2->1)
+[DeckManager] Adelie (Tier 2 -> 3) 합성 완료!
+[DeckManager] Adelie (Tier 3 -> 4) 합성 완료!
+[DeckManager] ★ 등급 교환 후 1회의 합성이 자동으로 발생하여 완료되었습니다!
+[DeckManager]   • 합성 결과: Adelie_Tier1 (Tier 4)
+]]></output>
+            </test-case>
+            <test-case id="1042" name="SwapPenguinTiers_CorrectlySwapsTiersAndRecalculatesStats" fullname="PenguinShot.Tests.GradeTransplantInstantItemTests.SwapPenguinTiers_CorrectlySwapsTiersAndRecalculatesStats" methodname="SwapPenguinTiers_CorrectlySwapsTiersAndRecalculatesStats" classname="PenguinShot.Tests.GradeTransplantInstantItemTests" runstate="Runnable" seed="1571375589" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001591" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DeckManager] 등급 교환 완료: Adelie_Tier1(Tier 1->3), Emperor_Tier1(Tier 3->1)
+[DeckManager] 등급 교환 후 즉시 합성 가능한 조합은 없습니다.
+]]></output>
+            </test-case>
+            <test-case id="1046" name="SwapPenguinTiers_OutputsSynthesizedPenguinsList" fullname="PenguinShot.Tests.GradeTransplantInstantItemTests.SwapPenguinTiers_OutputsSynthesizedPenguinsList" methodname="SwapPenguinTiers_OutputsSynthesizedPenguinsList" classname="PenguinShot.Tests.GradeTransplantInstantItemTests" runstate="Runnable" seed="948757840" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001944" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DeckManager] 등급 교환 완료: Adelie_Tier1(Tier 1->2), Emperor_Tier1(Tier 2->1)
+[DeckManager] Adelie (Tier 2 -> 3) 합성 완료!
+[DeckManager] ★ 등급 교환 후 1회의 합성이 자동으로 발생하여 완료되었습니다!
+[DeckManager]   • 합성 결과: Adelie_Tier1 (Tier 3)
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1052" name="HarnessSmokeTest" fullname="PenguinShot.Tests.HarnessSmokeTest" classname="PenguinShot.Tests.HarnessSmokeTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001010" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1053" name="AutonomousHarness_BasicMathAndExecution_Passes" fullname="PenguinShot.Tests.HarnessSmokeTest.AutonomousHarness_BasicMathAndExecution_Passes" methodname="AutonomousHarness_BasicMathAndExecution_Passes" classname="PenguinShot.Tests.HarnessSmokeTest" runstate="Runnable" seed="112598980" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000086" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1054" name="AutonomousHarness_DomainPOCOInstantiable_Passes" fullname="PenguinShot.Tests.HarnessSmokeTest.AutonomousHarness_DomainPOCOInstantiable_Passes" methodname="AutonomousHarness_DomainPOCOInstantiable_Passes" classname="PenguinShot.Tests.HarnessSmokeTest" runstate="Runnable" seed="1181557681" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000104" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1055" name="AutonomousHarness_StatModifierPipeline_CalculatesCorrectly" fullname="PenguinShot.Tests.HarnessSmokeTest.AutonomousHarness_StatModifierPipeline_CalculatesCorrectly" methodname="AutonomousHarness_StatModifierPipeline_CalculatesCorrectly" classname="PenguinShot.Tests.HarnessSmokeTest" runstate="Runnable" seed="1897669148" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000160" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1056" name="MarkAmplificationTests" fullname="PenguinShot.Tests.MarkAmplificationTests" classname="PenguinShot.Tests.MarkAmplificationTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.012920" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1060" name="DistinctMarkCount_WhenDifferentMarks_ReturnsCountOfDistinctTypes" fullname="PenguinShot.Tests.MarkAmplificationTests.DistinctMarkCount_WhenDifferentMarks_ReturnsCountOfDistinctTypes" methodname="DistinctMarkCount_WhenDifferentMarks_ReturnsCountOfDistinctTypes" classname="PenguinShot.Tests.MarkAmplificationTests" runstate="Runnable" seed="252170902" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001820" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1061" name="DistinctMarkCount_WhenMarkInactive_ReturnsZero" fullname="PenguinShot.Tests.MarkAmplificationTests.DistinctMarkCount_WhenMarkInactive_ReturnsZero" methodname="DistinctMarkCount_WhenMarkInactive_ReturnsZero" classname="PenguinShot.Tests.MarkAmplificationTests" runstate="Runnable" seed="1477525727" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000290" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1059" name="DistinctMarkCount_WhenMultipleMarksOfSameType_ReturnsOne" fullname="PenguinShot.Tests.MarkAmplificationTests.DistinctMarkCount_WhenMultipleMarksOfSameType_ReturnsOne" methodname="DistinctMarkCount_WhenMultipleMarksOfSameType_ReturnsOne" classname="PenguinShot.Tests.MarkAmplificationTests" runstate="Runnable" seed="1566344252" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000291" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1057" name="DistinctMarkCount_WhenNoMarks_ReturnsZero" fullname="PenguinShot.Tests.MarkAmplificationTests.DistinctMarkCount_WhenNoMarks_ReturnsZero" methodname="DistinctMarkCount_WhenNoMarks_ReturnsZero" classname="PenguinShot.Tests.MarkAmplificationTests" runstate="Runnable" seed="1414869212" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000220" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1058" name="DistinctMarkCount_WhenSingleMark_ReturnsOne" fullname="PenguinShot.Tests.MarkAmplificationTests.DistinctMarkCount_WhenSingleMark_ReturnsOne" methodname="DistinctMarkCount_WhenSingleMark_ReturnsOne" classname="PenguinShot.Tests.MarkAmplificationTests" runstate="Runnable" seed="567873600" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000259" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1062" name="DistinctMarkCount_WithCustomICombatMark_CountsCorrectly" fullname="PenguinShot.Tests.MarkAmplificationTests.DistinctMarkCount_WithCustomICombatMark_CountsCorrectly" methodname="DistinctMarkCount_WithCustomICombatMark_CountsCorrectly" classname="PenguinShot.Tests.MarkAmplificationTests" runstate="Runnable" seed="1339521365" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000801" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1065" name="Effect_MarkAmplification_DuplicateMarksOfSameType_OnlyCountAsOne" fullname="PenguinShot.Tests.MarkAmplificationTests.Effect_MarkAmplification_DuplicateMarksOfSameType_OnlyCountAsOne" methodname="Effect_MarkAmplification_DuplicateMarksOfSameType_OnlyCountAsOne" classname="PenguinShot.Tests.MarkAmplificationTests" runstate="Runnable" seed="1658824458" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002103" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_MarkAmplification] 표식 증폭 효과 활성화 (표식 종류당 +25%)
+[Effect_MarkAmplification] 표식이 붙은 적(TestEnemy) 타격! 표식 1종류 감지 -> 충돌 데미지 100.0 -> 125.0 (x1.25)
+[HP Debug] TestEnemy 이(가) 125 피해를 입음! (남은 HP: 875 / 1000)
+[Effect_MarkAmplification] 표식 증폭 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1063" name="Effect_MarkAmplification_IncreasesCollisionDamageProportionalToMarks" fullname="PenguinShot.Tests.MarkAmplificationTests.Effect_MarkAmplification_IncreasesCollisionDamageProportionalToMarks" methodname="Effect_MarkAmplification_IncreasesCollisionDamageProportionalToMarks" classname="PenguinShot.Tests.MarkAmplificationTests" runstate="Runnable" seed="2095385115" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002086" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_MarkAmplification] 표식 증폭 효과 활성화 (표식 종류당 +25%)
+[HP Debug] TestEnemy 이(가) 100 피해를 입음! (남은 HP: 900 / 1000)
+[Effect_MarkAmplification] 표식이 붙은 적(TestEnemy) 타격! 표식 1종류 감지 -> 충돌 데미지 100.0 -> 125.0 (x1.25)
+[HP Debug] TestEnemy 이(가) 125 피해를 입음! (남은 HP: 875 / 1000)
+[Effect_MarkAmplification] 표식 증폭 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1064" name="Effect_MarkAmplification_MultipleDistinctMarks_StacksProportionally" fullname="PenguinShot.Tests.MarkAmplificationTests.Effect_MarkAmplification_MultipleDistinctMarks_StacksProportionally" methodname="Effect_MarkAmplification_MultipleDistinctMarks_StacksProportionally" classname="PenguinShot.Tests.MarkAmplificationTests" runstate="Runnable" seed="289079144" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001626" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_MarkAmplification] 표식 증폭 효과 활성화 (표식 종류당 +25%)
+[Effect_MarkAmplification] 표식이 붙은 적(TestEnemy) 타격! 표식 2종류 감지 -> 충돌 데미지 100.0 -> 150.0 (x1.50)
+[HP Debug] TestEnemy 이(가) 150 피해를 입음! (남은 HP: 850 / 1000)
+[Effect_MarkAmplification] 표식 증폭 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1066" name="Effect_MarkAmplification_NonCollision_NotAmplifiedWhenCollisionOnly" fullname="PenguinShot.Tests.MarkAmplificationTests.Effect_MarkAmplification_NonCollision_NotAmplifiedWhenCollisionOnly" methodname="Effect_MarkAmplification_NonCollision_NotAmplifiedWhenCollisionOnly" classname="PenguinShot.Tests.MarkAmplificationTests" runstate="Runnable" seed="533090224" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001262" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_MarkAmplification] 표식 증폭 효과 활성화 (표식 종류당 +25%)
+[HP Debug] TestEnemy 이(가) 100 피해를 입음! (남은 HP: 900 / 1000)
+[Effect_MarkAmplification] 표식 증폭 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1067" name="Effect_MarkAmplification_WhenRemoved_RestoresOriginalDamage" fullname="PenguinShot.Tests.MarkAmplificationTests.Effect_MarkAmplification_WhenRemoved_RestoresOriginalDamage" methodname="Effect_MarkAmplification_WhenRemoved_RestoresOriginalDamage" classname="PenguinShot.Tests.MarkAmplificationTests" runstate="Runnable" seed="1364246001" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001252" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_MarkAmplification] 표식 증폭 효과 활성화 (표식 종류당 +25%)
+[Effect_MarkAmplification] 표식 증폭 효과 해제
+[HP Debug] TestEnemy 이(가) 100 피해를 입음! (남은 HP: 900 / 1000)
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1068" name="ObjectSystemTests" fullname="PenguinShot.Tests.ObjectSystemTests" classname="PenguinShot.Tests.ObjectSystemTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.006727" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1070" name="DropManager_DespawnedEnemies_DoNotIncreaseDropProbability_MaintainsDeficit" fullname="PenguinShot.Tests.ObjectSystemTests.DropManager_DespawnedEnemies_DoNotIncreaseDropProbability_MaintainsDeficit" methodname="DropManager_DespawnedEnemies_DoNotIncreaseDropProbability_MaintainsDeficit" classname="PenguinShot.Tests.ObjectSystemTests" runstate="Runnable" seed="1501363381" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002151" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ObjectDropManager] 새 웨이브 시작 - 총 적: 10명 / 목표 드랍: 3개
+]]></output>
+            </test-case>
+            <test-case id="1069" name="DropManager_InitializeWaveGoals_SetsCorrectGoalsAndProbability" fullname="PenguinShot.Tests.ObjectSystemTests.DropManager_InitializeWaveGoals_SetsCorrectGoalsAndProbability" methodname="DropManager_InitializeWaveGoals_SetsCorrectGoalsAndProbability" classname="PenguinShot.Tests.ObjectSystemTests" runstate="Runnable" seed="631774760" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000606" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ObjectDropManager] 새 웨이브 시작 - 총 적: 20명 / 목표 드랍: 4개
+]]></output>
+            </test-case>
+            <test-case id="1073" name="PlacementManager_BufferSettings_MaintainsTargetSpecificValues" fullname="PenguinShot.Tests.ObjectSystemTests.PlacementManager_BufferSettings_MaintainsTargetSpecificValues" methodname="PlacementManager_BufferSettings_MaintainsTargetSpecificValues" classname="PenguinShot.Tests.ObjectSystemTests" runstate="Runnable" seed="1034278825" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000359" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1072" name="StorageManager_ClearOnMapTransition_PurgesStorageAndField" fullname="PenguinShot.Tests.ObjectSystemTests.StorageManager_ClearOnMapTransition_PurgesStorageAndField" methodname="StorageManager_ClearOnMapTransition_PurgesStorageAndField" classname="PenguinShot.Tests.ObjectSystemTests" runstate="Runnable" seed="1333586565" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001804" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[PlacementManager] 필드의 모든 설치물이 제거되었습니다.
+[ObjectStorageManager] 맵 전환 완료: 보관소 잔여분 및 필드 설치분이 예외 없이 전량 삭제되었습니다.
+]]></output>
+            </test-case>
+            <test-case id="1071" name="StorageManager_NonStackable_UniqueGuidInstances" fullname="PenguinShot.Tests.ObjectSystemTests.StorageManager_NonStackable_UniqueGuidInstances" methodname="StorageManager_NonStackable_UniqueGuidInstances" classname="PenguinShot.Tests.ObjectSystemTests" runstate="Runnable" seed="1871323707" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001131" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[PlacementManager] 필드의 모든 설치물이 제거되었습니다.
+[ObjectStorageManager] 맵 전환 완료: 보관소 잔여분 및 필드 설치분이 예외 없이 전량 삭제되었습니다.
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1074" name="OverloadSettlementCharmTests" fullname="PenguinShot.Tests.OverloadSettlementCharmTests" classname="PenguinShot.Tests.OverloadSettlementCharmTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.017059" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1076" name="ApplyAndRemoveEffect_SubscribesAndUnsubscribesProperly" fullname="PenguinShot.Tests.OverloadSettlementCharmTests.ApplyAndRemoveEffect_SubscribesAndUnsubscribesProperly" methodname="ApplyAndRemoveEffect_SubscribesAndUnsubscribesProperly" classname="PenguinShot.Tests.OverloadSettlementCharmTests" runstate="Runnable" seed="1185846054" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.003985" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_OverloadSettlement] 과부하 정산 효과 활성화 (과부하 상태 처치 시 코인 1개 추가 드랍)
+[Effect_OverloadSettlement] 코인 프리팹 없음 -> 골드 매니저에 +10G 지급 fallback
+[Effect_OverloadSettlement] 과부하 정산 효과 해제
+[Effect_OverloadSettlement] 과부하 정산 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1075" name="DefaultValues_MatchT2Specification" fullname="PenguinShot.Tests.OverloadSettlementCharmTests.DefaultValues_MatchT2Specification" methodname="DefaultValues_MatchT2Specification" classname="PenguinShot.Tests.OverloadSettlementCharmTests" runstate="Runnable" seed="104297745" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000617" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_OverloadSettlement] 과부하 정산 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1079" name="EnemyKilled_NullSource_DoesNotTriggerCoinDrop" fullname="PenguinShot.Tests.OverloadSettlementCharmTests.EnemyKilled_NullSource_DoesNotTriggerCoinDrop" methodname="EnemyKilled_NullSource_DoesNotTriggerCoinDrop" classname="PenguinShot.Tests.OverloadSettlementCharmTests" runstate="Runnable" seed="776685986" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000918" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_OverloadSettlement] 과부하 정산 효과 활성화 (과부하 상태 처치 시 코인 1개 추가 드랍)
+[Effect_OverloadSettlement] 과부하 정산 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1080" name="EnemyKilled_SpawnsCoinPrefab_WhenPrefabAssigned" fullname="PenguinShot.Tests.OverloadSettlementCharmTests.EnemyKilled_SpawnsCoinPrefab_WhenPrefabAssigned" methodname="EnemyKilled_SpawnsCoinPrefab_WhenPrefabAssigned" classname="PenguinShot.Tests.OverloadSettlementCharmTests" runstate="Runnable" seed="1861697072" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001542" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_OverloadSettlement] 과부하 정산 효과 활성화 (과부하 상태 처치 시 코인 1개 추가 드랍)
+[Effect_OverloadSettlement] 추가 코인 드랍 완료 at (2.74, 0.20, 5.30)
+[Effect_OverloadSettlement] 과부하 정산 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1078" name="EnemyKilled_WhenNotOverloaded_DoesNotTriggerCoinDrop" fullname="PenguinShot.Tests.OverloadSettlementCharmTests.EnemyKilled_WhenNotOverloaded_DoesNotTriggerCoinDrop" methodname="EnemyKilled_WhenNotOverloaded_DoesNotTriggerCoinDrop" classname="PenguinShot.Tests.OverloadSettlementCharmTests" runstate="Runnable" seed="1314858114" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001073" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_OverloadSettlement] 과부하 정산 효과 활성화 (과부하 상태 처치 시 코인 1개 추가 드랍)
+[Effect_OverloadSettlement] 과부하 정산 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1077" name="EnemyKilled_WhenOverloaded_TriggersCoinDrop" fullname="PenguinShot.Tests.OverloadSettlementCharmTests.EnemyKilled_WhenOverloaded_TriggersCoinDrop" methodname="EnemyKilled_WhenOverloaded_TriggersCoinDrop" classname="PenguinShot.Tests.OverloadSettlementCharmTests" runstate="Runnable" seed="756007688" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001323" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_OverloadSettlement] 과부하 정산 효과 활성화 (과부하 상태 처치 시 코인 1개 추가 드랍)
+[Effect_OverloadSettlement] 코인 프리팹 없음 -> 골드 매니저에 +10G 지급 fallback
+[Effect_OverloadSettlement] 과부하 정산 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1081" name="InventoryManager_EquipAndUnequip_ControlsEffectLifecycle" fullname="PenguinShot.Tests.OverloadSettlementCharmTests.InventoryManager_EquipAndUnequip_ControlsEffectLifecycle" methodname="InventoryManager_EquipAndUnequip_ControlsEffectLifecycle" classname="PenguinShot.Tests.OverloadSettlementCharmTests" runstate="Runnable" seed="848983415" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002295" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_OverloadSettlement] 과부하 정산 효과 활성화 (과부하 상태 처치 시 코인 1개 추가 드랍)
+[ItemInventoryManager] 새 부적(과부하 정산 T2) 추가 완료
+[Effect_OverloadSettlement] 코인 프리팹 없음 -> 골드 매니저에 +10G 지급 fallback
+[Effect_OverloadSettlement] 과부하 정산 효과 해제
+[ItemInventoryManager] 부적 제거: 과부하 정산 T2
+[Effect_OverloadSettlement] 과부하 정산 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1082" name="PermanentCharm_DoesNotConsumeUsesOnTrigger" fullname="PenguinShot.Tests.OverloadSettlementCharmTests.PermanentCharm_DoesNotConsumeUsesOnTrigger" methodname="PermanentCharm_DoesNotConsumeUsesOnTrigger" classname="PenguinShot.Tests.OverloadSettlementCharmTests" runstate="Runnable" seed="1362737879" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.004480" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_OverloadSettlement] 과부하 정산 효과 활성화 (과부하 상태 처치 시 코인 1개 추가 드랍)
+[ItemInventoryManager] 새 부적(과부하 정산 T2) 추가 완료
+[Effect_OverloadSettlement] 코인 프리팹 없음 -> 골드 매니저에 +10G 지급 fallback
+[Effect_OverloadSettlement] 코인 프리팹 없음 -> 골드 매니저에 +10G 지급 fallback
+[Effect_OverloadSettlement] 코인 프리팹 없음 -> 골드 매니저에 +10G 지급 fallback
+[Effect_OverloadSettlement] 코인 프리팹 없음 -> 골드 매니저에 +10G 지급 fallback
+[Effect_OverloadSettlement] 코인 프리팹 없음 -> 골드 매니저에 +10G 지급 fallback
+[Effect_OverloadSettlement] 코인 프리팹 없음 -> 골드 매니저에 +10G 지급 fallback
+[Effect_OverloadSettlement] 코인 프리팹 없음 -> 골드 매니저에 +10G 지급 fallback
+[Effect_OverloadSettlement] 코인 프리팹 없음 -> 골드 매니저에 +10G 지급 fallback
+[Effect_OverloadSettlement] 코인 프리팹 없음 -> 골드 매니저에 +10G 지급 fallback
+[Effect_OverloadSettlement] 코인 프리팹 없음 -> 골드 매니저에 +10G 지급 fallback
+[Effect_OverloadSettlement] 과부하 정산 효과 해제
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1083" name="PromotionCertificateInstantItemTests" fullname="PenguinShot.Tests.PromotionCertificateInstantItemTests" classname="PenguinShot.Tests.PromotionCertificateInstantItemTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.011223" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1086" name="CanUse_ReturnsFalse_WhenAllPenguinsAreTier5" fullname="PenguinShot.Tests.PromotionCertificateInstantItemTests.CanUse_ReturnsFalse_WhenAllPenguinsAreTier5" methodname="CanUse_ReturnsFalse_WhenAllPenguinsAreTier5" classname="PenguinShot.Tests.PromotionCertificateInstantItemTests" runstate="Runnable" seed="1238341822" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001591" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1085" name="CanUse_ReturnsFalse_WhenNoAvailablePenguins" fullname="PenguinShot.Tests.PromotionCertificateInstantItemTests.CanUse_ReturnsFalse_WhenNoAvailablePenguins" methodname="CanUse_ReturnsFalse_WhenNoAvailablePenguins" classname="PenguinShot.Tests.PromotionCertificateInstantItemTests" runstate="Runnable" seed="1663656148" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000259" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1087" name="CanUse_ReturnsTrue_WhenPenguinUnderTier5Exists" fullname="PenguinShot.Tests.PromotionCertificateInstantItemTests.CanUse_ReturnsTrue_WhenPenguinUnderTier5Exists" methodname="CanUse_ReturnsTrue_WhenPenguinUnderTier5Exists" classname="PenguinShot.Tests.PromotionCertificateInstantItemTests" runstate="Runnable" seed="86362791" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000415" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1090" name="ExecuteTargetedEffect_Fails_WhenTargetIsInField" fullname="PenguinShot.Tests.PromotionCertificateInstantItemTests.ExecuteTargetedEffect_Fails_WhenTargetIsInField" methodname="ExecuteTargetedEffect_Fails_WhenTargetIsInField" classname="PenguinShot.Tests.PromotionCertificateInstantItemTests" runstate="Runnable" seed="2021976691" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000952" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[InstantItem_PromotionCertificate] 출격 중인 펭귄은 승급할 수 없습니다.
+]]></output>
+            </test-case>
+            <test-case id="1089" name="ExecuteTargetedEffect_Fails_WhenTargetIsTier5" fullname="PenguinShot.Tests.PromotionCertificateInstantItemTests.ExecuteTargetedEffect_Fails_WhenTargetIsTier5" methodname="ExecuteTargetedEffect_Fails_WhenTargetIsTier5" classname="PenguinShot.Tests.PromotionCertificateInstantItemTests" runstate="Runnable" seed="1010158637" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000742" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[InstantItem_PromotionCertificate] 5성 초과는 불가합니다. (현재 Tier: 5)
+]]></output>
+            </test-case>
+            <test-case id="1091" name="ExecuteTargetedEffect_TriggersSynthesis_WhenMatchingTierExists" fullname="PenguinShot.Tests.PromotionCertificateInstantItemTests.ExecuteTargetedEffect_TriggersSynthesis_WhenMatchingTierExists" methodname="ExecuteTargetedEffect_TriggersSynthesis_WhenMatchingTierExists" classname="PenguinShot.Tests.PromotionCertificateInstantItemTests" runstate="Runnable" seed="1781702426" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002212" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DeckManager] 펭귄 승급 완료: Adelie_Tier2 (Tier 1 ➔ 2)
+[DeckManager] Adelie (Tier 2 -> 3) 합성 완료!
+[DeckManager] ★ 승급 후 1회의 합성이 자동으로 발생하여 완료되었습니다!
+[DeckManager]   • 합성 결과: Adelie_Tier1 (Tier 3)
+]]></output>
+            </test-case>
+            <test-case id="1088" name="ExecuteTargetedEffect_UpgradesPenguinTierBy1" fullname="PenguinShot.Tests.PromotionCertificateInstantItemTests.ExecuteTargetedEffect_UpgradesPenguinTierBy1" methodname="ExecuteTargetedEffect_UpgradesPenguinTierBy1" classname="PenguinShot.Tests.PromotionCertificateInstantItemTests" runstate="Runnable" seed="962379963" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000820" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DeckManager] 펭귄 승급 완료: Adelie_Tier2 (Tier 1 ➔ 2)
+]]></output>
+            </test-case>
+            <test-case id="1092" name="PredictMergesAfterPromotion_AccuratelyPredictsSynthesis" fullname="PenguinShot.Tests.PromotionCertificateInstantItemTests.PredictMergesAfterPromotion_AccuratelyPredictsSynthesis" methodname="PredictMergesAfterPromotion_AccuratelyPredictsSynthesis" classname="PenguinShot.Tests.PromotionCertificateInstantItemTests" runstate="Runnable" seed="1876191575" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000748" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1093" name="PredictMergesAfterPromotion_ReturnsFalse_WhenTier5" fullname="PenguinShot.Tests.PromotionCertificateInstantItemTests.PredictMergesAfterPromotion_ReturnsFalse_WhenTier5" methodname="PredictMergesAfterPromotion_ReturnsFalse_WhenTier5" classname="PenguinShot.Tests.PromotionCertificateInstantItemTests" runstate="Runnable" seed="1619666057" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000376" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1084" name="PromotionCertificate_HasCorrectInitialValues" fullname="PenguinShot.Tests.PromotionCertificateInstantItemTests.PromotionCertificate_HasCorrectInitialValues" methodname="PromotionCertificate_HasCorrectInitialValues" classname="PenguinShot.Tests.PromotionCertificateInstantItemTests" runstate="Runnable" seed="940221554" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000296" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1094" name="ShopManager_CompleteTargetedInstantPurchase_DeductsGoldAndConsumesSlot" fullname="PenguinShot.Tests.PromotionCertificateInstantItemTests.ShopManager_CompleteTargetedInstantPurchase_DeductsGoldAndConsumesSlot" methodname="ShopManager_CompleteTargetedInstantPurchase_DeductsGoldAndConsumesSlot" classname="PenguinShot.Tests.PromotionCertificateInstantItemTests" runstate="Runnable" seed="624867481" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000816" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DeckManager] 펭귄 승급 완료: Adelie_Tier2 (Tier 1 ➔ 2)
+]]></output>
+            </test-case>
+            <test-case id="1095" name="ShopManager_CompleteTargetedInstantPurchase_FailsAndRefunds_WhenUpgradeFails" fullname="PenguinShot.Tests.PromotionCertificateInstantItemTests.ShopManager_CompleteTargetedInstantPurchase_FailsAndRefunds_WhenUpgradeFails" methodname="ShopManager_CompleteTargetedInstantPurchase_FailsAndRefunds_WhenUpgradeFails" classname="PenguinShot.Tests.PromotionCertificateInstantItemTests" runstate="Runnable" seed="1337182784" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000792" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 승급 증서 T2 구매 불가: 모든 펭귄이 이미 최대 성(5성)에 도달하여 승급할 수 없습니다.
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1096" name="RepeatCustomerStoreCharmTests" fullname="PenguinShot.Tests.RepeatCustomerStoreCharmTests" classname="PenguinShot.Tests.RepeatCustomerStoreCharmTests" runstate="Runnable" testcasecount="12" result="Failed" site="Child" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.036921" total="12" passed="9" failed="3" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1098" name="ApplyAndRemoveEffect_RegistersAndUnregistersWithShopManager" fullname="PenguinShot.Tests.RepeatCustomerStoreCharmTests.ApplyAndRemoveEffect_RegistersAndUnregistersWithShopManager" methodname="ApplyAndRemoveEffect_RegistersAndUnregistersWithShopManager" classname="PenguinShot.Tests.RepeatCustomerStoreCharmTests" runstate="Runnable" seed="959161933" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.004697" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 단골 상점 효과 등록됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 활성화 (재구매 배율: 2배, 슬롯당 1회)
+[ItemInventoryManager] 새 부적(단골 상점 T2) 추가 완료
+[ShopManager] 단골 상점 효과 해제됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+[ItemInventoryManager] 부적 제거: 단골 상점 T2
+[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1101" name="CannotRepurchaseSecondTime_SlotIsSoldOut" fullname="PenguinShot.Tests.RepeatCustomerStoreCharmTests.CannotRepurchaseSecondTime_SlotIsSoldOut" methodname="CannotRepurchaseSecondTime_SlotIsSoldOut" classname="PenguinShot.Tests.RepeatCustomerStoreCharmTests" runstate="Runnable" seed="1807314559" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.003667" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 단골 상점 효과 등록됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 활성화 (재구매 배율: 2배, 슬롯당 1회)
+[ItemInventoryManager] 새 부적(단골 상점 T2) 추가 완료
+[DeckManager] TestPenguin (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 단골 상점 T2 사용됨 (남은 횟수: 4/5)
+[ShopManager] 단골 상점 효과 해제됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1102" name="CharmExhaustsAfter5Repurchases_AndCleansUpInventory" fullname="PenguinShot.Tests.RepeatCustomerStoreCharmTests.CharmExhaustsAfter5Repurchases_AndCleansUpInventory" methodname="CharmExhaustsAfter5Repurchases_AndCleansUpInventory" classname="PenguinShot.Tests.RepeatCustomerStoreCharmTests" runstate="Runnable" seed="742958407" result="Failed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.004938" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: null
+  But was:  <Penguin_3 (PenguinPinball.Core.PenguinDefinition)>
+]]></message>
+                <stack-trace><![CDATA[at PenguinShot.Tests.RepeatCustomerStoreCharmTests.CharmExhaustsAfter5Repurchases_AndCleansUpInventory () [0x0007b] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\RepeatCustomerStoreCharmTests.cs:226
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[[ShopManager] 단골 상점 효과 등록됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 활성화 (재구매 배율: 2배, 슬롯당 1회)
+[ItemInventoryManager] 새 부적(단골 상점 T2) 추가 완료
+[DeckManager] Penguin_0 (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 단골 상점 T2 사용됨 (남은 횟수: 4/5)
+[DeckManager] Penguin_1 (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 단골 상점 T2 사용됨 (남은 횟수: 3/5)
+[DeckManager] Penguin_2 (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 단골 상점 T2 사용됨 (남은 횟수: 2/5)
+[ShopManager] 단골 상점 효과 해제됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1097" name="DefaultValues_MatchT2Specification" fullname="PenguinShot.Tests.RepeatCustomerStoreCharmTests.DefaultValues_MatchT2Specification" methodname="DefaultValues_MatchT2Specification" classname="PenguinShot.Tests.RepeatCustomerStoreCharmTests" runstate="Runnable" seed="1132267743" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000610" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1099" name="FirstPurchase_RegularPrice_TurnsSlotIntoRepurchase" fullname="PenguinShot.Tests.RepeatCustomerStoreCharmTests.FirstPurchase_RegularPrice_TurnsSlotIntoRepurchase" methodname="FirstPurchase_RegularPrice_TurnsSlotIntoRepurchase" classname="PenguinShot.Tests.RepeatCustomerStoreCharmTests" runstate="Runnable" seed="1114258092" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001931" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 단골 상점 효과 등록됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 활성화 (재구매 배율: 2배, 슬롯당 1회)
+[ItemInventoryManager] 새 부적(단골 상점 T2) 추가 완료
+[ShopManager] 단골 상점 효과 해제됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1108" name="HatcheryViewModel_CorrectlyReflectsRepurchaseStateAndPrice" fullname="PenguinShot.Tests.RepeatCustomerStoreCharmTests.HatcheryViewModel_CorrectlyReflectsRepurchaseStateAndPrice" methodname="HatcheryViewModel_CorrectlyReflectsRepurchaseStateAndPrice" classname="PenguinShot.Tests.RepeatCustomerStoreCharmTests" runstate="Runnable" seed="917052407" result="Failed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.003809" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected string length 15 but was 7. Strings differ at index 0.
+  Expected: "EngineerPenguin"
+  But was:  "Penguin"
+  -----------^
+]]></message>
+                <stack-trace><![CDATA[at PenguinShot.Tests.RepeatCustomerStoreCharmTests.HatcheryViewModel_CorrectlyReflectsRepurchaseStateAndPrice () [0x00071] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\RepeatCustomerStoreCharmTests.cs:357
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[[ShopManager] 단골 상점 효과 등록됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 활성화 (재구매 배율: 2배, 슬롯당 1회)
+[ItemInventoryManager] 새 부적(단골 상점 T2) 추가 완료
+[ShopManager] 단골 상점 효과 해제됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1106" name="InsufficientGold_BlocksRepurchase" fullname="PenguinShot.Tests.RepeatCustomerStoreCharmTests.InsufficientGold_BlocksRepurchase" methodname="InsufficientGold_BlocksRepurchase" classname="PenguinShot.Tests.RepeatCustomerStoreCharmTests" runstate="Runnable" seed="353666175" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002006" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 단골 상점 효과 등록됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 활성화 (재구매 배율: 2배, 슬롯당 1회)
+[ItemInventoryManager] 새 부적(단골 상점 T2) 추가 완료
+[ShopManager] 단골 상점 효과 해제됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1107" name="NonMaintenanceTime_BlocksPurchase" fullname="PenguinShot.Tests.RepeatCustomerStoreCharmTests.NonMaintenanceTime_BlocksPurchase" methodname="NonMaintenanceTime_BlocksPurchase" classname="PenguinShot.Tests.RepeatCustomerStoreCharmTests" runstate="Runnable" seed="533273861" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002055" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 단골 상점 효과 등록됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 활성화 (재구매 배율: 2배, 슬롯당 1회)
+[ItemInventoryManager] 새 부적(단골 상점 T2) 추가 완료
+[ShopManager] 단골 상점 효과 해제됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1105" name="RemoveCharm_ClearsActiveRepurchaseSlots" fullname="PenguinShot.Tests.RepeatCustomerStoreCharmTests.RemoveCharm_ClearsActiveRepurchaseSlots" methodname="RemoveCharm_ClearsActiveRepurchaseSlots" classname="PenguinShot.Tests.RepeatCustomerStoreCharmTests" runstate="Runnable" seed="658083540" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.003000" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 단골 상점 효과 등록됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 활성화 (재구매 배율: 2배, 슬롯당 1회)
+[ItemInventoryManager] 새 부적(단골 상점 T2) 추가 완료
+[ShopManager] 단골 상점 효과 해제됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+[ItemInventoryManager] 부적 제거: 단골 상점 T2
+[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1100" name="Repurchase_DeductsDoublePrice_SpawnsPenguin_ConsumesCharmUse_MakesSlotSoldOut" fullname="PenguinShot.Tests.RepeatCustomerStoreCharmTests.Repurchase_DeductsDoublePrice_SpawnsPenguin_ConsumesCharmUse_MakesSlotSoldOut" methodname="Repurchase_DeductsDoublePrice_SpawnsPenguin_ConsumesCharmUse_MakesSlotSoldOut" classname="PenguinShot.Tests.RepeatCustomerStoreCharmTests" runstate="Runnable" seed="1884838753" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002764" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 단골 상점 효과 등록됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 활성화 (재구매 배율: 2배, 슬롯당 1회)
+[ItemInventoryManager] 새 부적(단골 상점 T2) 추가 완료
+[DeckManager] TestPenguin (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 단골 상점 T2 사용됨 (남은 횟수: 4/5)
+[ShopManager] 단골 상점 효과 해제됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1104" name="RerollHatchery_ClearsRepurchaseSlots_WithoutConsumingCharmUses" fullname="PenguinShot.Tests.RepeatCustomerStoreCharmTests.RerollHatchery_ClearsRepurchaseSlots_WithoutConsumingCharmUses" methodname="RerollHatchery_ClearsRepurchaseSlots_WithoutConsumingCharmUses" classname="PenguinShot.Tests.RepeatCustomerStoreCharmTests" runstate="Runnable" seed="1644612262" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002547" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 단골 상점 효과 등록됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 활성화 (재구매 배율: 2배, 슬롯당 1회)
+[ItemInventoryManager] 새 부적(단골 상점 T2) 추가 완료
+부화장 리롤 완료! 다음 비용: 5 (무료 여부: False)
+[ShopManager] 단골 상점 효과 해제됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1103" name="WhenCharmExhausts_RemainingRepurchaseSlotsAreCleared" fullname="PenguinShot.Tests.RepeatCustomerStoreCharmTests.WhenCharmExhausts_RemainingRepurchaseSlotsAreCleared" methodname="WhenCharmExhausts_RemainingRepurchaseSlotsAreCleared" classname="PenguinShot.Tests.RepeatCustomerStoreCharmTests" runstate="Runnable" seed="766011222" result="Failed" label="Error" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.003758" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object]]></message>
+                <stack-trace><![CDATA[  at ShopManager.BuyHatcheryItem (System.Int32 slotIndex) [0x00180] in C:\Users\oogg\PenguinShot\Assets\Manager\Scripts\ShopManager.cs:505 
+  at PenguinShot.Tests.RepeatCustomerStoreCharmTests.WhenCharmExhausts_RemainingRepurchaseSlotsAreCleared () [0x00095] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\RepeatCustomerStoreCharmTests.cs:253 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[[ShopManager] 단골 상점 효과 등록됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 활성화 (재구매 배율: 2배, 슬롯당 1회)
+[ItemInventoryManager] 새 부적(단골 상점 T2) 추가 완료
+[DeckManager] PenguinA (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 단골 상점 T2 사용됨 (남은 횟수: 0/5)
+[ShopItemBase] 단골 상점 T2 횟수 소진됨 -> 인벤토리에서 제거
+[ShopManager] 단골 상점 효과 해제됨
+[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+[ItemInventoryManager] 부적 제거: 단골 상점 T2
+[Effect_RepeatCustomerStore] 단골 상점 효과 해제
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1109" name="SelectFewCharmTests" fullname="PenguinShot.Tests.SelectFewCharmTests" classname="PenguinShot.Tests.SelectFewCharmTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.012037" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1111" name="ApplyEffect_ReducesMaxFieldCount_From3To2" fullname="PenguinShot.Tests.SelectFewCharmTests.ApplyEffect_ReducesMaxFieldCount_From3To2" methodname="ApplyEffect_ReducesMaxFieldCount_From3To2" classname="PenguinShot.Tests.SelectFewCharmTests" runstate="Runnable" seed="1096278863" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001857" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_SelectFew] 소수정예 효과 활성화 (필드 슬롯 -1, 과부하 필요 콤보 -2)
+[Effect_SelectFew] 소수정예 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1114" name="ApplyEffect_ReducesOverloadThreshold" fullname="PenguinShot.Tests.SelectFewCharmTests.ApplyEffect_ReducesOverloadThreshold" methodname="ApplyEffect_ReducesOverloadThreshold" classname="PenguinShot.Tests.SelectFewCharmTests" runstate="Runnable" seed="1729301522" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001755" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_SelectFew] 소수정예 효과 활성화 (필드 슬롯 -1, 과부하 필요 콤보 -2)
+[Effect_SelectFew] 소수정예 효과 해제
+[Effect_SelectFew] 소수정예 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1113" name="CanLaunchToField_BlocksLaunch_WhenTwoPenguinsActive" fullname="PenguinShot.Tests.SelectFewCharmTests.CanLaunchToField_BlocksLaunch_WhenTwoPenguinsActive" methodname="CanLaunchToField_BlocksLaunch_WhenTwoPenguinsActive" classname="PenguinShot.Tests.SelectFewCharmTests" runstate="Runnable" seed="1309273984" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001847" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_SelectFew] 소수정예 효과 활성화 (필드 슬롯 -1, 과부하 필요 콤보 -2)
+[DeckManager] 필드 출격 상한선에 도달했습니다.
+[Effect_SelectFew] 소수정예 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1110" name="DefaultValues_MatchT4Specification" fullname="PenguinShot.Tests.SelectFewCharmTests.DefaultValues_MatchT4Specification" methodname="DefaultValues_MatchT4Specification" classname="PenguinShot.Tests.SelectFewCharmTests" runstate="Runnable" seed="130392872" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000559" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_SelectFew] 소수정예 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1117" name="InventoryManager_AddAndRemoveCharm_IntegratesProperly" fullname="PenguinShot.Tests.SelectFewCharmTests.InventoryManager_AddAndRemoveCharm_IntegratesProperly" methodname="InventoryManager_AddAndRemoveCharm_IntegratesProperly" classname="PenguinShot.Tests.SelectFewCharmTests" runstate="Runnable" seed="697339264" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001909" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_SelectFew] 소수정예 효과 활성화 (필드 슬롯 -1, 과부하 필요 콤보 -2)
+[ItemInventoryManager] 새 부적(소수정예 T4) 추가 완료
+[Effect_SelectFew] 소수정예 효과 해제
+[ItemInventoryManager] 부적 제거: 소수정예 T4
+[Effect_SelectFew] 소수정예 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1116" name="OverloadThreshold_NeverDropsBelowOne" fullname="PenguinShot.Tests.SelectFewCharmTests.OverloadThreshold_NeverDropsBelowOne" methodname="OverloadThreshold_NeverDropsBelowOne" classname="PenguinShot.Tests.SelectFewCharmTests" runstate="Runnable" seed="1970764691" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000901" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_SelectFew] 소수정예 효과 활성화 (필드 슬롯 -1, 과부하 필요 콤보 -10)
+[Effect_SelectFew] 소수정예 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1115" name="OverloadTriggersAtReducedComboThreshold" fullname="PenguinShot.Tests.SelectFewCharmTests.OverloadTriggersAtReducedComboThreshold" methodname="OverloadTriggersAtReducedComboThreshold" classname="PenguinShot.Tests.SelectFewCharmTests" runstate="Runnable" seed="180522194" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001018" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_SelectFew] 소수정예 효과 활성화 (필드 슬롯 -1, 과부하 필요 콤보 -2)
+[Effect_SelectFew] 소수정예 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1112" name="RemoveEffect_RestoresMaxFieldCount_To3" fullname="PenguinShot.Tests.SelectFewCharmTests.RemoveEffect_RestoresMaxFieldCount_To3" methodname="RemoveEffect_RestoresMaxFieldCount_To3" classname="PenguinShot.Tests.SelectFewCharmTests" runstate="Runnable" seed="487406882" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001123" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_SelectFew] 소수정예 효과 활성화 (필드 슬롯 -1, 과부하 필요 콤보 -2)
+[Effect_SelectFew] 소수정예 효과 해제
+[Effect_SelectFew] 소수정예 효과 해제
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1118" name="SlingshotBounceSurfaceTests" fullname="PenguinShot.Tests.SlingshotBounceSurfaceTests" classname="PenguinShot.Tests.SlingshotBounceSurfaceTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.004002" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1119" name="Slingshot_CenterPoint_IsRepulsionZone" fullname="PenguinShot.Tests.SlingshotBounceSurfaceTests.Slingshot_CenterPoint_IsRepulsionZone" methodname="Slingshot_CenterPoint_IsRepulsionZone" classname="PenguinShot.Tests.SlingshotBounceSurfaceTests" runstate="Runnable" seed="1537177607" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001042" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1122" name="Slingshot_LaunchDirection_FollowsLocalLaunchDirection" fullname="PenguinShot.Tests.SlingshotBounceSurfaceTests.Slingshot_LaunchDirection_FollowsLocalLaunchDirection" methodname="Slingshot_LaunchDirection_FollowsLocalLaunchDirection" classname="PenguinShot.Tests.SlingshotBounceSurfaceTests" runstate="Runnable" seed="586790835" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000627" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1121" name="Slingshot_OutsideRatioThreshold_IsNonRepulsionZone" fullname="PenguinShot.Tests.SlingshotBounceSurfaceTests.Slingshot_OutsideRatioThreshold_IsNonRepulsionZone" methodname="Slingshot_OutsideRatioThreshold_IsNonRepulsionZone" classname="PenguinShot.Tests.SlingshotBounceSurfaceTests" runstate="Runnable" seed="72671079" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000298" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1120" name="Slingshot_WithinRatioThreshold_IsRepulsionZone" fullname="PenguinShot.Tests.SlingshotBounceSurfaceTests.Slingshot_WithinRatioThreshold_IsRepulsionZone" methodname="Slingshot_WithinRatioThreshold_IsRepulsionZone" classname="PenguinShot.Tests.SlingshotBounceSurfaceTests" runstate="Runnable" seed="395232213" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000281" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1123" name="SlingshotViewModel_CalculateSpeed_ClampsBetweenMinAndMax" fullname="PenguinShot.Tests.SlingshotBounceSurfaceTests.SlingshotViewModel_CalculateSpeed_ClampsBetweenMinAndMax" methodname="SlingshotViewModel_CalculateSpeed_ClampsBetweenMinAndMax" classname="PenguinShot.Tests.SlingshotBounceSurfaceTests" runstate="Runnable" seed="1947178874" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000302" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1124" name="SlingshotViewModel_ColliderSize_MatchesTotalBarLength" fullname="PenguinShot.Tests.SlingshotBounceSurfaceTests.SlingshotViewModel_ColliderSize_MatchesTotalBarLength" methodname="SlingshotViewModel_ColliderSize_MatchesTotalBarLength" classname="PenguinShot.Tests.SlingshotBounceSurfaceTests" runstate="Runnable" seed="1632612156" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000699" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1125" name="SlotDragDropTests" fullname="PenguinShot.Tests.SlotDragDropTests" classname="PenguinShot.Tests.SlotDragDropTests" runstate="Runnable" testcasecount="5" result="Failed" site="Child" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.005842" total="5" passed="2" failed="3" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1126" name="BenchSlot_SwapOrMove_MovesPenguinToEmptySlot" fullname="PenguinShot.Tests.SlotDragDropTests.BenchSlot_SwapOrMove_MovesPenguinToEmptySlot" methodname="BenchSlot_SwapOrMove_MovesPenguinToEmptySlot" classname="PenguinShot.Tests.SlotDragDropTests" runstate="Runnable" seed="1898656735" result="Failed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001008" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: <PenguinA (UnityEngine.GameObject)>
+  But was:  null
+]]></message>
+                <stack-trace><![CDATA[at PenguinShot.Tests.SlotDragDropTests.BenchSlot_SwapOrMove_MovesPenguinToEmptySlot () [0x0001a] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\SlotDragDropTests.cs:55
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Adding component failed. Add required component of type 'BoxCollider' or 'CapsuleCollider' or 'CharacterController' or 'MeshCollider' or 'SphereCollider' or 'TerrainCollider' or 'WheelCollider' to the game object 'PenguinA' first.
+]]></output>
+            </test-case>
+            <test-case id="1127" name="BenchSlot_SwapOrMove_SwapsTwoPenguins" fullname="PenguinShot.Tests.SlotDragDropTests.BenchSlot_SwapOrMove_SwapsTwoPenguins" methodname="BenchSlot_SwapOrMove_SwapsTwoPenguins" classname="PenguinShot.Tests.SlotDragDropTests" runstate="Runnable" seed="2090023504" result="Failed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001522" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: <Penguin1 (UnityEngine.GameObject)>
+  But was:  null
+]]></message>
+                <stack-trace><![CDATA[at PenguinShot.Tests.SlotDragDropTests.BenchSlot_SwapOrMove_SwapsTwoPenguins () [0x0002e] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\SlotDragDropTests.cs:82
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Adding component failed. Add required component of type 'BoxCollider' or 'CapsuleCollider' or 'CharacterController' or 'MeshCollider' or 'SphereCollider' or 'TerrainCollider' or 'WheelCollider' to the game object 'Penguin1' first.
+Adding component failed. Add required component of type 'BoxCollider' or 'CapsuleCollider' or 'CharacterController' or 'MeshCollider' or 'SphereCollider' or 'TerrainCollider' or 'WheelCollider' to the game object 'Penguin2' first.
+]]></output>
+            </test-case>
+            <test-case id="1128" name="InventorySlot_SwapOrMove_MovesItemToEmptySlot" fullname="PenguinShot.Tests.SlotDragDropTests.InventorySlot_SwapOrMove_MovesItemToEmptySlot" methodname="InventorySlot_SwapOrMove_MovesItemToEmptySlot" classname="PenguinShot.Tests.SlotDragDropTests" runstate="Runnable" seed="1914515333" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001369" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1129" name="InventorySlot_SwapOrMove_SwapsTwoItems" fullname="PenguinShot.Tests.SlotDragDropTests.InventorySlot_SwapOrMove_SwapsTwoItems" methodname="InventorySlot_SwapOrMove_SwapsTwoItems" classname="PenguinShot.Tests.SlotDragDropTests" runstate="Runnable" seed="478057896" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000356" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1130" name="InventoryToBench_MovePenguin_PlacesInTargetBenchSlot" fullname="PenguinShot.Tests.SlotDragDropTests.InventoryToBench_MovePenguin_PlacesInTargetBenchSlot" methodname="InventoryToBench_MovePenguin_PlacesInTargetBenchSlot" classname="PenguinShot.Tests.SlotDragDropTests" runstate="Runnable" seed="970668943" result="Failed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000958" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: True
+  But was:  False
+]]></message>
+                <stack-trace><![CDATA[at PenguinShot.Tests.SlotDragDropTests.InventoryToBench_MovePenguin_PlacesInTargetBenchSlot () [0x0003a] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\SlotDragDropTests.cs:158
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Adding component failed. Add required component of type 'BoxCollider' or 'CapsuleCollider' or 'CharacterController' or 'MeshCollider' or 'SphereCollider' or 'TerrainCollider' or 'WheelCollider' to the game object 'InventoryPenguin' first.
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1131" name="StatTests" fullname="PenguinShot.Tests.StatTests" classname="PenguinShot.Tests.StatTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001245" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1132" name="Stat_BaseValue_ReturnsInitialValue" fullname="PenguinShot.Tests.StatTests.Stat_BaseValue_ReturnsInitialValue" methodname="Stat_BaseValue_ReturnsInitialValue" classname="PenguinShot.Tests.StatTests" runstate="Runnable" seed="1043701264" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000103" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1135" name="Stat_FlatAndPercentModifiers_CalculatedCorrectly" fullname="PenguinShot.Tests.StatTests.Stat_FlatAndPercentModifiers_CalculatedCorrectly" methodname="Stat_FlatAndPercentModifiers_CalculatedCorrectly" classname="PenguinShot.Tests.StatTests" runstate="Runnable" seed="941963333" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000154" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1133" name="Stat_FlatModifier_AddsToTotal" fullname="PenguinShot.Tests.StatTests.Stat_FlatModifier_AddsToTotal" methodname="Stat_FlatModifier_AddsToTotal" classname="PenguinShot.Tests.StatTests" runstate="Runnable" seed="1120076457" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000115" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1134" name="Stat_PercentAddModifier_ScalesTotal" fullname="PenguinShot.Tests.StatTests.Stat_PercentAddModifier_ScalesTotal" methodname="Stat_PercentAddModifier_ScalesTotal" classname="PenguinShot.Tests.StatTests" runstate="Runnable" seed="881376724" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000108" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1136" name="Stat_RemoveAllModifiersFromSource_RemovesSourceModifiersOnly" fullname="PenguinShot.Tests.StatTests.Stat_RemoveAllModifiersFromSource_RemovesSourceModifiersOnly" methodname="Stat_RemoveAllModifiersFromSource_RemovesSourceModifiersOnly" classname="PenguinShot.Tests.StatTests" runstate="Runnable" seed="50926230" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000166" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1137" name="SurfingCharmTests" fullname="PenguinShot.Tests.SurfingCharmTests" classname="PenguinShot.Tests.SurfingCharmTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.035451" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1139" name="ApplyAndRemoveEffect_RegistersAndUnregistersWithShopManager" fullname="PenguinShot.Tests.SurfingCharmTests.ApplyAndRemoveEffect_RegistersAndUnregistersWithShopManager" methodname="ApplyAndRemoveEffect_RegistersAndUnregistersWithShopManager" classname="PenguinShot.Tests.SurfingCharmTests" runstate="Runnable" seed="1643356073" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.003502" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 파도타기 효과 등록됨
+[Effect_Surfing] 파도타기 효과 활성화 (정비시간 무료 리롤: 5회, 지속: 5웨이브)
+[ItemInventoryManager] 새 부적(파도타기 T1) 추가 완료
+[ShopManager] 파도타기 효과 해제됨
+[Effect_Surfing] 파도타기 효과 해제
+[ItemInventoryManager] 부적 제거: 파도타기 T1
+[Effect_Surfing] 파도타기 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1138" name="DefaultValues_MatchT1Specification" fullname="PenguinShot.Tests.SurfingCharmTests.DefaultValues_MatchT1Specification" methodname="DefaultValues_MatchT1Specification" classname="PenguinShot.Tests.SurfingCharmTests" runstate="Runnable" seed="5968337" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000693" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_Surfing] 파도타기 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1143" name="ExhaustingFreeRerolls_TransitionsBackToPaidReroll" fullname="PenguinShot.Tests.SurfingCharmTests.ExhaustingFreeRerolls_TransitionsBackToPaidReroll" methodname="ExhaustingFreeRerolls_TransitionsBackToPaidReroll" classname="PenguinShot.Tests.SurfingCharmTests" runstate="Runnable" seed="671432759" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.005276" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 파도타기 효과 등록됨
+[Effect_Surfing] 파도타기 효과 활성화 (정비시간 무료 리롤: 5회, 지속: 5웨이브)
+[ItemInventoryManager] 새 부적(파도타기 T1) 추가 완료
+[Effect_Surfing] 무료 리롤 1회 사용 (남은 무료 리롤: 4회)
+상점 리롤 완료! 다음 비용: 0 (무료 여부: True)
+[Effect_Surfing] 무료 리롤 1회 사용 (남은 무료 리롤: 3회)
+상점 리롤 완료! 다음 비용: 0 (무료 여부: True)
+[Effect_Surfing] 무료 리롤 1회 사용 (남은 무료 리롤: 2회)
+상점 리롤 완료! 다음 비용: 0 (무료 여부: True)
+[Effect_Surfing] 무료 리롤 1회 사용 (남은 무료 리롤: 1회)
+상점 리롤 완료! 다음 비용: 0 (무료 여부: True)
+[Effect_Surfing] 무료 리롤 1회 사용 (남은 무료 리롤: 0회)
+상점 리롤 완료! 다음 비용: 5 (무료 여부: False)
+상점 리롤 완료! 다음 비용: 10 (무료 여부: False)
+[ShopManager] 파도타기 효과 해제됨
+[Effect_Surfing] 파도타기 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1142" name="FreeReroll_WorksEvenWhenGoldIsZero" fullname="PenguinShot.Tests.SurfingCharmTests.FreeReroll_WorksEvenWhenGoldIsZero" methodname="FreeReroll_WorksEvenWhenGoldIsZero" classname="PenguinShot.Tests.SurfingCharmTests" runstate="Runnable" seed="708057889" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002408" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 파도타기 효과 등록됨
+[Effect_Surfing] 파도타기 효과 활성화 (정비시간 무료 리롤: 5회, 지속: 5웨이브)
+[ItemInventoryManager] 새 부적(파도타기 T1) 추가 완료
+[Effect_Surfing] 무료 리롤 1회 사용 (남은 무료 리롤: 4회)
+상점 리롤 완료! 다음 비용: 0 (무료 여부: True)
+[ShopManager] 파도타기 효과 해제됨
+[Effect_Surfing] 파도타기 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1147" name="HatcheryViewModel_ReflectsFreeRerollState" fullname="PenguinShot.Tests.SurfingCharmTests.HatcheryViewModel_ReflectsFreeRerollState" methodname="HatcheryViewModel_ReflectsFreeRerollState" classname="PenguinShot.Tests.SurfingCharmTests" runstate="Runnable" seed="1406622098" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002615" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 파도타기 효과 등록됨
+[Effect_Surfing] 파도타기 효과 활성화 (정비시간 무료 리롤: 5회, 지속: 5웨이브)
+[ItemInventoryManager] 새 부적(파도타기 T1) 추가 완료
+[Effect_Surfing] 무료 리롤 1회 사용 (남은 무료 리롤: 4회)
+부화장 리롤 완료! 다음 비용: 0 (무료 여부: True)
+[ShopManager] 파도타기 효과 해제됨
+[Effect_Surfing] 파도타기 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1146" name="ItemShopViewModel_ReflectsFreeRerollState" fullname="PenguinShot.Tests.SurfingCharmTests.ItemShopViewModel_ReflectsFreeRerollState" methodname="ItemShopViewModel_ReflectsFreeRerollState" classname="PenguinShot.Tests.SurfingCharmTests" runstate="Runnable" seed="275098933" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002762" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 파도타기 효과 등록됨
+[Effect_Surfing] 파도타기 효과 활성화 (정비시간 무료 리롤: 5회, 지속: 5웨이브)
+[ItemInventoryManager] 새 부적(파도타기 T1) 추가 완료
+[Effect_Surfing] 무료 리롤 1회 사용 (남은 무료 리롤: 4회)
+상점 리롤 완료! 다음 비용: 0 (무료 여부: True)
+[ShopManager] 파도타기 효과 해제됨
+[Effect_Surfing] 파도타기 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1141" name="RerollHatchery_ConsumesFreeReroll_SharedPool" fullname="PenguinShot.Tests.SurfingCharmTests.RerollHatchery_ConsumesFreeReroll_SharedPool" methodname="RerollHatchery_ConsumesFreeReroll_SharedPool" classname="PenguinShot.Tests.SurfingCharmTests" runstate="Runnable" seed="1663748777" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002985" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 파도타기 효과 등록됨
+[Effect_Surfing] 파도타기 효과 활성화 (정비시간 무료 리롤: 5회, 지속: 5웨이브)
+[ItemInventoryManager] 새 부적(파도타기 T1) 추가 완료
+[Effect_Surfing] 무료 리롤 1회 사용 (남은 무료 리롤: 4회)
+상점 리롤 완료! 다음 비용: 0 (무료 여부: True)
+[Effect_Surfing] 무료 리롤 1회 사용 (남은 무료 리롤: 3회)
+부화장 리롤 완료! 다음 비용: 0 (무료 여부: True)
+[ShopManager] 파도타기 효과 해제됨
+[Effect_Surfing] 파도타기 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1140" name="RerollShop_ConsumesFreeReroll_WithoutSpendingGoldOrIncrementingPaidCost" fullname="PenguinShot.Tests.SurfingCharmTests.RerollShop_ConsumesFreeReroll_WithoutSpendingGoldOrIncrementingPaidCost" methodname="RerollShop_ConsumesFreeReroll_WithoutSpendingGoldOrIncrementingPaidCost" classname="PenguinShot.Tests.SurfingCharmTests" runstate="Runnable" seed="1437498986" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002845" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 파도타기 효과 등록됨
+[Effect_Surfing] 파도타기 효과 활성화 (정비시간 무료 리롤: 5회, 지속: 5웨이브)
+[ItemInventoryManager] 새 부적(파도타기 T1) 추가 완료
+[Effect_Surfing] 무료 리롤 1회 사용 (남은 무료 리롤: 4회)
+상점 리롤 완료! 다음 비용: 0 (무료 여부: True)
+[ShopManager] 파도타기 효과 해제됨
+[Effect_Surfing] 파도타기 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1145" name="SellCharm_YieldsZeroGoldRefund_AndDestroysCharm" fullname="PenguinShot.Tests.SurfingCharmTests.SellCharm_YieldsZeroGoldRefund_AndDestroysCharm" methodname="SellCharm_YieldsZeroGoldRefund_AndDestroysCharm" classname="PenguinShot.Tests.SurfingCharmTests" runstate="Runnable" seed="2092538417" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.003692" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 파도타기 효과 등록됨
+[Effect_Surfing] 파도타기 효과 활성화 (정비시간 무료 리롤: 5회, 지속: 5웨이브)
+[ItemInventoryManager] 새 부적(파도타기 T1) 추가 완료
+[ShopManager] 파도타기 효과 해제됨
+[Effect_Surfing] 파도타기 효과 해제
+[ItemInventoryManager] 부적 제거: 파도타기 T1
+[ShopManager] 부적 판매 완료 (정산금: 0G)
+[Effect_Surfing] 파도타기 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1144" name="WaveProgression_ConsumesCharmUses_AndRefreshesFreeRerollsEachMaintenance" fullname="PenguinShot.Tests.SurfingCharmTests.WaveProgression_ConsumesCharmUses_AndRefreshesFreeRerollsEachMaintenance" methodname="WaveProgression_ConsumesCharmUses_AndRefreshesFreeRerollsEachMaintenance" classname="PenguinShot.Tests.SurfingCharmTests" runstate="Runnable" seed="1774863460" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.007755" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ShopManager] 파도타기 효과 등록됨
+[Effect_Surfing] 파도타기 효과 활성화 (정비시간 무료 리롤: 5회, 지속: 5웨이브)
+[ItemInventoryManager] 새 부적(파도타기 T1) 추가 완료
+[Effect_Surfing] 무료 리롤 1회 사용 (남은 무료 리롤: 4회)
+상점 리롤 완료! 다음 비용: 0 (무료 여부: True)
+[Effect_Surfing] 무료 리롤 1회 사용 (남은 무료 리롤: 3회)
+상점 리롤 완료! 다음 비용: 0 (무료 여부: True)
+[Effect_Surfing] 웨이브 진행 완료 (1/5)
+[ShopItemBase] 파도타기 T1 사용됨 (남은 횟수: 4/5)
+[Effect_Surfing] 웨이브 진행 완료 (2/5)
+[ShopItemBase] 파도타기 T1 사용됨 (남은 횟수: 3/5)
+[Effect_Surfing] 웨이브 진행 완료 (3/5)
+[ShopItemBase] 파도타기 T1 사용됨 (남은 횟수: 2/5)
+[Effect_Surfing] 웨이브 진행 완료 (4/5)
+[ShopItemBase] 파도타기 T1 사용됨 (남은 횟수: 1/5)
+[Effect_Surfing] 웨이브 진행 완료 (5/5)
+[ShopItemBase] 파도타기 T1 사용됨 (남은 횟수: 0/5)
+[ShopItemBase] 파도타기 T1 횟수 소진됨 -> 인벤토리에서 제거
+[ShopManager] 파도타기 효과 해제됨
+[Effect_Surfing] 파도타기 효과 해제
+[ItemInventoryManager] 부적 제거: 파도타기 T1
+[Effect_Surfing] 파도타기 효과 해제
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1148" name="SynthesisCloneCharmTests" fullname="PenguinShot.Tests.SynthesisCloneCharmTests" classname="PenguinShot.Tests.SynthesisCloneCharmTests" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.034845" total="6" passed="4" failed="2" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1154" name="CascadingSynthesis_TriggersMultipleTimesSafely" fullname="PenguinShot.Tests.SynthesisCloneCharmTests.CascadingSynthesis_TriggersMultipleTimesSafely" methodname="CascadingSynthesis_TriggersMultipleTimesSafely" classname="PenguinShot.Tests.SynthesisCloneCharmTests" runstate="Runnable" seed="870750585" result="Failed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.009249" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Cascading merges should consume charges sequentially
+  Expected: 2
+  But was:  1
+]]></message>
+                <stack-trace><![CDATA[at PenguinShot.Tests.SynthesisCloneCharmTests.CascadingSynthesis_TriggersMultipleTimesSafely () [0x000d4] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\SynthesisCloneCharmTests.cs:298
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[[Effect_SynthesisClone] 합성 복제 효과 활성화 (합성 시 1마리 1성 추가 생성)
+[ItemInventoryManager] 새 부적(합성 복제 T3) 추가 완료
+[DeckManager] Chinstrap (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 합성 복제 T3 사용됨 (남은 횟수: 4/5)
+[Effect_SynthesisClone] 합성 복제 완료! Penguin (Tier 1) 추가 생성됨 (남은 횟수: 4)
+[DeckManager] Chinstrap (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 합성 복제 T3 사용됨 (남은 횟수: 3/5)
+[Effect_SynthesisClone] 합성 복제 완료! Penguin (Tier 1) 추가 생성됨 (남은 횟수: 3)
+[DeckManager] Chinstrap (Tier 2 -> 3) 합성 완료!
+[ShopItemBase] 합성 복제 T3 사용됨 (남은 횟수: 2/5)
+[DeckManager] Chinstrap (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 합성 복제 T3 사용됨 (남은 횟수: 1/5)
+[Effect_SynthesisClone] 합성 복제 완료! Penguin (Tier 1) 추가 생성됨 (남은 횟수: 1)
+[Effect_SynthesisClone] Penguin 복제 실패 (덱 공간 부족)
+[Effect_SynthesisClone] 합성 복제 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1152" name="ConsumableCharm_DecreasesUsesEachSynthesis" fullname="PenguinShot.Tests.SynthesisCloneCharmTests.ConsumableCharm_DecreasesUsesEachSynthesis" methodname="ConsumableCharm_DecreasesUsesEachSynthesis" classname="PenguinShot.Tests.SynthesisCloneCharmTests" runstate="Runnable" seed="1153865114" result="Failed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.007113" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Second synthesis should decrease uses to 3
+  Expected: 3
+  But was:  1
+]]></message>
+                <stack-trace><![CDATA[at PenguinShot.Tests.SynthesisCloneCharmTests.ConsumableCharm_DecreasesUsesEachSynthesis () [0x00119] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\SynthesisCloneCharmTests.cs:206
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[[Effect_SynthesisClone] 합성 복제 효과 활성화 (합성 시 1마리 1성 추가 생성)
+[ItemInventoryManager] 새 부적(합성 복제 T3) 추가 완료
+[DeckManager] Emperor (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 합성 복제 T3 사용됨 (남은 횟수: 4/5)
+[Effect_SynthesisClone] 합성 복제 완료! Penguin (Tier 1) 추가 생성됨 (남은 횟수: 4)
+[DeckManager] Emperor (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 합성 복제 T3 사용됨 (남은 횟수: 3/5)
+[Effect_SynthesisClone] 합성 복제 완료! Penguin (Tier 1) 추가 생성됨 (남은 횟수: 3)
+[DeckManager] Emperor (Tier 2 -> 3) 합성 완료!
+[ShopItemBase] 합성 복제 T3 사용됨 (남은 횟수: 2/5)
+[DeckManager] Emperor (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 합성 복제 T3 사용됨 (남은 횟수: 1/5)
+[Effect_SynthesisClone] 합성 복제 완료! Penguin (Tier 1) 추가 생성됨 (남은 횟수: 1)
+[Effect_SynthesisClone] Penguin 복제 실패 (덱 공간 부족)
+[Effect_SynthesisClone] 합성 복제 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1153" name="ConsumableCharm_DepletesAndRemovesAfter5Uses" fullname="PenguinShot.Tests.SynthesisCloneCharmTests.ConsumableCharm_DepletesAndRemovesAfter5Uses" methodname="ConsumableCharm_DepletesAndRemovesAfter5Uses" classname="PenguinShot.Tests.SynthesisCloneCharmTests" runstate="Runnable" seed="311697279" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.012440" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_SynthesisClone] 합성 복제 효과 활성화 (합성 시 1마리 1성 추가 생성)
+[ItemInventoryManager] 새 부적(합성 복제 T3) 추가 완료
+[DeckManager] Gentoo (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 합성 복제 T3 사용됨 (남은 횟수: 4/5)
+[Effect_SynthesisClone] 합성 복제 완료! Penguin (Tier 1) 추가 생성됨 (남은 횟수: 4)
+[DeckManager] Gentoo (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 합성 복제 T3 사용됨 (남은 횟수: 3/5)
+[Effect_SynthesisClone] 합성 복제 완료! Penguin (Tier 1) 추가 생성됨 (남은 횟수: 3)
+[DeckManager] Gentoo (Tier 2 -> 3) 합성 완료!
+[ShopItemBase] 합성 복제 T3 사용됨 (남은 횟수: 2/5)
+[DeckManager] Gentoo (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 합성 복제 T3 사용됨 (남은 횟수: 1/5)
+[Effect_SynthesisClone] 합성 복제 완료! Penguin (Tier 1) 추가 생성됨 (남은 횟수: 1)
+[Effect_SynthesisClone] Penguin 복제 실패 (덱 공간 부족)
+[DeckManager] Gentoo (Tier 1 -> 2) 합성 완료!
+[ShopItemBase] 합성 복제 T3 사용됨 (남은 횟수: 0/5)
+[ShopItemBase] 합성 복제 T3 횟수 소진됨 -> 인벤토리에서 제거
+[Effect_SynthesisClone] 합성 복제 효과 해제
+[ItemInventoryManager] 부적 제거: 합성 복제 T3
+[Effect_SynthesisClone] 합성 복제 완료! Penguin (Tier 1) 추가 생성됨 (남은 횟수: )
+[DeckManager] Gentoo (Tier 2 -> 3) 합성 완료!
+[DeckManager] Gentoo (Tier 3 -> 4) 합성 완료!
+[DeckManager] Gentoo (Tier 1 -> 2) 합성 완료!
+[DeckManager] Gentoo (Tier 1 -> 2) 합성 완료!
+[DeckManager] Gentoo (Tier 2 -> 3) 합성 완료!
+[DeckManager] Gentoo (Tier 1 -> 2) 합성 완료!
+[Effect_SynthesisClone] 합성 복제 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1149" name="DefaultValues_MatchT3Specification" fullname="PenguinShot.Tests.SynthesisCloneCharmTests.DefaultValues_MatchT3Specification" methodname="DefaultValues_MatchT3Specification" classname="PenguinShot.Tests.SynthesisCloneCharmTests" runstate="Runnable" seed="1382319182" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000803" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_SynthesisClone] 합성 복제 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1151" name="RemoveEffect_UnsubscribesFromSynthesis" fullname="PenguinShot.Tests.SynthesisCloneCharmTests.RemoveEffect_UnsubscribesFromSynthesis" methodname="RemoveEffect_UnsubscribesFromSynthesis" classname="PenguinShot.Tests.SynthesisCloneCharmTests" runstate="Runnable" seed="540307146" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001822" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_SynthesisClone] 합성 복제 효과 활성화 (합성 시 1마리 1성 추가 생성)
+[Effect_SynthesisClone] 합성 복제 효과 해제
+[DeckManager] Adelie (Tier 1 -> 2) 합성 완료!
+[Effect_SynthesisClone] 합성 복제 효과 해제
+]]></output>
+            </test-case>
+            <test-case id="1150" name="Synthesis_CreatesBonusPenguinAtTier1" fullname="PenguinShot.Tests.SynthesisCloneCharmTests.Synthesis_CreatesBonusPenguinAtTier1" methodname="Synthesis_CreatesBonusPenguinAtTier1" classname="PenguinShot.Tests.SynthesisCloneCharmTests" runstate="Runnable" seed="1397976734" result="Passed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.002326" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Effect_SynthesisClone] 합성 복제 효과 활성화 (합성 시 1마리 1성 추가 생성)
+[DeckManager] Adelie (Tier 1 -> 2) 합성 완료!
+[Effect_SynthesisClone] 합성 복제 완료! Penguin (Tier 1) 추가 생성됨 (남은 횟수: )
+[Effect_SynthesisClone] 합성 복제 효과 해제
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1155" name="WaveGameFlowTests" fullname="PenguinShot.Tests.WaveGameFlowTests" classname="PenguinShot.Tests.WaveGameFlowTests" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.004953" total="6" passed="0" failed="6" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1159" name="ClearAllFieldCoins_DestroysAllCoinsInField" fullname="PenguinShot.Tests.WaveGameFlowTests.ClearAllFieldCoins_DestroysAllCoinsInField" methodname="ClearAllFieldCoins_DestroysAllCoinsInField" classname="PenguinShot.Tests.WaveGameFlowTests" runstate="Runnable" seed="1837055392" result="Failed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.001581" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Coin_1이 파괴되어야 합니다.
+  Expected: True
+  But was:  False
+]]></message>
+                <stack-trace><![CDATA[at PenguinShot.Tests.WaveGameFlowTests.ClearAllFieldCoins_DestroysAllCoinsInField () [0x0005a] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\WaveGameFlowTests.cs:114
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[[Coin] 필드 잔여 코인이 전량 소멸되었습니다 (무정산).
+]]></output>
+            </test-case>
+            <test-case id="1158" name="DrainedPenguin_ResetToHeld_RestoresToAvailableState" fullname="PenguinShot.Tests.WaveGameFlowTests.DrainedPenguin_ResetToHeld_RestoresToAvailableState" methodname="DrainedPenguin_ResetToHeld_RestoresToAvailableState" classname="PenguinShot.Tests.WaveGameFlowTests" runstate="Runnable" seed="2092690043" result="Failed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000616" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  드레인 후에는 IsAvailable이 false여야 합니다.
+  Expected: False
+  But was:  True
+]]></message>
+                <stack-trace><![CDATA[at PenguinShot.Tests.WaveGameFlowTests.DrainedPenguin_ResetToHeld_RestoresToAvailableState () [0x0006d] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\WaveGameFlowTests.cs:95
+]]></stack-trace>
+              </failure>
+            </test-case>
+            <test-case id="1157" name="SellPenguin_WhenMoreThanOnePenguinRemains_CanBeSold" fullname="PenguinShot.Tests.WaveGameFlowTests.SellPenguin_WhenMoreThanOnePenguinRemains_CanBeSold" methodname="SellPenguin_WhenMoreThanOnePenguinRemains_CanBeSold" classname="PenguinShot.Tests.WaveGameFlowTests" runstate="Runnable" seed="1279908683" result="Failed" label="Error" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000451" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object]]></message>
+                <stack-trace><![CDATA[  at PenguinShot.Tests.WaveGameFlowTests.SellPenguin_WhenMoreThanOnePenguinRemains_CanBeSold () [0x00090] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\WaveGameFlowTests.cs:71 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+              </failure>
+            </test-case>
+            <test-case id="1156" name="SellPenguin_WhenOnlyOnePenguinRemains_CannotBeSold" fullname="PenguinShot.Tests.WaveGameFlowTests.SellPenguin_WhenOnlyOnePenguinRemains_CannotBeSold" methodname="SellPenguin_WhenOnlyOnePenguinRemains_CannotBeSold" classname="PenguinShot.Tests.WaveGameFlowTests" runstate="Runnable" seed="813998871" result="Failed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000418" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: not null
+  But was:  null
+]]></message>
+                <stack-trace><![CDATA[at PenguinShot.Tests.WaveGameFlowTests.SellPenguin_WhenOnlyOnePenguinRemains_CannotBeSold () [0x00006] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\WaveGameFlowTests.cs:49
+]]></stack-trace>
+              </failure>
+            </test-case>
+            <test-case id="1161" name="ShopManager_OnFirstMaintenance_GeneratesCurrentShopItems" fullname="PenguinShot.Tests.WaveGameFlowTests.ShopManager_OnFirstMaintenance_GeneratesCurrentShopItems" methodname="ShopManager_OnFirstMaintenance_GeneratesCurrentShopItems" classname="PenguinShot.Tests.WaveGameFlowTests" runstate="Runnable" seed="1039968138" result="Failed" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000572" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  최초 정비시간 상태여야 합니다.
+  Expected: True
+  But was:  False
+]]></message>
+                <stack-trace><![CDATA[at PenguinShot.Tests.WaveGameFlowTests.ShopManager_OnFirstMaintenance_GeneratesCurrentShopItems () [0x00083] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\WaveGameFlowTests.cs:152
+]]></stack-trace>
+              </failure>
+            </test-case>
+            <test-case id="1160" name="StartNextWave_WhenZeroPenguins_BlockedByGate" fullname="PenguinShot.Tests.WaveGameFlowTests.StartNextWave_WhenZeroPenguins_BlockedByGate" methodname="StartNextWave_WhenZeroPenguins_BlockedByGate" classname="PenguinShot.Tests.WaveGameFlowTests" runstate="Runnable" seed="560633938" result="Failed" label="Error" start-time="2026-10-10 22:42:31Z" end-time="2026-10-10 22:42:31Z" duration="0.000329" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object]]></message>
+                <stack-trace><![CDATA[  at PenguinShot.Tests.WaveGameFlowTests.StartNextWave_WhenZeroPenguins_BlockedByGate () [0x0000a] in C:\Users\oogg\PenguinShot\Assets\Tests\EditMode\WaveGameFlowTests.cs:123 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[Saving results to: C:/Users/oogg/AppData/LocalLow/DefaultCompany/PenguinShot\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

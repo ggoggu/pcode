@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int currentScore = 0;
 
     [Header("재화 시스템")]
-    [Tooltip("골드: 런 전체 유지 영구 재화 (뽑기, 리롤용)")]
-    [SerializeField] private int currentGold = 100; // 단일 재화로 통일
+    [Tooltip("골드: EconomyManager를 단일 진실의 원천(SSOT)으로 사용합니다.")]
+    [SerializeField] private int currentGold = 100;
 
     [Header("플레이어 생명")]
     [SerializeField] private int maxLife = 5;
@@ -62,12 +62,12 @@ public class GameManager : MonoBehaviour
     public event Action<GameState> OnGameStateChanged; 
     public static event Action<GameState> OnStateChanged;  
     public static event Action<int> OnScoreChanged;
-    public static event Action<int> OnGoldChanged; // 나무(Wood) 관련 이벤트 삭제
+    public static event Action<int> OnGoldChanged;
     public static event Action<int> OnLifeChanged;
 
     public GameState CurrentState => currentState;
     public int CurrentScore => currentScore;
-    public int CurrentGold => currentGold; // 나무(Wood) Getter 삭제
+    public int CurrentGold => EconomyManager.Instance != null ? EconomyManager.Instance.CurrentGold : currentGold;
     public int CurrentLife => currentLife;
     public int MaxLife 
     {
@@ -87,13 +87,50 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            if (Application.isPlaying)
+            {
+                if (transform.parent != null)
+                {
+                    transform.SetParent(null);
+                }
+                DontDestroyOnLoad(gameObject);
+            }
         }
-        else Destroy(gameObject);
+        else if (Instance != this)
+        {
+            if (Application.isPlaying) Destroy(gameObject);
+            else DestroyImmediate(gameObject);
+        }
+    }
+
+    private void OnEnable()
+    {
+        EconomyManager.OnGoldChanged += HandleEconomyGoldChanged;
+    }
+
+    private void OnDisable()
+    {
+        EconomyManager.OnGoldChanged -= HandleEconomyGoldChanged;
+    }
+
+    private void HandleEconomyGoldChanged(int newGold)
+    {
+        currentGold = newGold;
+        OnGoldChanged?.Invoke(newGold);
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
     }
 
     private void Start()
     {
+        if (EconomyManager.Instance != null)
+        {
+            currentGold = EconomyManager.Instance.CurrentGold;
+        }
+
         OnStateChanged?.Invoke(currentState);
         OnScoreChanged?.Invoke(currentScore);
         OnGoldChanged?.Invoke(currentGold);
@@ -147,9 +184,15 @@ public class GameManager : MonoBehaviour
         OnLifeChanged?.Invoke(currentLife);
     }
 
+    public void HealFullLife()
+    {
+        HealLife(MaxLife);
+    }
+
     private void HandleLifeRegenerate()
     {
-        if (currentState == GameState.GameOver || currentLife >= maxLife)
+        // 기획서 §4-E: 자연 회복은 웨이브 전투 중에만 진행된다 (정비시간 대기 회복 차단)
+        if (currentState != GameState.WaveInProgress || currentLife >= maxLife)
         {
             regenTimer = 0f;
             return;
@@ -162,16 +205,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // 나무 관련 메서드 완전히 삭제 완료
-
     public void AddGold(int amount)
     {
-        currentGold += amount;
-        OnGoldChanged?.Invoke(currentGold);
+        if (EconomyManager.Instance != null)
+        {
+            EconomyManager.Instance.AddGold(amount);
+        }
+        else
+        {
+            currentGold += amount;
+            OnGoldChanged?.Invoke(currentGold);
+        }
     }
 
     public bool TrySpendGold(int amount)
     {
+        if (EconomyManager.Instance != null)
+        {
+            return EconomyManager.Instance.SpendGold(amount);
+        }
+
         if (currentGold < amount) return false;
         currentGold -= amount;
         OnGoldChanged?.Invoke(currentGold);

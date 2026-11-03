@@ -4,6 +4,8 @@ namespace PenguinPinball.Core
 {
     public class BaseHealth : MonoBehaviour
     {
+        public static BaseHealth Instance { get; private set; }
+
         [Header("Health Settings")]
         [SerializeField] private int maxHealth = 10;
         private int currentHealth;
@@ -12,7 +14,13 @@ namespace PenguinPinball.Core
 
         private void Awake()
         {
+            Instance = this;
             currentHealth = maxHealth;
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this) Instance = null;
         }
 
         private void Start()
@@ -27,6 +35,7 @@ namespace PenguinPinball.Core
             currentHealth = Mathf.Max(0, currentHealth - damage);
 
             GameEvents.RaiseBaseHealthChanged(currentHealth, maxHealth);
+            GameEvents.RaiseBaseAttacked(transform.position);
             if (currentHealth <= 0)
             {
                 Die();
@@ -37,6 +46,10 @@ namespace PenguinPinball.Core
         {
             IsDestroyed = true;
             GameEvents.RaiseBaseDestroyed();
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.ChangeState(GameState.GameOver);
+            }
             Debug.Log("[BaseHealth] 베이스가 파괴되었습니다. 게임 오버!");
         }
 

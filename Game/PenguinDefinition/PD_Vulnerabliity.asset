@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: PD_Vulnerabliity
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
   displayName: VulnerabilityPenguin
+  description: 적에게 취약 표식을 남겨 받는 모든 피해를 증가시킵니다.
   icon: {fileID: 0}
   mass: 1
-  linearDrag: 1
-  maxSpeed: 11
+  linearDrag: 0.1
+  maxSpeed: 18
   attack: 9
   damageSpeedScale: 1
   lowSpeedCutoff: 1.2

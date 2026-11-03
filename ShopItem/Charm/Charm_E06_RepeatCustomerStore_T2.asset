@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e3ed6096c4e6ca44b4347451db0b620, type: 3}
+  m_Name: Charm_E06_RepeatCustomerStore_T2
+  m_EditorClassIdentifier: 
+  ItemID: E-06
+  ItemName: "단골 상점 T2"
+  Type: 0
+  Price: 15
+  Icon: {fileID: 0}
+  Description: "정비 시간에 펭귄을 구매하면 동일 펭귄을 2배 가격에 1회 추가 구매할 수 있습니다. 총 5회 사용 후 소멸합니다. 부화장에서 구매한 펭귄도 해당 영역에서 재구매할 수 있습니다."
+  IsConsumable: 1
+  MaxUses: 5
+  CurrentUses: 5
+  Effects:
+  - {fileID: 11400000, guid: b76000028f2a4ca790a14b51dc000002, type: 2}

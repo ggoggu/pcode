@@ -5,6 +5,8 @@ public class ItemShopViewModel
 {
     public int CurrentGold { get; private set; }
     public int ShopRerollCost { get; private set; }
+    public bool HasFreeReroll => ShopManager.Instance != null && ShopManager.Instance.HasFreeRerolls;
+    public int RemainingFreeRerolls => ShopManager.Instance != null ? ShopManager.Instance.RemainingFreeRerolls : 0;
     
     public List<ShopItemViewModel> ShopSlots { get; private set; } = new List<ShopItemViewModel>();
 
@@ -31,7 +33,7 @@ public class ItemShopViewModel
         if (EconomyManager.Instance == null || ShopManager.Instance == null) return;
 
         CurrentGold = EconomyManager.Instance.CurrentGold;
-        ShopRerollCost = ShopManager.Instance.GetCurrentRerollCost(ShopManager.Instance.ShopRerollCount);
+        ShopRerollCost = ShopManager.Instance.GetShopRerollCost();
         
         // 상점 데이터 갱신
         ShopSlots.Clear();
@@ -45,6 +47,7 @@ public class ItemShopViewModel
                 Price = item != null ? item.Price : 0,
                 ItemTypeStr = item != null ? item.Type.ToString() : "-",
                 Icon = item != null ? item.Icon : null,
+                Description = item != null ? item.Description : "",
                 IsSoldOut = item == null
             });
         }

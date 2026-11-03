@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f00100018f2a4ca790a14b51dc000001, type: 3}
+  m_Name: Instant_I01_GradeTransplant_T3
+  m_EditorClassIdentifier: 
+  ItemID: I-01
+  ItemName: "\uB4F1\uAE09 \uC774\uC2DD T3"
+  Type: 4
+  Price: 15
+  Icon: {fileID: 0}
+  Description: "\uC120\uD0DD\uD55C \uB450 \uD3AD\uAD74\uC758 \uB4F1\uAE09\uC744 \uC11C\uB85C \uAD50\uD658\uD569\uB2C8\uB2E4. \uAD50\uD658 \uD6C4 \uD569\uC131 \uAC00\uB2A5\uD55C \uC870\uD569\uC774 \uC788\uC73C\uBA74 \uC790\uB3D9\uC73C\uB85C \uD569\uC131\uB429\uB2C8\uB2E4."
+  IsConsumable: 0
+  MaxUses: 1
+  NoSellRefund: 0
+  CustomSellPrice: -1
+  Effects: []
+  TargetType: 2
+  InstructionText: "\uB4F1\uAE09\uC744 \uC11C\uB85C \uAD50\uD658\uD560 \uB450 \uD3AD\uAD74\uC744 \uC120\uD0DD\uD558\uC138\uC694."

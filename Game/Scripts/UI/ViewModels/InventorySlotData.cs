@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace PenguinPinball.UI.ViewModels
@@ -21,5 +22,8 @@ namespace PenguinPinball.UI.ViewModels
         public bool IsInField { get; set; } = false;
         public bool IsDisabled => IsInField || !IsAvailable;
         public bool IsEmpty => SlotType == InventorySlotType.None;
+        public int Tier { get; set; } = 1;
+        public List<ShopItemBase> ActiveCharms { get; set; } = new List<ShopItemBase>();
+        public bool IsLocked { get; set; } = false;
     }
 }

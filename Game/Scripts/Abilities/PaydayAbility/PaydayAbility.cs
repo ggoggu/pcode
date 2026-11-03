@@ -8,6 +8,8 @@ namespace PenguinPinball.Core
         private readonly float damageMultiplier;
         private readonly List<Enemy> markedEnemies = new();
 
+        private readonly List<PaydayMark> markBuffer = new();
+
         public PaydayAbility(float damageMultiplier)
         {
             this.damageMultiplier = damageMultiplier;
@@ -23,11 +25,24 @@ namespace PenguinPinball.Core
         {
             if (enemy == null || enemy.IsDead) return;
 
-            var mark = enemy.GetComponent<PaydayMark>();
-            if (mark == null)
+            markBuffer.Clear();
+            enemy.GetComponents(markBuffer);
+
+            bool hasMyMark = false;
+
+            for (int i = 0; i < markBuffer.Count; i++)
             {
-                mark = enemy.gameObject.AddComponent<PaydayMark>();
-                mark.Initialize(Owner);
+                if (markBuffer[i].Source == Owner)
+                {
+                    hasMyMark = true;
+                    break;
+                }
+            }
+
+            if (!hasMyMark)
+            {
+                var newMark = enemy.gameObject.AddComponent<PaydayMark>();
+                newMark.Initialize(Owner);
             }
 
             if (!markedEnemies.Contains(enemy))
@@ -48,9 +63,19 @@ namespace PenguinPinball.Core
                 var enemy = markedEnemies[i];
                 if (enemy != null && !enemy.IsDead)
                 {
-                    if (enemy.TryGetComponent<PaydayMark>(out var mark) && mark.Source == Owner)
+                    markBuffer.Clear();
+                    enemy.GetComponents(markBuffer);
+
+                    var existingMarks = enemy.GetComponents<PaydayMark>();
+
+                    for (int j = 0; j < markBuffer.Count; j++)
                     {
-                        mark.PopMark(damageMultiplier);
+                        var mark = markBuffer[j];
+                        if (mark.Source == Owner)
+                        {
+                            mark.PopMark(damageMultiplier);
+                            break;
+                        }
                     }
                 }
             }

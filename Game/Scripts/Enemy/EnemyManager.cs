@@ -9,6 +9,9 @@ public class EnemyManager : MonoBehaviour
 
     [Header("드랍 재화 설정 (글로벌 관리)")]
     [SerializeField] private GameObject coinPrefab;
+    [SerializeField] private int defaultCoinSplitCount = 3; // 기획서: 기본 3개 분할 생성
+    [SerializeField] private LayerMask obstacleLayerMask;   // 벽·오브젝트 겹침 판정용 레이어 마스크
+    public GameObject CoinPrefab => coinPrefab;
 
     [Header("적 프리팹 목록")]
     [SerializeField] private Enemy normalPrefab;
@@ -32,6 +35,12 @@ public class EnemyManager : MonoBehaviour
 
     [Header("웨이브 스케일링 설정")]
     [SerializeField] private float hpScaleFactorPerWave = 1.15f;
+
+    [Header("스폰 겹침 방지 설정")]
+    [Tooltip("스폰 시작 지점 최소 확보 반경 (이 반경 내에 적이 머물러 있으면 다음 적 스폰 일시 대기)")]
+    [SerializeField] private float spawnClearanceRadius = 1.4f;
+    [Tooltip("스폰 대기 최대 제한 시간 (초 단위, 스폰 영구 지연 방지)")]
+    [SerializeField] private float maxSpawnWaitDuration = 2.0f;
 
     public enum EnemyType { Normal, Seagull, Shrink, ComboReset, Boss }
 
@@ -62,6 +71,9 @@ public class EnemyManager : MonoBehaviour
         [Tooltip("이 웨이브에서 적 전체가 드랍할 총 골드 양")]
         public int waveTotalGold = 100;
 
+        [Tooltip("이 웨이브에서 적 처치로 획득 가능한 목표 오브젝트 수 (기획 §2 & 워크북 04_오브젝트)")]
+        public int targetObjectDropCount = 3;
+
         public List<EnemySpawnEntry> spawnEntries = new List<EnemySpawnEntry>();
 
         public int GetTotalEnemyCount()
@@ -83,6 +95,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private List<WaveData> waveDataList = new List<WaveData>();
 
     private readonly List<Enemy> activeEnemies = new List<Enemy>();
+    public IReadOnlyList<Enemy> ActiveEnemies => activeEnemies;
 
     private int globalWaveIndex = 0;
     private int currentWaveIndex = 0;
@@ -105,6 +118,16 @@ public class EnemyManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        // 장애물 감지 레이어 미할당 시 기본 레이어(Default, Bumper) 자동 구성
+        if (obstacleLayerMask.value == 0)
+        {
+            obstacleLayerMask = LayerMask.GetMask("Default", "Bumper");
+            if (obstacleLayerMask.value == 0)
+            {
+                obstacleLayerMask = 1; // Fallback: Default layer
+            }
+        }
 
         // URP 및 Built-in 동시 대응 셰이더 자동 검색
         Shader targetShader = GetUniversalShader();
@@ -141,15 +164,17 @@ public class EnemyManager : MonoBehaviour
     {
         if (newState == GameState.WaveInProgress || newState == GameState.Wave)
         {
-            StartWave(currentWaveIndex);
+            int targetIndex = MapManager.Instance != null ? MapManager.Instance.GlobalWaveIndex : currentWaveIndex;
+            StartWave(targetIndex);
         }
         else if (newState == GameState.MaintenanceTime)
         {
             PrepareMaintenancePhase();
         }
-        else if (newState == GameState.GameOver)
+        else if (newState == GameState.GameOver || newState == GameState.GameClear)
         {
             StopSpawning();
+            ClearAllEnemies();
         }
     }
 
@@ -158,9 +183,10 @@ public class EnemyManager : MonoBehaviour
         StopSpawning();
         HideAllPathPreviews();
 
-        if (currentWaveIndex < waveDataList.Count)
+        int nextIndex = MapManager.Instance != null ? MapManager.Instance.GlobalWaveIndex : currentWaveIndex;
+        if (nextIndex < waveDataList.Count)
         {
-            WaveData nextWave = waveDataList[currentWaveIndex];
+            WaveData nextWave = waveDataList[nextIndex];
             HashSet<int> usedPathIds = nextWave.GetUsedPathIds();
             ShowPathPreviews(usedPathIds);
         }
@@ -180,7 +206,15 @@ public class EnemyManager : MonoBehaviour
         HideAllPathPreviews();
 
         currentWaveIndex = waveIndex;
-        StartCoroutine(SpawnWaveTimeScheduleRoutine(waveDataList[waveIndex]));
+        WaveData wave = waveDataList[waveIndex];
+
+        // 웨이브별 목표 습득량 동적 초기화 (기획 §2)
+        if (ObjectDropManager.Instance != null)
+        {
+            ObjectDropManager.Instance.InitializeWaveGoals(wave.GetTotalEnemyCount(), wave.targetObjectDropCount);
+        }
+
+        StartCoroutine(SpawnWaveTimeScheduleRoutine(wave));
     }
 
     public void StopSpawning()
@@ -230,7 +264,11 @@ public class EnemyManager : MonoBehaviour
         globalWaveIndex++;
         currentWaveIndex++;
 
-        if (GameManager.Instance != null)
+        if (MapManager.Instance != null)
+        {
+            MapManager.Instance.OnWaveEnemiesDefeated();
+        }
+        else if (GameManager.Instance != null)
         {
             GameManager.Instance.ChangeState(GameState.MaintenanceTime);
         }
@@ -240,11 +278,48 @@ public class EnemyManager : MonoBehaviour
     {
         for (int i = 0; i < entry.count; i++)
         {
+            if (spawnClearanceRadius > 0f)
+            {
+                float waitedTime = 0f;
+                const float checkStep = 0.15f;
+                while (IsSpawnPointBlocked(entry.pathId, spawnClearanceRadius) && waitedTime < maxSpawnWaitDuration)
+                {
+                    yield return new WaitForSeconds(checkStep);
+                    waitedTime += checkStep;
+                }
+            }
+
             SpawnEnemy(entry.enemyType, entry.pathId, goldPerEnemy, hpMultiplier);
 
             if (entry.interval > 0f)
                 yield return new WaitForSeconds(entry.interval);
         }
+    }
+
+    /// <summary>
+    /// 지정된 경로의 스폰 지점 반경 내에 이미 다른 적이 존재하는지 검사합니다.
+    /// </summary>
+    public bool IsSpawnPointBlocked(int pathId, float clearanceRadius)
+    {
+        CatmullRomPath path = GetPathById(pathId);
+        if (path == null) return false;
+
+        Vector3 spawnPos = path.EvaluateAtProgress(0f);
+        float radiusSqr = clearanceRadius * clearanceRadius;
+
+        for (int i = 0; i < activeEnemies.Count; i++)
+        {
+            Enemy enemy = activeEnemies[i];
+            if (enemy == null || enemy.IsDead || !enemy.gameObject.activeInHierarchy) continue;
+
+            Vector3 diff = enemy.transform.position - spawnPos;
+            diff.y = 0f;
+            if (diff.sqrMagnitude < radiusSqr)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void SpawnEnemy(EnemyType type, int pathId, float goldPerEnemy, float hpMultiplier)
@@ -286,22 +361,108 @@ public class EnemyManager : MonoBehaviour
         activeEnemies.Add(instance);
     }
 
+    /// <summary>
+    /// 단일 좌표 기준 레거시 코인 드랍 (외부/부적 호환용)
+    /// </summary>
+    public void DropCoin(Vector3 position)
+    {
+        DropCoinsAtPosition(position, 0.5f, 1, 10);
+    }
+
+    /// <summary>
+    /// 적 처치 시 기획서(§6)에 따른 기본 3개 분할 코인 드랍
+    /// </summary>
+    public void DropCoins(Enemy enemy)
+    {
+        if (enemy == null) return;
+
+        float radius = GetEnemyCollisionRadius(enemy);
+        int totalGold = Mathf.RoundToInt(enemy.BaseGold);
+        int splitCount = Mathf.Max(1, defaultCoinSplitCount);
+
+        DropCoinsAtPosition(enemy.transform.position, radius, splitCount, totalGold);
+    }
+
+    /// <summary>
+    /// 지정된 반경 내에 코인을 분할 생성하고 골드를 배분합니다.
+    /// </summary>
+    public void DropCoinsAtPosition(Vector3 center, float radius, int splitCount, int totalGold)
+    {
+        if (coinPrefab == null || splitCount <= 0) return;
+
+        int baseGoldPerCoin = totalGold / splitCount;
+        int remainder = totalGold % splitCount;
+
+        for (int i = 0; i < splitCount; i++)
+        {
+            int goldForThisCoin = baseGoldPerCoin + (i < remainder ? 1 : 0);
+            Vector3 spawnPos = FindSafeCoinSpawnPosition(center, radius);
+
+            GameObject coinInstance = Instantiate(coinPrefab, spawnPos, Quaternion.identity);
+            if (coinInstance.TryGetComponent<Coin>(out var coinComp))
+            {
+                coinComp.SetGoldValue(goldForThisCoin);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 적의 충돌 반경 내에서 벽 및 오브젝트와 겹치지 않는 안전한 코인 스폰 지점을 탐색합니다.
+    /// [미확정 처리]: 최대 10회 재추첨 후 미확보 시 중심 지점을 폴백으로 사용합니다.
+    /// </summary>
+    private Vector3 FindSafeCoinSpawnPosition(Vector3 center, float radius)
+    {
+        const int maxAttempts = 10;
+        const float coinCheckRadius = 0.2f;
+
+        for (int attempt = 0; attempt < maxAttempts; attempt++)
+        {
+            Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * radius;
+            Vector3 candidate = new Vector3(center.x + randomCircle.x, center.y + 0.2f, center.z + randomCircle.y);
+
+            // 벽·오브젝트 레이어와 충돌 여부 검사 (Trigger는 무시)
+            if (!Physics.CheckSphere(candidate, coinCheckRadius, obstacleLayerMask, QueryTriggerInteraction.Ignore))
+            {
+                return candidate;
+            }
+        }
+
+        // 상한 도달 시 fallback: 적 중심 높이 보정 지점
+        return new Vector3(center.x, center.y + 0.2f, center.z);
+    }
+
+    /// <summary>
+    /// 적의 콜라이더 형태에 따른 실제 X-Z 평면 충돌 반경을 계산합니다.
+    /// </summary>
+    private float GetEnemyCollisionRadius(Enemy enemy)
+    {
+        if (enemy == null) return 0.5f;
+
+        Collider col = enemy.MainCollider;
+        if (col is CapsuleCollider cc)
+        {
+            float maxScale = Mathf.Max(enemy.transform.lossyScale.x, enemy.transform.lossyScale.z);
+            return Mathf.Max(0.3f, cc.radius * maxScale);
+        }
+        if (col is SphereCollider sc)
+        {
+            float maxScale = Mathf.Max(enemy.transform.lossyScale.x, enemy.transform.lossyScale.z);
+            return Mathf.Max(0.3f, sc.radius * maxScale);
+        }
+        if (col != null)
+        {
+            return Mathf.Max(0.3f, Mathf.Max(col.bounds.extents.x, col.bounds.extents.z));
+        }
+
+        return 0.5f;
+    }
+
     private void HandleEnemyDeath(Enemy enemy)
     {
         if (enemy != null)
         {
             UnregisterEnemy(enemy);
-
-            if (coinPrefab != null)
-            {
-                Vector3 spawnPos = enemy.transform.position + new Vector3(
-                    UnityEngine.Random.Range(-0.2f, 0.2f),
-                    0.2f,
-                    UnityEngine.Random.Range(-0.2f, 0.2f)
-                );
-                Instantiate(coinPrefab, spawnPos, Quaternion.identity);
-            }
-
+            DropCoins(enemy);
             OnEnemyProcessed();
         }
     }

@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: PD_Isolated
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
   displayName: IsolatedPenguin
+  description: 주변에 다른 적이 없는 단독 목표 타격 시 추가 피해를 줍니다.
   icon: {fileID: 0}
   mass: 1
-  linearDrag: 1
-  maxSpeed: 11
-  attack: 11
+  linearDrag: 0.1
+  maxSpeed: 18
+  attack: 9
   damageSpeedScale: 1
   lowSpeedCutoff: 1.2
-  overloadThreshold: 11
+  overloadThreshold: 10
   comboBaseDuration: 3
   durationLossPerCombo: 0.08
   comboDurationMultiplier: 1

@@ -197,5 +197,50 @@ namespace PenguinShot.Tests
             Object.DestroyImmediate(pathGo);
             Object.DestroyImmediate(enemyGo);
         }
-    }
+    
+        [Test]
+        public void EnemyPathFollowState_CalculateSpeedFactor_FollowsSafely()
+        {
+            var goA = new GameObject("EnemyA");
+            goA.AddComponent<BoxCollider>();
+            var enemyA = goA.AddComponent<NormalEnemyAI>();
+            enemyA.transform.position = new Vector3(0f, 0f, 0f);
+            enemyA.transform.rotation = Quaternion.LookRotation(Vector3.forward);
+            enemyA.MinFollowDistance = 1.3f;
+            enemyA.SlowFollowDistance = 2.0f;
+
+            var goB = new GameObject("EnemyB");
+            goB.AddComponent<BoxCollider>();
+            var enemyB = goB.AddComponent<NormalEnemyAI>();
+            // Enemy B is in front of A at distance 1.0m (less than minFollowDistance 1.3m)
+            enemyB.transform.position = new Vector3(0f, 0f, 1.0f);
+
+            var list = new System.Collections.Generic.List<Enemy> { enemyA, enemyB };
+
+            var sm = new EnemyStateMachine();
+            var followState = new EnemyPathFollowState(enemyA, sm);
+
+            // 1. Enemy B is directly in front within minFollowDistance -> SpeedFactor should be 0 (Stop)
+            float factorClose = followState.CalculateSpeedFactor(list);
+            Assert.AreEqual(0f, factorClose, 0.001f, "Enemy should stop completely when distance is within minFollowDistance");
+
+            // 2. Enemy B moves forward to 1.65m (midway between 1.3m and 2.0m) -> SpeedFactor should be ~0.5
+            enemyB.transform.position = new Vector3(0f, 0f, 1.65f);
+            float factorMid = followState.CalculateSpeedFactor(list);
+            Assert.IsTrue(factorMid > 0.3f && factorMid < 0.7f, $"SpeedFactor should be partially slowed (~0.5), but was {factorMid}");
+
+            // 3. Enemy B moves far away to 5.0m (> slowFollowDistance) -> SpeedFactor should be 1.0
+            enemyB.transform.position = new Vector3(0f, 0f, 5.0f);
+            float factorFar = followState.CalculateSpeedFactor(list);
+            Assert.AreEqual(1f, factorFar, 0.001f, "Enemy should move at full speed when distance is beyond slowFollowDistance");
+
+            // 4. Enemy B is BEHIND Enemy A (Z = -2.0m) -> SpeedFactor should be 1.0 (Ignore behind)
+            enemyB.transform.position = new Vector3(0f, 0f, -2.0f);
+            float factorBehind = followState.CalculateSpeedFactor(list);
+            Assert.AreEqual(1f, factorBehind, 0.001f, "Enemy should not slow down for enemies behind it");
+
+            Object.DestroyImmediate(goA);
+            Object.DestroyImmediate(goB);
+        }
+}
 }

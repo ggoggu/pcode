@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07b0f44d742cb654b93604b66284b953, type: 3}
+  m_Name: PD_Pyro
+  m_EditorClassIdentifier: PenguinShot.Runtime::PenguinPinball.Core.PenguinDefinition
+  displayName: PyroPenguin
+  description: 적에게 화상 피해를 주며, 과부하 시 화염 폭발을 일으킵니다.
+  icon: {fileID: 0}
+  mass: 1
+  linearDrag: 0.1
+  maxSpeed: 18
+  attack: 9
+  damageSpeedScale: 1
+  lowSpeedCutoff: 5
+  overloadThreshold: 10
+  comboBaseDuration: 3
+  durationLossPerCombo: 0.1
+  comboDurationMultiplier: 1
+  overloadMaxSpeedMultiplier: 1.5
+  overloadDragMultiplier: 0.5
+  respawnSeconds: 3
+  attackGrowthPerTier: 0.15
+  maxSpeedGrowthPerTier: 0.05
+  massGrowthPerTier: 0.1
+  respawnTimeGrowthPerTier: 0.05
+  visualPrefab: {fileID: 3701027084522633178, guid: 9bab5065f756fcd4abc376eb2e6b84bb, type: 3}
+  ability: {fileID: 11400000, guid: 5e9c03ab255ebbe4ba420ae6c5f779e7, type: 2}

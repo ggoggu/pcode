@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: PD_Battery
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
   displayName: BatteryPenguin
+  description: 벽이나 장애물 충돌 시 충전되어 공격력이 증가합니다.
   icon: {fileID: 0}
-  mass: 0.9
-  linearDrag: 1
-  maxSpeed: 12
+  mass: 1
+  linearDrag: 0.1
+  maxSpeed: 18
   attack: 9
   damageSpeedScale: 1
   lowSpeedCutoff: 1.2

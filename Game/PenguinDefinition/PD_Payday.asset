@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: PD_Payday
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
   displayName: PaydayPenguin
+  description: 과부하 중 공격한 적에게 표식을 남겨 종료 시 폭발 피해를 줍니다.
   icon: {fileID: 0}
   mass: 1
-  linearDrag: 1
-  maxSpeed: 11
-  attack: 10
+  linearDrag: 0.1
+  maxSpeed: 18
+  attack: 9
   damageSpeedScale: 1
   lowSpeedCutoff: 1.2
-  overloadThreshold: 11
+  overloadThreshold: 10
   comboBaseDuration: 3
   durationLossPerCombo: 0.08
   comboDurationMultiplier: 1

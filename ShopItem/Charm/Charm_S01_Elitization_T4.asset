@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e3ed6096c4e6ca44b4347451db0b620, type: 3}
+  m_Name: Charm_S01_Elitization_T4
+  m_EditorClassIdentifier: 
+  ItemID: S-01
+  ItemName: "정예화 T4"
+  Type: 0
+  Price: 25
+  Icon: {fileID: 0}
+  Description: "벤치의 맨 뒤 두 칸이 잠깁니다. 잠긴 칸 위에 있던 펭귄은 웨이브 시작 시 자동으로 인벤토리로 이동되며, 인벤토리에 빈 칸이 없을 시 자동으로 판매됩니다. 적을 처치할 때마다 코인을 추가로 드랍합니다."
+  IsConsumable: 0
+  MaxUses: 1
+  CurrentUses: 1
+  Effects:
+  - {fileID: 11400000, guid: b71000028f2a4ca790a14b51dc000002, type: 2}

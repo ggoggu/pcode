@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: PD_Rage
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
   displayName: RagePenguin
+  description: 콤보가 쌓일수록 분노 스택이 증가하여 공격력이 강화됩니다.
   icon: {fileID: 0}
   mass: 1
-  linearDrag: 1
-  maxSpeed: 11
+  linearDrag: 0.1
+  maxSpeed: 18
   attack: 9
   damageSpeedScale: 1
   lowSpeedCutoff: 1.2

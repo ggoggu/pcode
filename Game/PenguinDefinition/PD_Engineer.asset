@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: PD_Engineer
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
   displayName: EngineerPenguin
+  description: 장치와 부적의 위력을 극대화하는 보조 펭귄입니다.
   icon: {fileID: 0}
-  mass: 1.1
-  linearDrag: 1
-  maxSpeed: 10
+  mass: 1
+  linearDrag: 0.1
+  maxSpeed: 18
   attack: 9
   damageSpeedScale: 1
   lowSpeedCutoff: 1.2
-  overloadThreshold: 11
+  overloadThreshold: 10
   comboBaseDuration: 3
   durationLossPerCombo: 0.08
   comboDurationMultiplier: 1

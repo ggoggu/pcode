@@ -5,6 +5,8 @@ public class HatcheryViewModel
 {
     public int CurrentGold { get; private set; }
     public int HatcheryRerollCost { get; private set; }
+    public bool HasFreeReroll => ShopManager.Instance != null && ShopManager.Instance.HasFreeRerolls;
+    public int RemainingFreeRerolls => ShopManager.Instance != null ? ShopManager.Instance.RemainingFreeRerolls : 0;
     
     // 부화장(펭귄 상점) 진열 아이템 상태 리스트
     public List<ShopItemViewModel> HatcherySlots { get; private set; } = new List<ShopItemViewModel>();
@@ -34,19 +36,30 @@ public class HatcheryViewModel
         CurrentGold = EconomyManager.Instance.CurrentGold;
         
         // 부화장 데이터 갱신
-        HatcheryRerollCost = ShopManager.Instance.GetCurrentRerollCost(ShopManager.Instance.HatcheryRerollCount);
+        HatcheryRerollCost = ShopManager.Instance.GetHatcheryRerollCost();
         HatcherySlots.Clear();
         for (int i = 0; i < ShopManager.Instance.CurrentHatcheryItems.Count; i++)
         {
             var penguinDef = ShopManager.Instance.CurrentHatcheryItems[i];
+            bool isRepurchase = ShopManager.Instance.IsHatcherySlotRepurchase(i);
+            int slotPrice = ShopManager.Instance.GetHatcherySlotPrice(i);
+            string displayName = "품절";
+            if (penguinDef != null)
+            {
+                string baseName = !string.IsNullOrEmpty(penguinDef.DisplayName) ? penguinDef.DisplayName : penguinDef.name;
+                displayName = isRepurchase ? $"{baseName} (재구매)" : baseName;
+            }
+
             HatcherySlots.Add(new ShopItemViewModel
             {
                 SlotIndex = i,
-                ItemName = penguinDef != null ? penguinDef.name : "품절",
-                Price = 10, // 임시 고정가
-                ItemTypeStr = "Penguin",
+                ItemName = displayName,
+                Price = slotPrice,
+                ItemTypeStr = isRepurchase ? "Repurchase" : "Penguin",
                 Icon = penguinDef != null ? penguinDef.Icon : null,
-                IsSoldOut = penguinDef == null
+                Description = penguinDef != null ? (!string.IsNullOrEmpty(penguinDef.Description) ? penguinDef.Description : (penguinDef.Ability != null ? penguinDef.Ability.Description : "")) : "",
+                IsSoldOut = penguinDef == null,
+                PenguinDef = penguinDef
             });
         }
 

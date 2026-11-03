@@ -18,6 +18,10 @@ namespace PenguinPinball.UI.ViewModels
             {
                 PenguinDeckManager.Instance.OnDeckChanged += RefreshData;
             }
+            if (ItemInventoryManager.Instance != null)
+            {
+                ItemInventoryManager.Instance.OnInventoryChanged += RefreshData;
+            }
             RefreshData();
         }
 
@@ -27,22 +31,30 @@ namespace PenguinPinball.UI.ViewModels
             {
                 PenguinDeckManager.Instance.OnDeckChanged -= RefreshData;
             }
+            if (ItemInventoryManager.Instance != null)
+            {
+                ItemInventoryManager.Instance.OnInventoryChanged -= RefreshData;
+            }
         }
 
-        private void RefreshData()
+        public void RefreshData()
         {
             Slots.Clear();
             
-            if (PenguinDeckManager.Instance != null)
+            int capacity = PenguinDeckManager.Instance != null ? PenguinDeckManager.Instance.MaxBenchCapacity : 6;
+            for (int i = 0; i < capacity; i++)
             {
-                foreach (var penguinObj in PenguinDeckManager.Instance.OwnedPenguins)
+                GameObject penguinObj = PenguinDeckManager.Instance != null 
+                    ? PenguinDeckManager.Instance.GetPenguinAtBenchSlot(i) 
+                    : null;
+                bool isSlotLocked = PenguinDeckManager.Instance != null && PenguinDeckManager.Instance.IsBenchSlotLocked(i);
+                var activeCharms = Util.BenchSlotCharmUtility.GetActiveCharmsForBenchSlot(i);
+
+                if (penguinObj != null)
                 {
-                    if (penguinObj == null) continue;
-                    var locData = penguinObj.GetComponent<PenguinLocationData>();
-                    if (locData == null || locData.Location != PenguinLocation.Bench) continue;
-                    
                     var controller = penguinObj.GetComponent<PenguinController>();
                     var def = controller != null ? controller.Definition : null;
+                    int tier = controller != null ? controller.Tier : 1;
                     
                     Slots.Add(new InventorySlotData
                     {
@@ -51,7 +63,25 @@ namespace PenguinPinball.UI.ViewModels
                         Icon = def != null ? def.Icon : null,
                         Reference = penguinObj,
                         IsAvailable = controller != null ? controller.IsAvailable : true,
-                        IsInField = controller != null ? controller.IsInField : false
+                        IsInField = controller != null ? controller.IsInField : false,
+                        Tier = tier,
+                        ActiveCharms = activeCharms,
+                        IsLocked = isSlotLocked
+                    });
+                }
+                else
+                {
+                    Slots.Add(new InventorySlotData
+                    {
+                        SlotType = InventorySlotType.None,
+                        Name = string.Empty,
+                        Icon = null,
+                        Reference = null,
+                        IsAvailable = true,
+                        IsInField = false,
+                        Tier = 0,
+                        ActiveCharms = activeCharms,
+                        IsLocked = isSlotLocked
                     });
                 }
             }
@@ -64,7 +94,7 @@ namespace PenguinPinball.UI.ViewModels
             if (index >= 0 && index < Slots.Count)
             {
                 var slot = Slots[index];
-                if (slot.IsDisabled) return;
+                if (slot.IsEmpty || slot.IsDisabled) return;
 
                 if (slot.SlotType == InventorySlotType.Penguin)
                 {

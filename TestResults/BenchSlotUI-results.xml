@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="8" result="Passed" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-10 22:32:17Z" end-time="2026-10-10 22:32:17Z" duration="0.1340458">
+  <test-suite type="TestSuite" id="1000" name="PenguinShot" fullname="PenguinShot" runstate="Runnable" testcasecount="142" result="Passed" start-time="2026-10-10 22:32:17Z" end-time="2026-10-10 22:32:17Z" duration="0.134046" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1162" name="Tests.EditMode.dll" fullname="C:/Users/oogg/PenguinShot/Library/ScriptAssemblies/Tests.EditMode.dll" runstate="Runnable" testcasecount="142" result="Passed" start-time="2026-10-10 22:32:17Z" end-time="2026-10-10 22:32:17Z" duration="0.129540" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="28164" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1163" name="PenguinShot" fullname="PenguinShot" runstate="Runnable" testcasecount="142" result="Passed" start-time="2026-10-10 22:32:17Z" end-time="2026-10-10 22:32:17Z" duration="0.129304" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1164" name="Tests" fullname="PenguinShot.Tests" runstate="Runnable" testcasecount="142" result="Passed" start-time="2026-10-10 22:32:17Z" end-time="2026-10-10 22:32:17Z" duration="0.129183" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="BenchSlotUITests" fullname="PenguinShot.Tests.BenchSlotUITests" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-10 22:32:17Z" end-time="2026-10-10 22:32:17Z" duration="0.127235" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1006" name="BenchSlotCharmUtility_DetectsCharmTargetingBenchSlot" fullname="PenguinShot.Tests.BenchSlotUITests.BenchSlotCharmUtility_DetectsCharmTargetingBenchSlot" methodname="BenchSlotCharmUtility_DetectsCharmTargetingBenchSlot" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="1741480254" result="Passed" start-time="2026-10-10 22:32:17Z" end-time="2026-10-10 22:32:17Z" duration="0.045806" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ItemInventoryManager] 새 부적(1st Bench Attack Buff) 추가 완료
+]]></output>
+            </test-case>
+            <test-case id="1005" name="BenchSlotUI_ActiveCharms_DisplaysUpTo6CirclesWithIcons" fullname="PenguinShot.Tests.BenchSlotUITests.BenchSlotUI_ActiveCharms_DisplaysUpTo6CirclesWithIcons" methodname="BenchSlotUI_ActiveCharms_DisplaysUpTo6CirclesWithIcons" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="1713571356" result="Passed" start-time="2026-10-10 22:32:17Z" end-time="2026-10-10 22:32:17Z" duration="0.004879" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1003" name="BenchSlotUI_BorderColor_ChangesAccordingToTier" fullname="PenguinShot.Tests.BenchSlotUITests.BenchSlotUI_BorderColor_ChangesAccordingToTier" methodname="BenchSlotUI_BorderColor_ChangesAccordingToTier" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="1496826061" result="Passed" start-time="2026-10-10 22:32:17Z" end-time="2026-10-10 22:32:17Z" duration="0.002697" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1002" name="BenchSlotUI_EnsureHierarchy_CreatesAllRequiredElements" fullname="PenguinShot.Tests.BenchSlotUITests.BenchSlotUI_EnsureHierarchy_CreatesAllRequiredElements" methodname="BenchSlotUI_EnsureHierarchy_CreatesAllRequiredElements" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="1584379571" result="Passed" start-time="2026-10-10 22:32:17Z" end-time="2026-10-10 22:32:17Z" duration="0.004172" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1004" name="BenchSlotUI_Stars_MatchPenguinTier" fullname="PenguinShot.Tests.BenchSlotUITests.BenchSlotUI_Stars_MatchPenguinTier" methodname="BenchSlotUI_Stars_MatchPenguinTier" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="1299109076" result="Passed" start-time="2026-10-10 22:32:17Z" end-time="2026-10-10 22:32:17Z" duration="0.001763" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1009" name="BenchSlotUI_UpdateVisuals_Controls3DModelPreview" fullname="PenguinShot.Tests.BenchSlotUITests.BenchSlotUI_UpdateVisuals_Controls3DModelPreview" methodname="BenchSlotUI_UpdateVisuals_Controls3DModelPreview" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="550145330" result="Passed" start-time="2026-10-10 22:32:17Z" end-time="2026-10-10 22:32:17Z" duration="0.008221" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1008" name="BenchView_InitializesSlotUIs_AndUpdatesVisuals" fullname="PenguinShot.Tests.BenchSlotUITests.BenchView_InitializesSlotUIs_AndUpdatesVisuals" methodname="BenchView_InitializesSlotUIs_AndUpdatesVisuals" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="304231720" result="Passed" start-time="2026-10-10 22:32:17Z" end-time="2026-10-10 22:32:17Z" duration="0.045426" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1007" name="BenchViewModel_PopulatesTierAndActiveCharms" fullname="PenguinShot.Tests.BenchSlotUITests.BenchViewModel_PopulatesTierAndActiveCharms" methodname="BenchViewModel_PopulatesTierAndActiveCharms" classname="PenguinShot.Tests.BenchSlotUITests" runstate="Runnable" seed="1198398501" result="Passed" start-time="2026-10-10 22:32:17Z" end-time="2026-10-10 22:32:17Z" duration="0.005127" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[ItemInventoryManager] 새 부적() 추가 완료
+Saving results to: C:/Users/oogg/AppData/LocalLow/DefaultCompany/PenguinShot\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

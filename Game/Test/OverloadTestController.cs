@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace PenguinPinball.Core
 {
@@ -55,7 +55,7 @@ namespace PenguinPinball.Core
 
             Debug.Log(
                 $"========== {title} ==========\n" +
-                $"Combo        : {penguin.Combo}\n" +
+                $"Combo        : {penguin.Combo} / {penguin.OverloadThreshold}\n" +
                 $"Overloaded   : {penguin.IsOverloaded}\n" +
                 $"Available    : {penguin.IsAvailable}\n" +
                 $"In Field     : {penguin.IsInField}\n" +

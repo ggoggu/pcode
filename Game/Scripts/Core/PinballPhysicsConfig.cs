@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace PenguinPinball.Core
 {
@@ -28,6 +28,10 @@ namespace PenguinPinball.Core
         [Header("슬링샷 (Slingshot)")]
         [Tooltip("충돌 시 고정적으로 부여할 부스트 속력")]
         [Min(0f)] public float slingshotLaunchForce = 25.0f;
+        [Tooltip("슬링샷 막대 총 길이 (미터)")]
+        [Min(0.1f)] public float slingshotBarLength = 4.0f;
+        [Tooltip("중앙 반발 영역 비율 (0.0 ~ 1.0, 기본 0.6 = 중앙 60% 반발, 양 끝 20%씩 비반발)")]
+        [Range(0f, 1f)] public float slingshotRepulsionRatio = 0.6f;
         [Tooltip("박스 콜라이더 두께")]
         [Min(0.01f)] public float slingshotColliderThickness = 0.1f;
         [Tooltip("박스 콜라이더 높이")]

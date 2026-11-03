@@ -5,12 +5,13 @@ public class StorageTester : MonoBehaviour
 {
     private void Start()
     {
-        // 씬 시작 시 보관소에 범퍼 2개, 슬링샷 1개 강제 투입
+        // 씬 시작 시 보관소에 종류별로 1개씩만 투입 (테스트용)
         if (ObjectStorageManager.Instance != null)
         {
-            ObjectStorageManager.Instance.AddObject(new ObjectItem(ObjectType.Bumper));
-            ObjectStorageManager.Instance.AddObject(new ObjectItem(ObjectType.Bumper));
-            ObjectStorageManager.Instance.AddObject(new ObjectItem(ObjectType.Slingshot));
+            if (ObjectStorageManager.Instance.GetStoredObjects().Count == 0)
+            {
+                ObjectStorageManager.Instance.InitializeTestObjects();
+            }
         }
         else
         {

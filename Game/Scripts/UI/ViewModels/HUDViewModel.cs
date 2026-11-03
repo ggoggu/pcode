@@ -11,6 +11,8 @@ public class HUDViewModel
     public event Action<string> OnGoldTextChanged;
     public event Action<string> OnLifeTextChanged;
     public event Action<string> OnPhaseTextChanged;
+    public event Action<bool> OnPhaseButtonInteractableChanged;
+    public event Action<string> OnPhaseButtonTextChanged;
 
     public HUDViewModel()
     {
@@ -19,6 +21,11 @@ public class HUDViewModel
         GameManager.OnGoldChanged  += HandleGoldChanged;
         GameManager.OnLifeChanged  += HandleLifeChanged;
         GameManager.OnStateChanged += HandleStateChanged;
+
+        if (MapManager.Instance != null)
+        {
+            MapManager.Instance.OnWaveChanged += HandleWaveChanged;
+        }
     }
 
     /// <summary>
@@ -30,6 +37,11 @@ public class HUDViewModel
         GameManager.OnGoldChanged  -= HandleGoldChanged;
         GameManager.OnLifeChanged  -= HandleLifeChanged;
         GameManager.OnStateChanged -= HandleStateChanged;
+
+        if (MapManager.Instance != null)
+        {
+            MapManager.Instance.OnWaveChanged -= HandleWaveChanged;
+        }
     }
 
     /// <summary>
@@ -43,20 +55,29 @@ public class HUDViewModel
         HandleGoldChanged(GameManager.Instance.CurrentGold);
         HandleLifeChanged(GameManager.Instance.CurrentLife);
         HandleStateChanged(GameManager.Instance.CurrentState); // 초기 상태 반영
+
+        if (MapManager.Instance != null)
+        {
+            HandleWaveChanged(MapManager.Instance.CurrentMapIndex, MapManager.Instance.CurrentWave);
+        }
     }
 
     /// <summary>
-    /// View에서 버튼 클릭 시 호출
+    /// View에서 버튼 클릭 시 호출 (정비시간 -> 웨이브 시작)
     /// </summary>
     public void TogglePhase()
     {
-        if (GameManager.Instance != null)
+        if (MapManager.Instance != null)
         {
-            GameManager.Instance.TogglePhase();
+            MapManager.Instance.StartNextWave();
+        }
+        else if (GameManager.Instance != null && GameManager.Instance.CurrentState == GameState.MaintenanceTime)
+        {
+            GameManager.Instance.ChangeState(GameState.WaveInProgress);
         }
         else
         {
-            Debug.LogWarning("[HUDViewModel] GameManager.Instance가 Null입니다!");
+            Debug.LogWarning("[HUDViewModel] 현재 상태에서는 웨이브를 시작할 수 없습니다.");
         }
     }
 
@@ -80,17 +101,38 @@ public class HUDViewModel
         OnLifeTextChanged?.Invoke($"{life} / {maxLife}");
     }
 
+    private void HandleWaveChanged(int mapIndex, int waveIndex)
+    {
+        int maxWave = MapManager.Instance != null ? MapManager.Instance.MaxWavesPerMap : 5;
+        string info = $"MAP {mapIndex} - WAVE {waveIndex}/{maxWave}";
+        Debug.Log($"[HUDViewModel] {info}");
+    }
+
     private void HandleStateChanged(GameState state)
     {
         string phaseName = state switch
         {
             GameState.MaintenanceTime => "SETUP PHASE",
-            GameState.WaveInProgress  => "WAVE PHASE",
+            GameState.WaveInProgress  => "WAVE IN PROGRESS",
+            GameState.MapTransition   => "MAP TRANSITION",
             GameState.GameOver        => "GAME OVER",
-            GameState.GameClear       => "GAME CLEAR",
+            GameState.GameClear       => "VICTORY! ALL WAVES CLEARED",
             _                         => state.ToString()
         };
 
         OnPhaseTextChanged?.Invoke(phaseName);
+
+        // 기획서 §4-B: 정비시간에만 버튼 활성화 (웨이브 중에는 임의 탈출 불가)
+        bool isMaintenance = (state == GameState.MaintenanceTime);
+        OnPhaseButtonInteractableChanged?.Invoke(isMaintenance);
+
+        string buttonLabel = state switch
+        {
+            GameState.MaintenanceTime => "START WAVE",
+            GameState.WaveInProgress  => "IN BATTLE...",
+            GameState.MapTransition   => "LOADING MAP...",
+            _                         => "---"
+        };
+        OnPhaseButtonTextChanged?.Invoke(buttonLabel);
     }
 }

@@ -36,34 +36,25 @@ namespace PenguinPinball.UI.ViewModels
         {
             Slots.Clear();
             
-            // Add Charms
-            if (ItemInventoryManager.Instance != null)
+            int capacity = ItemInventoryManager.MaxSlotCount;
+            for (int i = 0; i < capacity; i++)
             {
-                foreach (var charm in ItemInventoryManager.Instance.OwnedCharms)
-                {
-                    if (charm == null) continue;
-                    string displayName = charm.ItemName;
-                    if (charm.IsConsumable)
-                    {
-                        displayName = $"{charm.ItemName} ({charm.CurrentUses}/{charm.MaxUses})";
-                    }
+                object item = ItemInventoryManager.Instance != null 
+                    ? ItemInventoryManager.Instance.GetItemAtSlot(i) 
+                    : null;
 
+                if (item is ShopItemBase charm)
+                {
                     Slots.Add(new InventorySlotData
                     {
                         SlotType = InventorySlotType.Charm,
-                        Name = displayName,
+                        Name = charm.ItemName,
                         Icon = charm.Icon,
                         Reference = charm
                     });
                 }
-            }
-            
-            // Add Equipments
-            if (ItemInventoryManager.Instance != null)
-            {
-                foreach (var equip in ItemInventoryManager.Instance.UnusedEquipments)
+                else if (item is EquipmentSO equip)
                 {
-                    if (equip == null) continue;
                     Slots.Add(new InventorySlotData
                     {
                         SlotType = InventorySlotType.Equipment,
@@ -72,26 +63,40 @@ namespace PenguinPinball.UI.ViewModels
                         Reference = equip
                     });
                 }
-            }
-            
-            // Add Inventory Penguins
-            if (PenguinDeckManager.Instance != null)
-            {
-                foreach (var penguinObj in PenguinDeckManager.Instance.OwnedPenguins)
+                else if (item is GameObject penguinObj)
                 {
-                    if (penguinObj == null) continue;
-                    var locData = penguinObj.GetComponent<PenguinLocationData>();
-                    if (locData == null || locData.Location != PenguinLocation.Inventory) continue;
-                    
                     var controller = penguinObj.GetComponent<PenguinController>();
                     var def = controller != null ? controller.Definition : null;
-                    
+                    int tier = controller != null ? controller.Tier : 1;
                     Slots.Add(new InventorySlotData
                     {
                         SlotType = InventorySlotType.Penguin,
                         Name = def != null ? def.DisplayName : "Unknown",
                         Icon = def != null ? def.Icon : null,
-                        Reference = penguinObj
+                        Reference = penguinObj,
+                        IsAvailable = controller != null ? controller.IsAvailable : true,
+                        IsInField = controller != null ? controller.IsInField : false,
+                        Tier = tier
+                    });
+                }
+                else if (item is EngravingItem eng)
+                {
+                    Slots.Add(new InventorySlotData
+                    {
+                        SlotType = InventorySlotType.Charm,
+                        Name = eng.ItemName,
+                        Icon = eng.Icon,
+                        Reference = eng
+                    });
+                }
+                else
+                {
+                    Slots.Add(new InventorySlotData
+                    {
+                        SlotType = InventorySlotType.None,
+                        Name = string.Empty,
+                        Icon = null,
+                        Reference = null
                     });
                 }
             }
@@ -103,7 +108,11 @@ namespace PenguinPinball.UI.ViewModels
         {
             if (index >= 0 && index < Slots.Count)
             {
-                OnSlotSelected?.Invoke(Slots[index]);
+                var slot = Slots[index];
+                if (slot != null && !slot.IsEmpty)
+                {
+                    OnSlotSelected?.Invoke(slot);
+                }
             }
         }
     }

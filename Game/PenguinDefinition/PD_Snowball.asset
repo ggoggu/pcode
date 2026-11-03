@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: PD_Snowball
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
   displayName: SnowballPenguin
+  description: 충돌을 거듭할수록 눈덩이처럼 점점 위력이 강력해집니다.
   icon: {fileID: 0}
   mass: 1
-  linearDrag: 1
-  maxSpeed: 11
+  linearDrag: 0.1
+  maxSpeed: 18
   attack: 9
   damageSpeedScale: 1
   lowSpeedCutoff: 1.2

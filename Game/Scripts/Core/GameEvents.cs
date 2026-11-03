@@ -18,7 +18,9 @@ namespace PenguinPinball.Core
         public static event Action<PenguinController> OnPenguinLaunched;
         public static event Action<int, int> BaseHealthChanged; // (currentHealth, maxHealth)
         public static event Action BaseDestroyed;
+        public static event Action<Vector3> BaseAttacked; // (basePosition)
         public static event Action<PenguinController> EquipmentChanged;
+        public static event Action<PenguinController> PenguinSynthesized;
 
         public static void RaisePenguinHit(PenguinController p, Collision c) => PenguinHit?.Invoke(p, c);
         public static void RaiseEnemyDamaged(PenguinController p, Enemy e, float damage) => EnemyDamaged?.Invoke(p, e, damage);
@@ -32,6 +34,8 @@ namespace PenguinPinball.Core
         public static void RaiseOnPenguinLaunched(PenguinController a) => OnPenguinLaunched?.Invoke(a);
         public static void RaiseBaseHealthChanged(int current, int max) => BaseHealthChanged?.Invoke(current, max);
         public static void RaiseBaseDestroyed() => BaseDestroyed?.Invoke();
+        public static void RaiseBaseAttacked(Vector3 basePosition) => BaseAttacked?.Invoke(basePosition);
         public static void RaiseEquipmentChanged(PenguinController p) => EquipmentChanged?.Invoke(p);
+        public static void RaisePenguinSynthesized(PenguinController p) => PenguinSynthesized?.Invoke(p);
     }
 }

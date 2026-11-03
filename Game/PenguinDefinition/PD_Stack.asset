@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: PD_Stack
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
   displayName: StackPenguin
+  description: 적 처치 시마다 영구적으로 공격력이 증가합니다.
   icon: {fileID: 0}
   mass: 1
-  linearDrag: 1
-  maxSpeed: 11
-  attack: 8
+  linearDrag: 0.1
+  maxSpeed: 18
+  attack: 9
   damageSpeedScale: 1
   lowSpeedCutoff: 1.2
   overloadThreshold: 10

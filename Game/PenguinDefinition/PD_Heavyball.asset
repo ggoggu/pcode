@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: PD_Heavyball
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
   displayName: HeavyballPenguin
+  description: 과부하 시 적들을 관통하며 강력한 돌파 피해를 줍니다.
   icon: {fileID: 0}
-  mass: 1.8
-  linearDrag: 0.6
-  maxSpeed: 8
-  attack: 16
+  mass: 1
+  linearDrag: 0.1
+  maxSpeed: 18
+  attack: 9
   damageSpeedScale: 1
   lowSpeedCutoff: 1.2
   overloadThreshold: 10
@@ -31,5 +32,5 @@ MonoBehaviour:
   maxSpeedGrowthPerTier: 0.05
   massGrowthPerTier: 0.1
   respawnTimeGrowthPerTier: 0.05
-  visualPrefab: {fileID: 8827213958314493812, guid: fd65accbe3314cd43b16a7181c16238d, type: 3}
+  visualPrefab: {fileID: 3701027084522633178, guid: 60483d71cf89f6447b9de74a67026eef, type: 3}
   ability: {fileID: 11400000, guid: 2c410fbe6eff5bf4488e63149b89880f, type: 2}

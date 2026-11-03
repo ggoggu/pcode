@@ -11,6 +11,8 @@ namespace PenguinPinball.Core
     {
         [Header("Identity")]
         [SerializeField] private string displayName = "Penguin";
+        [TextArea(2, 5)]
+        [SerializeField] private string description = "";
         [SerializeField] private Sprite icon;
 
         [Header("Physics")]
@@ -57,7 +59,16 @@ namespace PenguinPinball.Core
 
         public PenguinAbilitySO Ability => ability;
 
-        public string DisplayName => displayName;
+        public string DisplayName
+        {
+            get => displayName;
+            set => displayName = value;
+        }
+        public string Description
+        {
+            get => description;
+            set => description = value;
+        }
         public Sprite Icon => icon;
         public GameObject VisualPrefab => visualPrefab;
 

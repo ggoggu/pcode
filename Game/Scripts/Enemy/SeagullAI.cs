@@ -463,6 +463,11 @@ public class SeagullAI : Enemy
     private void OnReachPathEnd()
     {
         UpdateAnimation(false);
+        if (ObjectDropManager.Instance != null)
+        {
+            ObjectDropManager.Instance.OnEnemyReachedBaseOrDespawned();
+        }
+        ReachBase();
         Destroy(gameObject);
     }
 

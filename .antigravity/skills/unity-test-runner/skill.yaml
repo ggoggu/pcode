@@ -1,0 +1,12 @@
+name: unity-test-runner
+description: Executes Unity EditMode or PlayMode tests in headless batchmode and returns structured logs and failure summaries.
+parameters:
+  type: object
+  properties:
+    platform:
+      type: string
+      enum: [EditMode, PlayMode]
+      default: EditMode
+      description: The test platform to execute.
+  required: []
+command: python Tools/RunTests.py --platform {{platform}}

@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 518ea44a9e3dab74c923a3d2fec0324b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - basicPenguinPrefab: {fileID: 8950688319208553717, guid: c675ea04383eb2d48a1f33b98c65a8ca, type: 3}
+  - launchSpawnPoint: {instanceID: 0}
+  - launcher: {instanceID: 0}
+  - dummyPrefab: {fileID: 3937739852202638513, guid: 9174c7a605d505a49b9561cf482e9ad4, type: 3}
+  - dummySpawnPoint1: {instanceID: 0}
+  - dummySpawnPoint2: {instanceID: 0}
+  - partnerPenguinPrefab: {instanceID: 0}
+  - partnerSpawnPoint: {instanceID: 0}
+  - selectedDefinition: {instanceID: 0}
+  - activePenguin: {instanceID: 0}
+  - dummy1: {instanceID: 0}
+  - dummy2: {instanceID: 0}
+  - partnerPenguin: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

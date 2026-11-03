@@ -33,6 +33,8 @@ public class HUDView : MonoBehaviour
         viewModel.OnGoldTextChanged  += UpdateGoldUI;
         viewModel.OnLifeTextChanged  += UpdateLifeUI;
         viewModel.OnPhaseTextChanged += UpdatePhaseUI;
+        viewModel.OnPhaseButtonInteractableChanged += UpdatePhaseButtonInteractable;
+        viewModel.OnPhaseButtonTextChanged += UpdatePhaseButtonText;
 
         // 버튼 클릭 이벤트 바인딩
         if (phaseToggleButton != null)
@@ -56,6 +58,8 @@ public class HUDView : MonoBehaviour
             viewModel.OnGoldTextChanged  -= UpdateGoldUI;
             viewModel.OnLifeTextChanged  -= UpdateLifeUI;
             viewModel.OnPhaseTextChanged -= UpdatePhaseUI;
+            viewModel.OnPhaseButtonInteractableChanged -= UpdatePhaseButtonInteractable;
+            viewModel.OnPhaseButtonTextChanged -= UpdatePhaseButtonText;
         }
 
         if (phaseToggleButton != null)
@@ -92,6 +96,20 @@ public class HUDView : MonoBehaviour
     private void UpdatePhaseUI(string text)
     {
         if (phaseText != null) phaseText.text = text;
+    }
+
+    private void UpdatePhaseButtonInteractable(bool interactable)
+    {
+        if (phaseToggleButton != null) phaseToggleButton.interactable = interactable;
+    }
+
+    private void UpdatePhaseButtonText(string text)
+    {
+        if (phaseToggleButton != null)
+        {
+            var btnText = phaseToggleButton.GetComponentInChildren<TMP_Text>();
+            if (btnText != null) btnText.text = text;
+        }
     }
 
     private void OnPhaseButtonClicked()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PenguinPinball.Core;
 using UnityEngine;
 
 public class NormalEnemyAI : Enemy
@@ -11,6 +12,12 @@ public class NormalEnemyAI : Enemy
     [Header("이동 및 경로 설정")]
     [SerializeField] protected float moveSpeed = 3.0f;
     [SerializeField] protected CatmullRomPath currentPath;
+
+    [Header("차간 거리 및 겹침 방지 설정")]
+    [Tooltip("전방 적과의 최소 안전 거리 (이 거리 이하로 좁혀지면 정지)")]
+    [SerializeField] protected float minFollowDistance = 1.3f;
+    [Tooltip("전방 적 감속 시작 거리 (이 거리부터 서서히 감속)")]
+    [SerializeField] protected float slowFollowDistance = 2.0f;
 
     [Header("적 넉백 옵션")]
     [SerializeField] protected float knockbackForce = 12.0f;     // 충돌 시 적이 받는 기본 넉백 힘 (하위 호환)
@@ -57,6 +64,8 @@ public class NormalEnemyAI : Enemy
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
     public CatmullRomPath CurrentPath { get => currentPath; set => currentPath = value; }
     public float PathProgress { get => pathProgress; set => pathProgress = value; }
+    public float MinFollowDistance { get => minFollowDistance; set => minFollowDistance = value; }
+    public float SlowFollowDistance { get => slowFollowDistance; set => slowFollowDistance = value; }
     public float KnockbackForce => knockbackForce;
     public float KnockbackDuration => knockbackDuration;
     public float MaxKnockbackDistance => maxKnockbackDistance;
@@ -342,13 +351,19 @@ public class NormalEnemyAI : Enemy
             ObjectDropManager.Instance.OnEnemyReachedBaseOrDespawned();
         }
 
-        // 2. GameManager 생명(Life) 차감 연동
+        // 2. 베이스 피격 처리 (BaseHealth 및 GameManager 연동)
+        GameEvents.RaiseBaseAttacked(transform.position);
+        if (BaseHealth.Instance != null)
+        {
+            BaseHealth.Instance.TakeDamage(baseDamage);
+        }
         if (GameManager.Instance != null)
         {
             GameManager.Instance.DecreaseLife(baseDamage);
         }
 
-        // 3. 적 파괴
+        // 3. 적 소멸 이벤트 통보 및 오브젝트 정리
+        ReachBase();
         Destroy(gameObject);
     }
 

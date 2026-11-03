@@ -27,10 +27,39 @@ public class PlacementManager : MonoBehaviour
     [SerializeField] private GameObject placementControlUI;            // 확정/회전/회수 버튼이 포함된 UI Panel
     [SerializeField] private Vector3 uiOffset = new Vector3(0f, 2f, 0f); // 오브젝트 기준 UI 표시 위치 오프셋
 
+    [System.Serializable]
+    public struct PlacementBufferSettings
+    {
+        [Tooltip("이미 설치된 오브젝트와의 여유 거리 (기본: 0.2m)")]
+        public float objectBuffer;
+        [Tooltip("지형 지물과의 여유 거리 (기본: 0.2m)")]
+        public float terrainBuffer;
+        [Tooltip("적 이동 경로와의 여유 거리 (기본: 0.3m)")]
+        public float enemyPathBuffer;
+
+        public PlacementBufferSettings(float objectBuf = 0.2f, float terrainBuf = 0.2f, float enemyPathBuf = 0.3f)
+        {
+            objectBuffer = objectBuf;
+            terrainBuffer = terrainBuf;
+            enemyPathBuffer = enemyPathBuf;
+        }
+
+        public float MaxBuffer => Mathf.Max(objectBuffer, Mathf.Max(terrainBuffer, enemyPathBuffer));
+    }
+
     [Header("레이어 및 장애물 설정")]
     [SerializeField] private LayerMask groundMask;                      // 지형(바닥) 레이어
     [SerializeField] private LayerMask obstacleMask;                    // 장애물(기존 설치물, 지형 구조물, 적 경로)
-    [SerializeField] private float bufferRadius = 0.2f;                 // 설치 여유 범위 (Buffer)
+    [SerializeField] private float bufferRadius = 0.2f;                 // 하위 호환용 기본 여유 범위 (Buffer)
+
+    [Header("대상별 설치 여유 범위 설정 (기획 §4-4)")]
+    [SerializeField] private PlacementBufferSettings bufferSettings = new PlacementBufferSettings(0.2f, 0.2f, 0.3f);
+
+    [Header("설치 수정(롱프레스/클릭) 설정 (기획 §4-1)")]
+    [Tooltip("설치된 오브젝트를 길게 눌러 수정 모드로 진입하기 위한 대기 시간 (초, 0이면 즉시 클릭)")]
+    [SerializeField] private float holdToModifyDuration = 0f;
+    private float modifyHoldTimer = 0f;
+    private GameObject potentialModifyTarget = null;
 
     [Header("청사진 머티리얼 색상 설정")]
     [SerializeField] private Color validColor = new Color(0f, 1f, 0f, 0.5f);   // 설치 가능 (초록)
@@ -54,17 +83,36 @@ public class PlacementManager : MonoBehaviour
 
     public bool IsPlacing => currentBlueprint != null;
     public bool IsFixedPosition => isFixedPosition;
+    public IReadOnlyDictionary<GameObject, ObjectItem> PlacedObjects => placedObjects;
+
+    public PlacementBufferSettings BufferSettings
+    {
+        get => bufferSettings;
+        set => bufferSettings = value;
+    }
+
+    public static event System.Action OnPlacementStarted;
+    public static event System.Action OnPlacementEnded;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        else
+        {
+            if (Application.isPlaying) Destroy(gameObject);
+            else DestroyImmediate(gameObject);
+        }
 
         if (placementControlUI != null)
         {
             uiRectTransform = placementControlUI.GetComponent<RectTransform>();
             placementControlUI.SetActive(false);
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
     }
 
     private void OnEnable()
@@ -75,15 +123,24 @@ public class PlacementManager : MonoBehaviour
     private void OnDisable()
     {
         GameManager.OnStateChanged -= OnGameStateChanged;
+        if (IsPlacing)
+        {
+            RecallToStorage();
+        }
     }
 
     private void Update()
     {
-        // 정비시간에만 설치 및 조작 가능
+        // 정비시간에만 설치 및 조작 가능 (§4)
         if (GameManager.Instance == null || GameManager.Instance.CurrentState != GameState.MaintenanceTime)
             return;
 
-        if (!IsPlacing) return;
+        // 배치 중이 아닐 때는 필드의 기설치 오브젝트 선택(수정 모드 진입) 입력 감지 (§4-1)
+        if (!IsPlacing)
+        {
+            HandleModifySelectionInput();
+            return;
+        }
 
         // 1. 위치가 고정되지 않은 동안 마우스 커서를 따라 이동
         if (!isFixedPosition)
@@ -100,6 +157,75 @@ public class PlacementManager : MonoBehaviour
         HandlePlacementInput();
     }
 
+    /// <summary>
+    /// [설치 수정 진입 입력 처리] 필드에 이미 설치된 오브젝트 클릭/롱프레스 감지 (§4-1)
+    /// </summary>
+    private void HandleModifySelectionInput()
+    {
+        var mouse = Mouse.current;
+        if (mouse == null || Camera.main == null) return;
+
+        bool isPointerOverUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+        if (isPointerOverUI)
+        {
+            modifyHoldTimer = 0f;
+            potentialModifyTarget = null;
+            return;
+        }
+
+        if (mouse.leftButton.isPressed)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(mouse.position.ReadValue());
+            RaycastHit[] hits = Physics.RaycastAll(ray, 100f);
+
+            GameObject target = null;
+            foreach (var hit in hits)
+            {
+                Transform curr = hit.transform;
+                while (curr != null)
+                {
+                    if (placedObjects.ContainsKey(curr.gameObject))
+                    {
+                        target = curr.gameObject;
+                        break;
+                    }
+                    curr = curr.parent;
+                }
+                if (target != null) break;
+            }
+
+            if (target != null)
+            {
+                if (potentialModifyTarget != target)
+                {
+                    potentialModifyTarget = target;
+                    modifyHoldTimer = 0f;
+                }
+
+                modifyHoldTimer += Time.deltaTime;
+
+                // 대기 시간(홀드 시간)을 만족하면 수정 모드 진입
+                if (modifyHoldTimer >= holdToModifyDuration)
+                {
+                    GameObject objToModify = potentialModifyTarget;
+                    potentialModifyTarget = null;
+                    modifyHoldTimer = 0f;
+                    StartModify(objToModify);
+                }
+            }
+            else
+            {
+                potentialModifyTarget = null;
+                modifyHoldTimer = 0f;
+            }
+        }
+        else
+        {
+            potentialModifyTarget = null;
+            modifyHoldTimer = 0f;
+        }
+    }
+
     #region UI 연동 메서드 (PlacementType & PlacementControlUI)
 
     /// <summary>
@@ -112,9 +238,21 @@ public class PlacementManager : MonoBehaviour
         switch (targetType)
         {
             case PlacementType.Bumper:
+                if (bumperPrefab == null)
+                {
+#if UNITY_EDITOR
+                    bumperPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Object/Bumper.prefab");
+#endif
+                }
                 prefabToPlace = bumperPrefab;
                 break;
             case PlacementType.Slingshot:
+                if (slingshotPrefab == null)
+                {
+#if UNITY_EDITOR
+                    slingshotPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Object/Slingshot.prefab");
+#endif
+                }
                 prefabToPlace = slingshotPrefab;
                 break;
         }
@@ -127,6 +265,22 @@ public class PlacementManager : MonoBehaviour
         {
             Debug.LogWarning($"[PlacementManager] {targetType} 타입에 할당된 프리팹이 없습니다.");
         }
+    }
+
+    /// <summary>
+    /// [UI 버튼/테스트 연동] 범퍼 즉시 배치
+    /// </summary>
+    public void SelectBumperType()
+    {
+        SelectPlacementType(PlacementType.Bumper, new ObjectItem(ObjectType.Bumper));
+    }
+
+    /// <summary>
+    /// [UI 버튼/테스트 연동] 슬링샷 즉시 배치
+    /// </summary>
+    public void SelectSlingshotType()
+    {
+        SelectPlacementType(PlacementType.Slingshot, new ObjectItem(ObjectType.Slingshot));
     }
 
     /// <summary>
@@ -162,13 +316,26 @@ public class PlacementManager : MonoBehaviour
     {
         if (GameManager.Instance == null || GameManager.Instance.CurrentState != GameState.MaintenanceTime) return;
 
-        CancelCurrentBlueprint(); // 기존 배치 중이던 청사진 취소/회수
+        bool wasAlreadyPlacing = IsPlacing;
+        if (wasAlreadyPlacing)
+        {
+            RecallToStorage(notifyEvent: false);
+        }
 
         isModifyingMode = false;
         editingTargetOriginal = null;
         currentItem = item;
 
         CreateBlueprint(prefab);
+        if (prefab != null)
+        {
+            currentRotation = prefab.transform.rotation;
+        }
+
+        if (!wasAlreadyPlacing)
+        {
+            OnPlacementStarted?.Invoke();
+        }
     }
 
     /// <summary>
@@ -179,7 +346,11 @@ public class PlacementManager : MonoBehaviour
         if (GameManager.Instance == null || GameManager.Instance.CurrentState != GameState.MaintenanceTime) return;
         if (!placedObjects.ContainsKey(existingObject)) return;
 
-        CancelCurrentBlueprint();
+        bool wasAlreadyPlacing = IsPlacing;
+        if (wasAlreadyPlacing)
+        {
+            RecallToStorage(notifyEvent: false);
+        }
 
         isModifyingMode = true;
         editingTargetOriginal = existingObject;
@@ -189,7 +360,17 @@ public class PlacementManager : MonoBehaviour
         editingTargetOriginal.SetActive(false);
 
         CreateBlueprint(existingObject);
+        currentBlueprint.transform.position = existingObject.transform.position;
         currentRotation = existingObject.transform.rotation;
+        currentBlueprint.transform.rotation = currentRotation;
+
+        // 기존 설치 위치에 임시 고정 상태로 시작하여 조작 버튼(확정/회전/회수) 즉시 표시 (§4-1, §4-2)
+        SetFixedState(true);
+
+        if (!wasAlreadyPlacing)
+        {
+            OnPlacementStarted?.Invoke();
+        }
     }
 
     #endregion
@@ -374,7 +555,7 @@ public class PlacementManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 설치 가능 판정 (Validation)
+    /// 설치 가능 판정 (Validation) - 기획 §4-4 대상별 여유 범위(Buffer) 적용
     /// </summary>
     public bool IsPlacementValid()
     {
@@ -383,21 +564,74 @@ public class PlacementManager : MonoBehaviour
         Vector3 center = blueprintCollider != null ? blueprintCollider.bounds.center : currentBlueprint.transform.position;
         Vector3 extents = blueprintCollider != null ? blueprintCollider.bounds.extents : Vector3.one * 0.5f;
 
-        Vector3 bufferExtents = extents + new Vector3(bufferRadius, bufferRadius, bufferRadius);
-        Collider[] overlaps = Physics.OverlapBox(center, bufferExtents, currentRotation, obstacleMask);
+        // 대상별 버퍼 중 최댓값으로 1차 후보군 탐색
+        float maxBuffer = Mathf.Max(bufferRadius, bufferSettings.MaxBuffer);
+        Vector3 searchExtents = extents + new Vector3(maxBuffer, maxBuffer, maxBuffer);
+        Collider[] overlaps = Physics.OverlapBox(center, searchExtents, currentRotation, obstacleMask);
 
         foreach (var col in overlaps)
         {
             if (col.gameObject == currentBlueprint || col.transform.IsChildOf(currentBlueprint.transform))
                 continue;
 
-            if (isModifyingMode && editingTargetOriginal != null && col.gameObject == editingTargetOriginal)
+            // 수정 모드 진입 시 자기 자신(원본 실물)의 원래 영역 침범 제외 (§4-4)
+            if (isModifyingMode && editingTargetOriginal != null && 
+                (col.gameObject == editingTargetOriginal || col.transform.IsChildOf(editingTargetOriginal.transform)))
                 continue;
 
-            return false;
+            // 대상 종류별(적 이동 경로, 이미 설치된 오브젝트, 지형 지물) 고유 여유 범위 산출 (§4-4)
+            float requiredBuffer = GetTargetBuffer(col);
+            Vector3 specificExtents = extents + new Vector3(requiredBuffer, requiredBuffer, requiredBuffer);
+
+            // 해당 콜라이더 레이어에 대해 고유 버퍼 박스 침범 여부 정밀 확인
+            Collider[] specificOverlaps = Physics.OverlapBox(center, specificExtents, currentRotation, 1 << col.gameObject.layer);
+            foreach (var sCol in specificOverlaps)
+            {
+                if (sCol == col)
+                {
+                    return false;
+                }
+            }
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// 대상 콜라이더의 종류(적 이동 경로 / 기설치 오브젝트 / 지형 지물)에 따른 여유 범위 반환 (§4-4)
+    /// </summary>
+    private float GetTargetBuffer(Collider col)
+    {
+        if (col == null) return bufferRadius;
+
+        // 1. 적 이동 경로 (§4-4)
+        int enemyPathLayer = LayerMask.NameToLayer("EnemyPath");
+        if ((enemyPathLayer != -1 && col.gameObject.layer == enemyPathLayer) ||
+            col.gameObject.name.StartsWith("PathCol") ||
+            col.GetComponentInParent<CatmullRomPath>() != null)
+        {
+            return bufferSettings.enemyPathBuffer;
+        }
+
+        // 2. 이미 설치된 오브젝트 (§4-4)
+        if (col.GetComponentInParent<PenguinPinball.Core.PinballBounceSurface>() != null || IsPlacedObject(col.gameObject))
+        {
+            return bufferSettings.objectBuffer;
+        }
+
+        // 3. 지형 지물 (§4-4)
+        return bufferSettings.terrainBuffer;
+    }
+
+    private bool IsPlacedObject(GameObject obj)
+    {
+        Transform curr = obj != null ? obj.transform : null;
+        while (curr != null)
+        {
+            if (placedObjects.ContainsKey(curr.gameObject)) return true;
+            curr = curr.parent;
+        }
+        return false;
     }
 
     private void UpdateValidationVisuals()
@@ -486,7 +720,7 @@ public class PlacementManager : MonoBehaviour
     /// <summary>
     /// 회수 (보관소 복귀)
     /// </summary>
-    public void RecallToStorage()
+    public void RecallToStorage(bool notifyEvent = true)
     {
         // 수정 모드였던 원본 파괴
         if (isModifyingMode && editingTargetOriginal != null)
@@ -507,7 +741,7 @@ public class PlacementManager : MonoBehaviour
             ObjectStorageManager.Instance.AddObject(currentItem);
         }
 
-        ResetState();
+        ResetState(notifyEvent);
     }
 
     /// <summary>
@@ -558,8 +792,10 @@ public class PlacementManager : MonoBehaviour
         }
     }
 
-    private void ResetState()
+    private void ResetState(bool notifyEvent = true)
     {
+        bool wasPlacing = (currentBlueprint != null);
+
         SetFixedState(false);
         currentBlueprint = null;
         blueprintCollider = null;
@@ -567,6 +803,11 @@ public class PlacementManager : MonoBehaviour
         isModifyingMode = false;
         editingTargetOriginal = null;
         currentItem = null;
+
+        if (wasPlacing && notifyEvent)
+        {
+            OnPlacementEnded?.Invoke();
+        }
     }
 
     #endregion

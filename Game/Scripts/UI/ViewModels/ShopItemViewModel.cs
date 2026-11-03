@@ -5,5 +5,7 @@ public class ShopItemViewModel
     public int Price;
     public string ItemTypeStr;
     public UnityEngine.Sprite Icon;
+    public string Description;
     public bool IsSoldOut;
+    public PenguinPinball.Core.PenguinDefinition PenguinDef;
 }

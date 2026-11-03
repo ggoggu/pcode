@@ -15,8 +15,13 @@ public class Enemy : MonoBehaviour
     public event Action<Enemy> OnDeath;
     public event Action<Enemy> OnBaseReached;
 
+    protected Collider mainCollider;
+    public Collider MainCollider => mainCollider != null ? mainCollider : (mainCollider = GetComponent<Collider>());
+
     protected virtual void Awake()
     {
+        mainCollider = GetComponent<Collider>();
+
         float modified = StatModifierRegistry.Instance != null
             ? StatModifierRegistry.Instance.GetModifiedValue(StatType.EnemyMaxHealth, baseMaxHealth)
             : baseMaxHealth;
@@ -55,6 +60,8 @@ public class Enemy : MonoBehaviour
         if (IsDead) return;
         IsDead = true;
 
+        if (mainCollider != null) mainCollider.enabled = false;
+
         OnBaseReached?.Invoke(this);
         gameObject.SetActive(false);
     }
@@ -64,8 +71,45 @@ public class Enemy : MonoBehaviour
         if (IsDead) return;
         IsDead = true;
 
+        // 1. 체력 0 도달 즉시 충돌체 제거 (충돌·데미지·콤보·낚아채기 판정 즉시 배제)
+        if (mainCollider == null) mainCollider = GetComponent<Collider>();
+        if (mainCollider != null) mainCollider.enabled = false;
+
+        // 2. 코인을 사망 즉시 드랍 (사망 애니메이션 종료를 기다리지 않음)
         OnDeath?.Invoke(this);
+
+        // 3. 사망 애니메이션 잔존 처리 (애니메이션 재생 후 정리, 없을 시 즉시 비활성화)
+        HandleDeathAnimationOrDeactivate();
+    }
+
+    protected virtual void HandleDeathAnimationOrDeactivate()
+    {
+        var anim = GetComponentInChildren<Animator>();
+        if (anim != null && anim.gameObject.activeInHierarchy && HasAnimatorParameter(anim, "Die"))
+        {
+            anim.SetTrigger("Die");
+            StartCoroutine(DeactivateAfterDelay(1.0f));
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    private System.Collections.IEnumerator DeactivateAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         gameObject.SetActive(false);
+    }
+
+    private static bool HasAnimatorParameter(Animator animator, string paramName)
+    {
+        if (animator == null) return false;
+        foreach (var p in animator.parameters)
+        {
+            if (p.name == paramName) return true;
+        }
+        return false;
     }
 
     public virtual void ResetHealth()
@@ -77,6 +121,8 @@ public class Enemy : MonoBehaviour
         MaxHealth = Mathf.Max(1f, modified);
         CurrentHealth = MaxHealth;
         IsDead = false;
+
+        if (mainCollider != null) mainCollider.enabled = true;
         gameObject.SetActive(true);
     }
 }

@@ -16,6 +16,9 @@ namespace Game.ObjectSystem.UI
         [SerializeField] private Transform _contentParent;          // ScrollView의 Grid Content Transform
         [SerializeField] private GameObject _slotPrefab;            // ObjectStorageSlotUI 프리팹
 
+        [Header("Button References")]
+        [SerializeField] private GameObject _toggleButton;
+
         [Header("Object Resource Data")]
         [SerializeField] private List<ObjectIconData> _iconDataList; // 오브젝트 타입별 아이콘/이름 매핑
 
@@ -33,6 +36,11 @@ namespace Game.ObjectSystem.UI
         {
             // PanelRoot 비어있을 경우 자기 자신으로 자동 지정
             if (_panelRoot == null) _panelRoot = gameObject;
+
+            if (_toggleButton == null)
+            {
+                _toggleButton = GameObject.Find("ToggleStorageButton");
+            }
         }
 
         private void OnEnable()
@@ -62,6 +70,8 @@ namespace Game.ObjectSystem.UI
         /// </summary>
         public void TogglePanel()
         {
+            if (PlacementManager.Instance != null && PlacementManager.Instance.IsPlacing) return;
+
             bool isActive = !_panelRoot.activeSelf;
             _panelRoot.SetActive(isActive);
 
@@ -73,6 +83,8 @@ namespace Game.ObjectSystem.UI
 
         public void OpenPanel()
         {
+            if (PlacementManager.Instance != null && PlacementManager.Instance.IsPlacing) return;
+
             _panelRoot.SetActive(true);
             RefreshAllSlots();
         }

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: PD_Couple
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
   displayName: CouplePenguin
+  description: 아군 펭귄과 함께할 때 특별한 시너지를 발휘합니다.
   icon: {fileID: 0}
-  mass: 0.9
-  linearDrag: 1
-  maxSpeed: 12
-  attack: 10
+  mass: 1
+  linearDrag: 0.1
+  maxSpeed: 18
+  attack: 9
   damageSpeedScale: 1
   lowSpeedCutoff: 1.2
   overloadThreshold: 10

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: PD_Basic
   m_EditorClassIdentifier: Assembly-CSharp::PenguinPinball.Core.PenguinDefinition
   displayName: BasicPenguin
+  description: 가장 균형 잡힌 기본 펭귄입니다.
   icon: {fileID: 0}
   mass: 1
-  linearDrag: 1
-  maxSpeed: 11
+  linearDrag: 0.1
+  maxSpeed: 18
   attack: 9
   damageSpeedScale: 1
   lowSpeedCutoff: 1.2
