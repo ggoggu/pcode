@@ -58,8 +58,20 @@ public class EnemyPathFollowState : EnemyStateBase
             enemy.transform.rotation = Quaternion.RotateTowards(enemy.transform.rotation, targetRot, maxTurnDegrees);
         }
 
-        // 5. 위치 동기화 및 애니메이션 갱신 (정지 시 Idle 전환)
-        enemy.transform.position = pathPos;
+        // 5. 위치 동기화 및 애니메이션 갱신 (복귀 직후 1프레임 텔레포트 방지를 위한 부드러운 수렴)
+        Vector3 currentPos = enemy.transform.position;
+        float snapDist = Vector3.Distance(currentPos, pathPos);
+        if (snapDist > 0.005f)
+        {
+            // 잔여 오차를 0.12초 이내에 매끄럽게 흡수 (초당 최소 MoveSpeed * 2.5f 배율)
+            float convergenceSpeed = Mathf.Max(enemy.MoveSpeed * 2.5f, snapDist / 0.12f);
+            enemy.transform.position = Vector3.MoveTowards(currentPos, pathPos, convergenceSpeed * Time.deltaTime);
+        }
+        else
+        {
+            enemy.transform.position = pathPos;
+        }
+
         enemy.UpdateAnimation(speedFactor > 0.05f);
     }
 
@@ -72,6 +84,7 @@ public class EnemyPathFollowState : EnemyStateBase
     {
         enemy.UpdateAnimation(false);
     }
+
     /// <summary>
     /// 전방에 위치한 적과의 거리를 계산하여 물리 충돌(튕김 카오스) 없이 부드러운 차간 거리 유지를 위한 속도 배율(0.0 ~ 1.0)을 반환합니다.
     /// Zero GC-allocations hot-path 메서드입니다.

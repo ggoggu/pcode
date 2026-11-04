@@ -197,7 +197,7 @@ namespace PenguinShot.Tests
             Object.DestroyImmediate(pathGo);
             Object.DestroyImmediate(enemyGo);
         }
-    
+
         [Test]
         public void EnemyPathFollowState_CalculateSpeedFactor_FollowsSafely()
         {
@@ -242,5 +242,47 @@ namespace PenguinShot.Tests
             Object.DestroyImmediate(goA);
             Object.DestroyImmediate(goB);
         }
-}
+
+        [Test]
+        public void EnemyPathFollowState_SmoothlyConverges_WithoutInstantTeleport()
+        {
+            var pathGo = new GameObject("TestPath");
+            var path = pathGo.AddComponent<CatmullRomPath>();
+
+            var p0 = new GameObject("P0").transform;
+            var p1 = new GameObject("P1").transform;
+            p0.position = new Vector3(0f, 0f, 0f);
+            p1.position = new Vector3(0f, 0f, 10f);
+            path.waypoints.Add(new CatmullRomPath.Waypoint { point = p0 });
+            path.waypoints.Add(new CatmullRomPath.Waypoint { point = p1 });
+
+            var enemyGo = new GameObject("TestEnemy");
+            enemyGo.AddComponent<BoxCollider>();
+            var enemy = enemyGo.AddComponent<NormalEnemyAI>();
+            enemy.SetPath(path);
+            enemy.MoveSpeed = 1.0f;
+            enemy.PathProgress = 0.5f; // Z = 5.0m on spline
+
+            // 적이 스플라인에서 0.3m 옆으로 벗어난 위치에 복귀 전이되었다고 가정
+            Vector3 offSplinePos = new Vector3(0.3f, 0f, 5.0f);
+            enemy.transform.position = offSplinePos;
+
+            var sm = new EnemyStateMachine();
+            var followState = new EnemyPathFollowState(enemy, sm);
+            sm.Initialize(followState);
+
+            // 1프레임 업데이트 실행
+            followState.Update();
+
+            // 1프레임만에 0.3m를 강제 순간이동하지 않고 점진적으로 수렴해야 함
+            float distRemaining = Vector3.Distance(enemy.transform.position, path.EvaluateAtProgress(enemy.PathProgress));
+            Assert.IsTrue(distRemaining > 0.01f, "적은 1프레임만에 스플라인으로 즉시 텔레포트하지 않고 점진적으로 수렴해야 합니다.");
+            Assert.IsTrue(distRemaining < 0.3f, "적은 스플라인을 향해 점진적으로 거리를 좁혀가야 합니다.");
+
+            Object.DestroyImmediate(p0.gameObject);
+            Object.DestroyImmediate(p1.gameObject);
+            Object.DestroyImmediate(pathGo);
+            Object.DestroyImmediate(enemyGo);
+        }
+    }
 }
