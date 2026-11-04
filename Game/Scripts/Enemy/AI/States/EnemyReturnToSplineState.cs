@@ -40,33 +40,34 @@ public class EnemyReturnToSplineState : EnemyStateBase
         CatmullRomPath path = enemy.CurrentPath;
         if (path == null || !path.IsValid)
         {
-            stateMachine.ChangeState(new EnemyPathFollowState(enemy, stateMachine));
+            stateMachine.ChangeState(enemy.PathFollowState);
             return;
         }
 
         int segmentCount = path.SegmentCount;
         if (segmentCount <= 0)
         {
-            stateMachine.ChangeState(new EnemyPathFollowState(enemy, stateMachine));
+            stateMachine.ChangeState(enemy.PathFollowState);
             return;
         }
 
         Vector3 currentPos = enemy.transform.position;
 
-        // 1. 튕겨난 현재 위치에서 전체 스플라인 상의 최근접점 및 진행도 계산 (전체 경로 탐색: searchHintProgress = -1f)
-        if (!path.GetClosestPointAndProgress(currentPos, out Vector3 closestSplinePoint, out float closestProgress, -1f))
+        // 1. 튕겨난 현재 위치에서 전체 스플라인 상의 최근접점 및 진행도 계산 (직전 진행도 기반 국소 세그먼트 탐색: Wang et al., 2002)
+        if (!path.GetClosestPointAndProgress(currentPos, out Vector3 closestSplinePoint, out float closestProgress, enemy.PathProgress))
         {
-            stateMachine.ChangeState(new EnemyPathFollowState(enemy, stateMachine));
+            stateMachine.ChangeState(enemy.PathFollowState);
             return;
         }
 
+        enemy.PathProgress = closestProgress;
         float distToSplineLine = Vector3.Distance(currentPos, closestSplinePoint);
 
         // 2. 복귀 완료 판정: 스플라인 선(최근접점)과의 거리가 임계치 이내이거나 타임아웃 도달 시
         if (distToSplineLine <= RejoinDistanceThreshold || stateTimer >= MaxReturnTimeout)
         {
             enemy.PathProgress = closestProgress;
-            stateMachine.ChangeState(new EnemyPathFollowState(enemy, stateMachine));
+            stateMachine.ChangeState(enemy.PathFollowState);
             return;
         }
 
@@ -114,7 +115,7 @@ public class EnemyReturnToSplineState : EnemyStateBase
         if (Vector3.Distance(newPos, closestSplinePoint) <= RejoinDistanceThreshold)
         {
             enemy.PathProgress = closestProgress;
-            stateMachine.ChangeState(new EnemyPathFollowState(enemy, stateMachine));
+            stateMachine.ChangeState(enemy.PathFollowState);
         }
     }
 
@@ -128,7 +129,7 @@ public class EnemyReturnToSplineState : EnemyStateBase
             if (Vector3.Distance(pos, closestPoint) <= RejoinDistanceThreshold)
             {
                 enemy.PathProgress = closestProgress;
-                stateMachine.ChangeState(new EnemyPathFollowState(enemy, stateMachine));
+                stateMachine.ChangeState(enemy.PathFollowState);
             }
         }
     }

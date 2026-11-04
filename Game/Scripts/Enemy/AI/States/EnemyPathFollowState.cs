@@ -78,6 +78,41 @@ public class EnemyPathFollowState : EnemyStateBase
     /// </summary>
     public float CalculateSpeedFactor(System.Collections.Generic.IReadOnlyList<Enemy> customEnemyList = null)
     {
+        // ── 런타임 O(1) 앞선 적(LeadingEnemy) 고속 경로 ──────────────────
+        // EnemyManager의 1D Sweep and Prune 정렬을 통해 동일 경로상의 직전 적만 단일 O(1) 검사합니다.
+        if (customEnemyList == null && enemy.CurrentPath != null && enemy.CurrentPath.IsValid)
+        {
+            NormalEnemyAI lead = enemy.LeadingEnemy;
+            if (lead == null || lead.IsDead || !lead.gameObject.activeInHierarchy)
+            {
+                return 1f;
+            }
+
+            Vector3 myPosition = enemy.transform.position;
+            if (Mathf.Abs(lead.transform.position.y - myPosition.y) > 1.5f)
+            {
+                return 1f;
+            }
+
+            Vector3 toLead = lead.transform.position - myPosition;
+            toLead.y = 0f;
+            float leadDist = toLead.magnitude;
+
+            if (leadDist < 0.05f)
+            {
+                return lead.GetInstanceID() < enemy.GetInstanceID() ? 0f : 1f;
+            }
+
+            float minFollow = enemy.MinFollowDistance;
+            float slowFollow = enemy.SlowFollowDistance <= minFollow ? minFollow + 0.6f : enemy.SlowFollowDistance;
+
+            if (leadDist <= minFollow) return 0f;
+            if (leadDist >= slowFollow) return 1f;
+
+            return (leadDist - minFollow) / (slowFollow - minFollow);
+        }
+
+        // ── Fallback 및 단위 테스트용 O(N) 순회 경로 ─────────────────────
         var allEnemies = customEnemyList ?? (EnemyManager.Instance != null ? EnemyManager.Instance.ActiveEnemies : null);
         if (allEnemies == null || allEnemies.Count <= 1) return 1f;
 

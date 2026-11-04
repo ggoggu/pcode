@@ -8,6 +8,7 @@ public class UIToggleManager : MonoBehaviour
     [Header("패널 Views (IToggleableView)")]
     [SerializeField] private ItemShopView shopView;
     [SerializeField] private HatcheryView hatcheryView;
+    [SerializeField] private HUDView hudView;
 
     [Header("토글 버튼")]
     [SerializeField] private Button shopToggleButton;
@@ -52,6 +53,7 @@ public class UIToggleManager : MonoBehaviour
     {
         if (shopView == null) shopView = FindAnyObjectByType<ItemShopView>(FindObjectsInactive.Include);
         if (hatcheryView == null) hatcheryView = FindAnyObjectByType<HatcheryView>(FindObjectsInactive.Include);
+        if (hudView == null) hudView = FindAnyObjectByType<HUDView>(FindObjectsInactive.Include);
 
         if (storageToggleButton == null)
         {
@@ -73,11 +75,19 @@ public class UIToggleManager : MonoBehaviour
     private void HandlePlacementStarted()
     {
         SetButtonsVisibility(false);
+        if (hudView != null)
+        {
+            hudView.EnsureHUDVisible();
+        }
     }
 
     private void HandlePlacementEnded()
     {
         SetButtonsVisibility(true);
+        if (hudView != null)
+        {
+            hudView.EnsureHUDVisible();
+        }
     }
 
     private void SetButtonsVisibility(bool isVisible)

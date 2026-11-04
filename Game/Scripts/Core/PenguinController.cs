@@ -1,3 +1,4 @@
+using PenguinPinball.Visuals;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -134,17 +135,14 @@ namespace PenguinPinball.Core
 
             gameObject.name = $"{definition.DisplayName}_Tier{tier}";
 
-            // 1. 컴포넌트 레퍼런스 확보 (EditMode 테스트 또는 동적 생성 시 Awake 미호출 대비)
             if (Body == null) Body = GetComponent<Rigidbody>();
             if (Collider == null) Collider = GetComponent<Collider>();
 
-            // 2. 외형 모델 생성
-            SetupVisual();
 
-            // 3. 스탯 초기화
+            // 스탯 초기화
             InitializeStats();
 
-            // 4. 장비 핸들러 세팅
+            // 장비 핸들러 세팅
             if (EquipmentHandler == null)
             {
                 EquipmentHandler = GetComponent<PenguinEquipmentHandler>();
@@ -155,10 +153,14 @@ namespace PenguinPinball.Core
             }
             EquipmentHandler.Initialize(this);
 
-            // 5. 능력(Ability) 생성 및 초기화
+            // 능력(Ability) 생성 및 초기화
             ability?.Dispose();
             ability = definition.CreateAbility();
             ability.Initialize(this);
+
+            SetupVisual();
+
+            SetupAbilityVisual();
 
             SetHeld(true);
         }
@@ -180,12 +182,34 @@ namespace PenguinPinball.Core
             }
 
             // 3. Definition의 Visual Prefab을 visualRoot 아래 동적 생성
+            GameObject visualInstance = null;
             if (definition != null && definition.VisualPrefab != null)
             {
-                GameObject visualInstance = Instantiate(definition.VisualPrefab, visualRoot.transform);
+                visualInstance = Instantiate(definition.VisualPrefab, visualRoot.transform);
+            }
 
-                // 4. VisualHandler 초기화 (Rigidbody 참조 및 생성된 비주얼 객체 전달)
-                visualHandler.Initialize(Body, visualInstance);
+            visualHandler.Initialize(Body, visualInstance);
+        }
+
+        private void SetupAbilityVisual()
+        {
+            // definition에 AbilitySO나 AbilityVisualPrefab 접근 프로퍼티가 있는 경우
+            // (예: definition.AbilitySO?.AbilityVisualPrefab 또는 definition.AbilityVisualPrefab)
+            var abilityPrefab = definition.Ability?.AbilityVisualPrefab;
+
+            if (abilityPrefab == null || ability == null) return;
+
+            // 능력 비주얼 핸들러 오브젝트 생성 (펭귄 하위 또는 visualRoot 하위)
+            GameObject abilityVisualInstance = Instantiate(abilityPrefab, transform);
+
+            // IAbilityVisualHandler 인터페이스를 찾아 런타임 능력 인스턴스(ability) 전달
+            if (abilityVisualInstance.TryGetComponent<IAbilityVisualHandler>(out var abilityVisualHandler))
+            {
+                abilityVisualHandler.Initialize(ability);
+            }
+            else
+            {
+                Debug.LogWarning($"[SetupAbilityVisual] {abilityPrefab.name}에 IAbilityVisualHandler 컴포넌트가 없습니다.", this);
             }
         }
 

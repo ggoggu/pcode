@@ -97,6 +97,87 @@ public class EnemyManager : MonoBehaviour
     private readonly List<Enemy> activeEnemies = new List<Enemy>();
     public IReadOnlyList<Enemy> ActiveEnemies => activeEnemies;
 
+    private readonly List<NormalEnemyAI> activeGroundEnemies = new List<NormalEnemyAI>();
+    public IReadOnlyList<NormalEnemyAI> ActiveGroundEnemies => activeGroundEnemies;
+
+    private void Update()
+    {
+        UpdateGroundEnemiesTracking();
+    }
+
+    /// <summary>
+    /// 시간적 일관성(Temporal Coherence) 기반 1D Sweep and Prune 정렬 (Cohen et al., 1995).
+    /// 거의 정렬된 배열에 삽입 정렬을 적용하여 O(N)으로 유지하며,
+    /// 각 지상 적에게 바로 앞선 적(LeadingEnemy)을 O(1)로 매핑합니다.
+    /// Zero GC-allocation hot-path 메서드입니다.
+    /// </summary>
+    private void UpdateGroundEnemiesTracking()
+    {
+        int count = activeGroundEnemies.Count;
+        if (count <= 1)
+        {
+            if (count == 1 && activeGroundEnemies[0] != null)
+            {
+                activeGroundEnemies[0].LeadingEnemy = null;
+            }
+            return;
+        }
+
+        // 1. null / 비활성 / 사망 적 정리 (in-place 역방향 순회)
+        for (int i = count - 1; i >= 0; i--)
+        {
+            var e = activeGroundEnemies[i];
+            if (e == null || e.IsDead || !e.gameObject.activeInHierarchy)
+            {
+                activeGroundEnemies.RemoveAt(i);
+            }
+        }
+
+        count = activeGroundEnemies.Count;
+        if (count <= 1)
+        {
+            if (count == 1 && activeGroundEnemies[0] != null)
+            {
+                activeGroundEnemies[0].LeadingEnemy = null;
+            }
+            return;
+        }
+
+        // 2. 1D Insertion Sort: PathProgress 내림차순 (경로 앞선 적이 낮은 인덱스로)
+        for (int i = 1; i < count; i++)
+        {
+            NormalEnemyAI current = activeGroundEnemies[i];
+            float currentProgress = current.PathProgress;
+            int j = i - 1;
+
+            while (j >= 0 && activeGroundEnemies[j].PathProgress < currentProgress)
+            {
+                activeGroundEnemies[j + 1] = activeGroundEnemies[j];
+                j--;
+            }
+            activeGroundEnemies[j + 1] = current;
+        }
+
+        // 3. 앞선 적(LeadingEnemy) 매핑: 동일 경로(CurrentPath) 상의 바로 앞 적 연결
+        for (int i = 0; i < count; i++)
+        {
+            NormalEnemyAI self = activeGroundEnemies[i];
+            NormalEnemyAI lead = null;
+
+            for (int k = i - 1; k >= 0; k--)
+            {
+                NormalEnemyAI candidate = activeGroundEnemies[k];
+                if (candidate != null && candidate.CurrentPath == self.CurrentPath)
+                {
+                    lead = candidate;
+                    break;
+                }
+            }
+
+            self.LeadingEnemy = lead;
+        }
+    }
+
     private int globalWaveIndex = 0;
     private int currentWaveIndex = 0;
 
@@ -359,6 +440,10 @@ public class EnemyManager : MonoBehaviour
         instance.OnBaseReached += HandleEnemyBaseReached;
 
         activeEnemies.Add(instance);
+        if (instance is NormalEnemyAI groundAI)
+        {
+            activeGroundEnemies.Add(groundAI);
+        }
     }
 
     /// <summary>
@@ -481,6 +566,10 @@ public class EnemyManager : MonoBehaviour
         enemy.OnDeath -= HandleEnemyDeath;
         enemy.OnBaseReached -= HandleEnemyBaseReached;
         activeEnemies.Remove(enemy);
+        if (enemy is NormalEnemyAI groundAI)
+        {
+            activeGroundEnemies.Remove(groundAI);
+        }
     }
 
     private void OnEnemyProcessed()
@@ -499,6 +588,7 @@ public class EnemyManager : MonoBehaviour
             }
         }
         activeEnemies.Clear();
+        activeGroundEnemies.Clear();
     }
 
     public int GetActiveEnemyCount() => activeEnemies.Count;

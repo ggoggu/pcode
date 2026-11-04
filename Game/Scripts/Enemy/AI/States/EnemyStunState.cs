@@ -23,7 +23,7 @@ public class EnemyStunState : EnemyStateBase
         if (timer >= stunDuration)
         {
             // 스턴 종료 시 스플라인 복귀 상태 또는 경로 이동 상태로 전환
-            stateMachine.ChangeState(new EnemyReturnToSplineState(enemy, stateMachine));
+            stateMachine.ChangeState(enemy.ReturnToSplineState);
         }
     }
 

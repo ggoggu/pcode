@@ -1,56 +1,54 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace PenguinPinball.Core
 {
     public sealed class StormAbility : PenguinAbilityBase
     {
-        private readonly float normalRadius;
         private readonly float overloadRadius;
-        private readonly float normalTickDamageRatio;
-        private readonly float overloadTickDamageRatio;
+
+        public event Action<Vector3, float> OnOverloadImpact;
 
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public StormAbility(float normalRadius, float overloadRadius,
-            float normalTickDamageRatio, float overloadTickDamageRatio)
+        public StormAbility(float overloadRadius)
         {
-            this.normalRadius = normalRadius;
             this.overloadRadius = overloadRadius;
-            this.normalTickDamageRatio = normalTickDamageRatio;
-            this.overloadTickDamageRatio = overloadTickDamageRatio;
         }
 
         public override void OnEnemyCollision(Enemy e, Collision c, ref float d, ref bool _)
         {
-            float currentRadius = Owner.IsOverloaded ? overloadRadius : normalRadius;
+            if (!Owner.IsOverloaded) return;
 
-            var hits = Physics.OverlapSphere(Owner.transform.position, currentRadius);
-            var list = new List<Enemy>();
+            int hitCount = Physics.OverlapSphereNonAlloc(Owner.transform.position, overloadRadius, _hitBuffer);
+            if (hitCount == 0) return;
 
-            foreach (var h in hits)
-                if (h.TryGetComponent<Enemy>(out var x) && !x.IsDead) list.Add(x);
+            // 1차 순회: 유효한 적(살아있는 적) 개수 측정
+            int validEnemyCount = 0;
+            for (int i = 0; i < hitCount; i++)
+            {
+                if (_hitBuffer[i].TryGetComponent<Enemy>(out var enemy) && !enemy.IsDead)
+                {
+                    validEnemyCount++;
+                }
+            }
 
-            foreach (var x in list)
-                CombatResolver.DealDamage(Owner, x, d / Mathf.Max(1, list.Count));
-        }
+            if (validEnemyCount == 0) return;
 
-        public override void Tick()
-        {
-            bool isOverloaded = Owner.IsOverloaded;
-            float currentRadius = isOverloaded ? overloadRadius : normalRadius;
-            float currentRatio = isOverloaded ? overloadTickDamageRatio : normalTickDamageRatio;
-
-            int hitCount = Physics.OverlapSphereNonAlloc(Owner.transform.position, currentRadius, _hitBuffer);
+            // 2차 순회: 대미지 균등 분배 적용
+            float splitDamage = d / validEnemyCount;
 
             for (int i = 0; i < hitCount; i++)
             {
                 if (_hitBuffer[i].TryGetComponent<Enemy>(out var enemy) && !enemy.IsDead)
                 {
-                    float damage = Owner.Definition.attack * currentRatio * Time.deltaTime;
-                    CombatResolver.DealDamage(Owner, enemy, damage);
+                    Debug.Log($"[Split Damage] Target: {enemy.name}, Damage: {splitDamage}, validEnemyCount: {validEnemyCount}");
+                    CombatResolver.DealDamage(Owner, enemy, splitDamage);
                 }
             }
+
+            // 과부하 폭발 이펙트/사운드용 이벤트 호출
+            OnOverloadImpact?.Invoke(Owner.transform.position, overloadRadius);
         }
     }
 }

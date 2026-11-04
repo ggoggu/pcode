@@ -81,7 +81,7 @@ public class EnemyKnockbackState : EnemyStateBase
         }
         else
         {
-            stateMachine.ChangeState(new EnemyReturnToSplineState(enemy, stateMachine));
+            stateMachine.ChangeState(enemy.ReturnToSplineState);
         }
     }
 

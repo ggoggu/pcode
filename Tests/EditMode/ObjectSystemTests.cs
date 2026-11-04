@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using UnityEngine;
+using TMPro;
 using Game.ObjectSystem;
 using PenguinPinball.Core;
 
@@ -154,6 +155,44 @@ namespace PenguinShot.Tests
             Assert.AreEqual(0.2f, pm.BufferSettings.terrainBuffer);
             Assert.AreEqual(0.35f, pm.BufferSettings.enemyPathBuffer);
             Assert.AreEqual(0.35f, pm.BufferSettings.MaxBuffer);
+        }
+
+        [Test]
+        public void HUDView_EnsureHUDVisible_EnsuresElementsAndParentActive_OnPlacementStarted()
+        {
+            // Canvas -> Area -> Gold (with TMP_Text)
+            var canvasObj = new GameObject("Canvas", typeof(Canvas));
+            var hudView = canvasObj.AddComponent<HUDView>();
+
+            var areaObj = new GameObject("Area", typeof(RectTransform));
+            areaObj.transform.SetParent(canvasObj.transform, false);
+
+            var goldObj = new GameObject("Gold", typeof(RectTransform));
+            goldObj.transform.SetParent(areaObj.transform, false);
+            var goldText = goldObj.AddComponent<TextMeshProUGUI>();
+
+            // Reflection으로 private goldText 필드 할당
+            var goldField = typeof(HUDView).GetField("goldText", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            Assert.IsNotNull(goldField, "goldText field should exist in HUDView");
+            goldField.SetValue(hudView, goldText);
+
+            // 초기 상태에서 Area나 Gold를 비활성화
+            areaObj.SetActive(false);
+            goldObj.SetActive(false);
+            goldText.enabled = false;
+
+            // EnsureHUDVisible 호출 검증
+            hudView.EnsureHUDVisible();
+
+            Assert.IsTrue(areaObj.activeSelf, "Area 컨테이너가 활성화되어야 합니다.");
+            Assert.IsTrue(goldObj.activeSelf, "골드 오브젝트가 활성화되어야 합니다.");
+            Assert.IsTrue(goldText.enabled, "골드 TMP 컴포넌트가 활성화되어야 합니다.");
+
+            // 계층 순서: Area가 Canvas의 최상단(마지막 자식)으로 이동되었는지 검증
+            Assert.AreEqual(canvasObj.transform.childCount - 1, areaObj.transform.GetSiblingIndex(), "Area가 Canvas의 LastSibling이어야 합니다.");
+
+            // 오브젝트 정리
+            Object.DestroyImmediate(canvasObj);
         }
     }
 }

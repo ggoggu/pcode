@@ -9,22 +9,20 @@ namespace PenguinPinball.Core
     /// </summary>
     public abstract class PenguinAbilitySO : ScriptableObject
     {
-        /// <summary>
-        /// 능력 이름 (표시용).
-        /// </summary>
         [SerializeField] private string abilityName = "Unnamed Ability";
-        public string AbilityName => abilityName;
-
-        /// <summary>
-        /// 능력 설명 (표시용).
-        /// </summary>
         [TextArea, SerializeField] private string description = "";
-        public string Description => description;
+        [Header("Visual")]
+        [Tooltip("이 능력 전용 시각 효과 프리팹 (IAbilityVisualHandler 구현체가 포함되어야 함)")]
+        [SerializeField] private GameObject abilityVisualPrefab;
 
         /// <summary>
         /// 런타임 능력 인스턴스를 생성합니다.
         /// 호출할 때마다 새 인스턴스를 반환해야 합니다 (상태 공유 방지).
         /// </summary>
+        public string AbilityName => abilityName;
+        public string Description => description;
+        public GameObject AbilityVisualPrefab => abilityVisualPrefab;
+
         public abstract IPenguinAbility CreateAbility();
     }
 }

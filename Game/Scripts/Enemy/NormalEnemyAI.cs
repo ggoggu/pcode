@@ -42,7 +42,31 @@ public class NormalEnemyAI : Enemy
     [SerializeField] protected Animator animator;
 
     // ── 내부 상태 및 FSM ──
-    public EnemyStateMachine StateMachine { get; private set; }
+    private EnemyStateMachine stateMachine;
+    public EnemyStateMachine StateMachine
+    {
+        get
+        {
+            if (stateMachine == null)
+            {
+                stateMachine = new EnemyStateMachine();
+                stateMachine.Initialize(PathFollowState);
+            }
+            return stateMachine;
+        }
+        protected set => stateMachine = value;
+    }
+
+    private EnemyPathFollowState pathFollowState;
+    public EnemyPathFollowState PathFollowState => pathFollowState ??= new EnemyPathFollowState(this, StateMachine);
+
+    private EnemyReturnToSplineState returnToSplineState;
+    public EnemyReturnToSplineState ReturnToSplineState => returnToSplineState ??= new EnemyReturnToSplineState(this, StateMachine);
+
+    /// <summary>
+    /// 동일 경로(CurrentPath) 상에서 바로 앞서가는 적 (Sweep and Prune 1D 캐시)
+    /// </summary>
+    public NormalEnemyAI LeadingEnemy { get; set; }
 
     protected float pathProgress = 0f;
     protected Rigidbody rb;
@@ -100,8 +124,11 @@ public class NormalEnemyAI : Enemy
         CacheRenderersAndColors();
 
         // FSM 상태 머신 초기화
-        StateMachine = new EnemyStateMachine();
-        StateMachine.Initialize(new EnemyPathFollowState(this, StateMachine));
+        if (stateMachine == null)
+        {
+            stateMachine = new EnemyStateMachine();
+            stateMachine.Initialize(PathFollowState);
+        }
     }
 
     private void CacheRenderersAndColors()
@@ -154,7 +181,7 @@ public class NormalEnemyAI : Enemy
     {
         currentPath = path;
         pathProgress = 0f;
-        StateMachine?.ChangeState(new EnemyPathFollowState(this, StateMachine));
+        StateMachine?.ChangeState(PathFollowState);
     }
 
     protected virtual void Update()
@@ -238,7 +265,7 @@ public class NormalEnemyAI : Enemy
 
     public void ReturnToSpline()
     {
-        StateMachine?.ChangeState(new EnemyReturnToSplineState(this, StateMachine));
+        StateMachine?.ChangeState(ReturnToSplineState);
     }
 
     public void ApplyStun(float duration)
